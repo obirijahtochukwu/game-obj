@@ -8,25 +8,27 @@ import {
   useNavigation,
 } from "react-router-dom";
 import { useClick } from "../../lib/hooks/useclick";
+import { Sidebar } from "./sidebar";
 
 export default function Navigation({ children }: { children: JSX.Element }) {
   const { isOpen, setIsOpen, targetRef } = useClick();
   const pathname = useLocation().pathname;
+
   return (
-    <article className=" p-7 flex">
+    <article className="p-4 md:p-7 flex">
       <aside
         ref={targetRef}
         className={`${
           isOpen ? "group" : ""
-        } sticky z-50 backdrop-blur-md top-7 min-w-24 w-fit overflow-x-hidden h-[calc(100vh-56px)] bg-[#313131] rounded-xl py-9 px-5 duration-300 flex flex-col items-center gap-6`}
+        } sticky z-50 backdrop-blur-md top-7 min-w-24 w-fit overflow-x-hidden h-[calc(100vh-56px)] bg-[#313131] rounded-xl py-9 px-5 duration-300 flex flex-col items-center gap-6 max-md:hidden`}
       >
         <div
-          onClick={() => setIsOpen(true)}
+          onClick={() => window.innerWidth > 1000 && setIsOpen(!isOpen)}
           className={`${
             isOpen ? "w-56 justify-start pl-4" : "w-12 justify-center"
           } h-11 duration-500 overflow-hidden flex items-center gap-2 rounded-sm cursor-pointer`}
         >
-          <Icons.bar className="h-8 w-8" />{" "}
+          {isOpen ? <Icons.close /> : <Icons.bar className="h-8 w-8" />}
           <div
             className={`${
               isOpen
@@ -64,14 +66,17 @@ export default function Navigation({ children }: { children: JSX.Element }) {
       </aside>
       <section
         className={`${
-          isOpen ? " w-[calc(100%-274px)]" : "w-[calc(100%-120px)]"
-        } flex flex-col gap-7 ml-7 duration-300`}
+          isOpen ? " md:w-[calc(100%-274px)]" : "md:w-[calc(100%-120px)] w-full"
+        } flex flex-col gap-7 md:ml-7 duration-300`}
       >
-        <nav className="flex items-center gap-4 h-14 py-0.5">
-          <div className=" text-5xl font-semibold text-primary tracking-tighter">
+        <nav className="flex items-center max-md:justify-between gap-4 h-14 py-0.5">
+          <Link
+            to={"/"}
+            className=" text-lg md:text-5xl font-semibold text-primary tracking-tighter md:mr-auto"
+          >
             Webet
-          </div>
-          <div className=" h-full w-full max-w-lg rounded-xl bg-primary/10 backdrop-blur-md border border-muted p-4 flex items-center gap-2.5 ml-auto text-primary">
+          </Link>
+          <div className=" h-full w-full max-lg:hidden max-w-lg rounded-xl bg-primary/10 backdrop-blur-md border border-muted p-4 flex items-center gap-2.5 text-primary">
             <Icons.search />
             <input
               type="text"
@@ -79,11 +84,12 @@ export default function Navigation({ children }: { children: JSX.Element }) {
               placeholder=""
             />
           </div>
-          <button className=" bg-secondary flex items-center justify-center w-56 h-full gap-2 rounded-xl text-xl font-semibold text-primary">
+          <button className=" bg-secondary flex items-center justify-center max-md:h-11 w-44 md:w-56 h-full gap-2 rounded-xl text-base md:text-xl font-semibold text-primary">
             {" "}
             <Icons.wallet />
             Connect Wallet
           </button>
+          <Sidebar pathname={pathname} />
         </nav>
         {children}
       </section>

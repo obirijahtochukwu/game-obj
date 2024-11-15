@@ -9,9 +9,9 @@ export default function Header() {
           background:
             "linear-gradient(137.48deg, #FF7642 20.9%, #A53408 79.1%)",
         }}
-        className="w-full max-w-43l rounded-3xl h-72 p-5 text-primary relative"
+        className="w-full max-w-43l rounded-3xl h-72 p-5 text-primary relative z-10"
       >
-        <div className=" max-w-96">
+        <div className=" sm:max-w-96">
           <div className=" text-xl font-bold tracking-tighter">
             Exclusive Deal
           </div>
@@ -28,7 +28,7 @@ export default function Header() {
         <img
           src="./media/home/header.png"
           alt=""
-          className="max-w-md absolute bottom-0 -right-4"
+          className="max-w-md absolute bottom-0 -right-4 max-sm:hidden lg:hidden xl:block -z-10"
         />
       </section>
       <section className=" flex flex-col w-full gap-4">

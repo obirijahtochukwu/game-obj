@@ -1,22 +1,35 @@
 import React, { useState } from "react";
 import Select from "./select";
+import { Icons } from "../../../ui/icons";
 
 export default function Settings({
   rows,
   setRows,
   handleClick,
+  setting,
+  setSetting,
 }: {
   rows: number;
   setRows: React.Dispatch<number>;
   handleClick: () => void;
+  setting: boolean;
+  setSetting: React.Dispatch<boolean>;
 }) {
   const [play, setPlay] = useState("Manual");
   const [level, setLevel] = useState("Basic");
   const [chain, setChain] = useState("");
   const rows_list = [10, 11, 12, 13, 14, 15, 16];
   return (
-    <article className=" bg-advance p-4 w-96 rounded-3xl flex flex-col gap-6">
-      <section className=" h-14 rounded-full grid grid-cols-2 bg-muted p-1">
+    <article
+      className={`${
+        setting ? " translate-x-0" : " max-lg:-translate-x-96"
+      } bg-advance p-4 w-full sm:max-w-96 lg:rounded-3xl flex flex-col gap-6 | max-lg:fixed max-lg:h-full max-lg:top-0 max-lg:left-0 max-lg:z-50 duration-300 max-lg:pt-12 max-lg:overflow-y-auto custom-scrollbar`}
+    >
+      <Icons.close
+        onClick={() => setSetting(false)}
+        className="lg:hidden absolute top-3 right-3 w-4 cursor-pointer"
+      />
+      <section className=" min-h-14 rounded-full grid grid-cols-2 bg-muted p-1">
         {["Manual", "Auto"].map((name) => (
           <div
             key={name}
@@ -71,7 +84,10 @@ export default function Settings({
           handleClick={(name) => setRows(+name)}
         />
         <button
-          onClick={handleClick}
+          onClick={() => {
+            setSetting(false);
+            handleClick();
+          }}
           className=" w-full mt-4 flex items-center justify-center bg-secondary h-12 rounded-xl text-primary font-semibold text-xl"
         >
           Bet

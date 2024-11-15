@@ -17,8 +17,8 @@ export default function Trending() {
     }
   };
   const breakPoints = [
-    { width: 1, itemsToShow: 3 },
-    { width: 550, itemsToShow: 4 },
+    { width: 1, itemsToShow: 1 },
+    { width: 550, itemsToShow: 3 },
     { width: 768, itemsToShow: 6 },
   ];
 

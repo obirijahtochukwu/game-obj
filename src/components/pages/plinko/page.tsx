@@ -8,6 +8,7 @@ import axios from "axios";
 import { predict } from "../../../lib/predict";
 
 export default function Plinko() {
+  const [setting, setSetting] = useState(false);
   const [rows, setRows] = useState(16);
   const [ballManager, setBallManager] = useState<BallManager>();
   const canvasRef = useRef<any>();
@@ -30,15 +31,24 @@ export default function Plinko() {
     }
   };
 
-  const props = { rows, setRows, handleClick };
+  const props = { rows, setRows, handleClick, setting, setSetting };
 
   return (
     <article>
       <section className="bg-muted rounded-3xl mb-10">
         <div className="flex gap-7 p-4">
           <Settings {...props} />
-          <main className="h-[600px] w-[calc(100%-384px)] bg-advance rounded-3xl">
-            <canvas ref={canvasRef} width="700" height="700"></canvas>
+          <main className="sm:h-[600px] h-96 w-full lg:w-[calc(100%-384px)] bg-advance rounded-3xl relative flex justify-center">
+            <Icons.setting
+              onClick={() => setSetting(!setting)}
+              className=" absolute top-4 left-4 z-10 lg:hidden cursor-pointer"
+            />
+            <canvas
+              ref={canvasRef}
+              width="700"
+              height="700"
+              className=" max-sm:scale-[0.9] scale-90 relative -left-6"
+            ></canvas>
           </main>
         </div>
         <div className=" bg-advance h-16 flex items-center justify-between px-8 text-primary text-2xl font-semibold rounded-b-3xl">

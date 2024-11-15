@@ -10,35 +10,37 @@ export default function Details() {
       <div className="flex justify-between items-center text-4xl font-semibold text-primary">
         Plinko
       </div>
-      <section className=" flex items-center mt-5 gap-4">
-        {["All Bets", "My Bets", "High Rollers", "Race Leaderboard"].map(
-          (label) => (
-            <div
-              key={label}
-              onClick={() => setTab(label)}
-              className={`${
-                tab == label
-                  ? " bg-primary/80 text-dark"
-                  : "border-primary/60 text-primary/80 "
-              } flex items-center px-4 h-12 rounded-lg border text-base font-semibold cursor-pointer truncate duration-300`}
-            >
-              {label}
+      <section className="w-full overflow-x-auto hide-scrollbar">
+        <div className="flex items-center mt-5 gap-4 w-fit">
+          {["All Bets", "My Bets", "High Rollers", "Race Leaderboard"].map(
+            (label) => (
+              <div
+                key={label}
+                onClick={() => setTab(label)}
+                className={`${
+                  tab == label
+                    ? " bg-primary/80 text-dark"
+                    : "border-primary/60 text-primary/80 "
+                } flex items-center px-4 h-12 rounded-lg border text-base font-semibold cursor-pointer truncate duration-300`}
+              >
+                {label}
+              </div>
+            )
+          )}
+          <div className=" px-4 h-12 rounded-lg border border-primary/60 text-primary/80 text-base font-semibold cursor-pointer flex items-center gap-3">
+            {count}
+            <div className="">
+              <Icons.arrow
+                onClick={() => setCount(count + 1)}
+                color="#ffffff90"
+                className=" -rotate-90 h-4 cursor-pointer"
+              />
+              <Icons.arrow
+                onClick={() => setCount(count - 1)}
+                color="#ffffff90"
+                className=" rotate-90 h-4 cursor-pointer"
+              />
             </div>
-          )
-        )}
-        <div className=" px-4 h-12 rounded-lg border border-primary/60 text-primary/80 text-base font-semibold cursor-pointer flex items-center gap-3">
-          {count}
-          <div className="">
-            <Icons.arrow
-              onClick={() => setCount(count + 1)}
-              color="#ffffff90"
-              className=" -rotate-90 h-4 cursor-pointer"
-            />
-            <Icons.arrow
-              onClick={() => setCount(count - 1)}
-              color="#ffffff90"
-              className=" rotate-90 h-4 cursor-pointer"
-            />
           </div>
         </div>
       </section>

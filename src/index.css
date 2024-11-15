@@ -8,6 +8,10 @@ body {
   overflow-x: hidden;
 }
 
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
 .custom-scrollbar::-webkit-scrollbar {
   width: 6px;
   height: 4px;
