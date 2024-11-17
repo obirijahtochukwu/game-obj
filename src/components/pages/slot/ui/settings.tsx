@@ -1,24 +1,27 @@
 import React, { useState } from "react";
 import { Icons } from "../../../ui/icons";
 import Select from "../../../ui/select";
+import { useClick } from "../../../../lib/hooks/useclick";
 
 export default function Settings({
-  rows,
-  setRows,
+  segments,
+  setSegments,
   handleClick,
   setting,
   setSetting,
 }: {
-  rows: number;
-  setRows: React.Dispatch<number>;
+  segments: number;
+  setSegments: React.Dispatch<number>;
   handleClick: () => void;
   setting: boolean;
   setSetting: React.Dispatch<boolean>;
 }) {
+  const { isOpen, setIsOpen, targetRef } = useClick();
   const [play, setPlay] = useState("Manual");
   const [level, setLevel] = useState("Basic");
   const [chain, setChain] = useState("");
-  const rows_list = [10, 11, 12, 13, 14, 15, 16];
+  const segment_list = [10, 11, 12, 13, 14, 15, 16];
+
   return (
     <article
       className={`${
@@ -72,16 +75,16 @@ export default function Settings({
       </section>
       <Select
         label={level || ""}
-        title="Difficulty Level"
+        title="Risk"
         data={["basic", "medium", "Hard"]}
         handleClick={(name) => setLevel(name)}
       />{" "}
       <div className="w-full">
         <Select
-          label={rows.toString() || ""}
+          label={segments.toString() || ""}
           title="Rows"
-          data={rows_list}
-          handleClick={(name) => setRows(+name)}
+          data={segment_list}
+          handleClick={(name) => setSegments(+name)}
         />
         <button
           onClick={() => {

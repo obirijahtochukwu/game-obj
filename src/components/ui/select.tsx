@@ -1,6 +1,6 @@
 import React from "react";
-import { useClick } from "../../../../lib/hooks/useclick";
-import { Icons } from "../../../ui/icons";
+import { Icons } from "./icons";
+import { useClick } from "../../lib/hooks/useclick";
 
 export default function Select({
   title,

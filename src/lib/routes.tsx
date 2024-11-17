@@ -2,6 +2,7 @@ import { createBrowserRouter } from "react-router-dom";
 import Home from "../components/pages/home/page";
 import Navigation from "../components/layout/navigation";
 import Plinko from "../components/pages/plinko/page";
+import Slot from "../components/pages/slot/page";
 
 export const router = createBrowserRouter([
   {
@@ -20,6 +21,16 @@ export const router = createBrowserRouter([
       <>
         <Navigation>
           <Plinko />
+        </Navigation>
+      </>
+    ),
+  },
+  {
+    path: "/slot",
+    element: (
+      <>
+        <Navigation>
+          <Slot />
         </Navigation>
       </>
     ),
