@@ -25,7 +25,7 @@ export default function Settings({
   return (
     <article
       className={`${
-        setting ? " translate-x-0" : " max-lg:-translate-x-96"
+        setting ? " translate-x-0" : " max-lg:-translate-x-[700px]"
       } bg-advance p-4 w-full sm:max-w-96 lg:rounded-3xl flex flex-col gap-6 | max-lg:fixed max-lg:h-full max-lg:top-0 max-lg:left-0 max-lg:z-50 duration-300 max-lg:pt-12 max-lg:overflow-y-auto custom-scrollbar`}
     >
       <Icons.close

@@ -61,3 +61,12 @@ export const chartSeries = (graphData) => [
     data: graphData,
   },
 ];
+
+export const users = [
+  { name: "Manpreet B", multiplier: "1.45x", balance: "2.793743 SOL" },
+  { name: "Talsiman T", multiplier: "", balance: "1.793743 SOL" },
+  { name: "Harsh T", multiplier: "1.95x", balance: "1.763745 SOL" },
+  { name: "Jeamin V", multiplier: "1.85x", balance: "0.793743 SOL" },
+  { name: "Demain D", multiplier: "2.45x", balance: "4.793743 SOL" },
+  { name: "Foxx T", multiplier: "", balance: "4.793743 SOL" },
+];

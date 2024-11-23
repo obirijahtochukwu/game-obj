@@ -15,7 +15,7 @@ export const Sidebar = ({ pathname }) => {
       <aside
         ref={targetRef}
         className={`${
-          isOpen ? " translate-x-0" : " -translate-x-96"
+          isOpen ? " translate-x-0" : " -translate-x-[700px]"
         } fixed top-0 left-0 h-full w-full z-50 bg-dark/50 backdrop-blur-lg pt-14 px-4 flex flex-col border-r border-primary/20 duration-300 sm:hidden`}
       >
         <Icons.close

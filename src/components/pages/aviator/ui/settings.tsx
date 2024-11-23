@@ -3,6 +3,8 @@ import { Icons } from "../../../ui/icons";
 import Select from "../../../ui/select";
 import { useClick } from "../../../../lib/hooks/useclick";
 import { useGlobalContext } from "../context";
+import Infos from "./infos";
+import { Input } from "../../../ui/input";
 
 export default function Settings() {
   const {
@@ -13,6 +15,7 @@ export default function Settings() {
     setSetting,
     betAmount,
     setBetAmount,
+    balance,
   } = useGlobalContext();
 
   const { isOpen, setIsOpen, targetRef } = useClick();
@@ -24,7 +27,7 @@ export default function Settings() {
   return (
     <article
       className={`${
-        setting ? " translate-x-0" : " max-lg:-translate-x-96"
+        setting ? " translate-x-0" : " max-lg:-translate-x-[700px]"
       } bg-advance p-4 w-full sm:max-w-96 lg:rounded-3xl flex flex-col gap-6 | max-lg:fixed max-lg:h-full max-lg:top-0 max-lg:left-0 max-lg:z-50 duration-300 max-lg:pt-12 max-lg:overflow-y-auto custom-scrollbar`}
     >
       <Icons.close
@@ -84,13 +87,7 @@ export default function Settings() {
         <div className=" text-base font-medium text-primary/80">
           Profit on Win
         </div>
-        <article className="h-14 w-full bg-muted border border-gray rounded-lg flex items-center justify-between font-semibold text-base text-primary px-3 py-1.5 mt-2 gap-3">
-          <input
-            type="number"
-            placeholder="0.0000005"
-            className=" w-full h-full bg-transparent focus:outline-none"
-          />
-        </article>
+        <Input.number value={`${betAmount * cashOutAt} SOL`} />
       </section>
       <button
         onClick={() => {
@@ -101,6 +98,7 @@ export default function Settings() {
       >
         Bet
       </button>
+      <Infos balance={balance} />
     </article>
   );
 }

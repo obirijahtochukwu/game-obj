@@ -4,6 +4,7 @@ import Navigation from "../components/layout/navigation";
 import Plinko from "../components/pages/plinko/page";
 import Slot from "../components/pages/slot/page";
 import Aviator from "../components/pages/aviator/page";
+import DiceRoller from "../components/pages/dice-roller/page";
 
 export const router = createBrowserRouter([
   {
@@ -42,6 +43,16 @@ export const router = createBrowserRouter([
       <>
         <Navigation>
           <Aviator />
+        </Navigation>
+      </>
+    ),
+  },
+  {
+    path: "/dice-roller",
+    element: (
+      <>
+        <Navigation>
+          <DiceRoller />
         </Navigation>
       </>
     ),

@@ -4,10 +4,12 @@ import { useClick } from "../../lib/hooks/useclick";
 
 export default function Select({
   title,
+  bottom,
   label,
   data,
   handleClick,
 }: {
+  bottom?: boolean;
   title: string;
   label: string;
   data: string[] | number[];
@@ -16,7 +18,7 @@ export default function Select({
   const { isOpen, setIsOpen, targetRef } = useClick();
   return (
     <section>
-      <div className=" text-base font-medium text-primary/80">{title}</div>
+      <div className=" text-base font-medium text-primary">{title}</div>
       <article
         onClick={() => setIsOpen(!isOpen)}
         ref={targetRef}
@@ -31,8 +33,12 @@ export default function Select({
           className={`${
             isOpen
               ? "visible opacity-100 scale-100"
-              : "scale-0 origin-top-right opacity-0 invisible "
-          } absolute top-full left-0 mt-3 w-full z-10 bg-advance border-gray border rounded-xl py-2 cursor-auto shadow-2xl  duration-200`}
+              : "scale-0 opacity-0 invisible "
+          } ${
+            bottom
+              ? " bottom-full mb-1 origin-bottom-right"
+              : "top-full mt-3 origin-top-right"
+          } absolute left-0 w-full z-10 bg-advance border-gray border rounded-xl py-2 cursor-auto shadow-2xl  duration-200`}
         >
           <div className="overflow-y-auto max-h-60 custom-scrollbar">
             {data?.map((name, idx) => (

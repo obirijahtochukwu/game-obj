@@ -1,14 +1,12 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
+import { toast } from "react-toastify";
 
 const AppContext = createContext();
 
 const AppProvider = ({ children }) => {
-  // Game states
   const [balance, setBalance] = useState(1000);
-  const [betAmount, setBetAmount] = useState(30); // Added betAmount state
-  const [cashOutAt, setCashOutAt] = useState(2.5); // Added cashOutAt state
-
-  // Gameplay states
+  const [betAmount, setBetAmount] = useState(30);
+  const [cashOutAt, setCashOutAt] = useState(2.5);
   const [multiplier, setMultiplier] = useState(1.0);
   const [isRunning, setIsRunning] = useState(false);
   const [isCrashed, setIsCrashed] = useState(false);
@@ -84,6 +82,18 @@ const AppProvider = ({ children }) => {
 
     return () => clearInterval(interval);
   }, [isRunning, isCrashed, userCashout, cashOutAt]);
+
+  useEffect(() => {
+    if (isCrashed && userCashout === null) {
+      toast.error(`Game Over. You lost $${betAmount}.`);
+    } else if (userCashout) {
+      toast.success(
+        `You cashed out at ${multiplier}x! New balance: ${
+          betAmount * cashOutAt + balance
+        }`
+      );
+    }
+  }, [isCrashed]);
 
   return (
     <AppContext.Provider
