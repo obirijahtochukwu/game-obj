@@ -15,7 +15,7 @@ export default function Select({
   data: string[] | number[];
   handleClick: (name: string) => void;
 }) {
-  const { isOpen, setIsOpen, targetRef } = useClick();
+  const { isOpen, setIsOpen, targetRef } = useClick.auto();
   return (
     <section>
       <div className=" text-base font-medium text-primary">{title}</div>

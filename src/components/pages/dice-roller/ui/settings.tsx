@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { Icons } from "../../../ui/icons";
 import Select from "../../../ui/select";
-import { useClick } from "../../../../lib/hooks/useclick";
 import { useGlobalContext } from "../context";
 
 export default function Settings() {

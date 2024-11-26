@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Icons } from "../ui/icons";
 import { pages } from "./mock-data";
 import {
@@ -9,9 +9,10 @@ import {
 } from "react-router-dom";
 import { useClick } from "../../lib/hooks/useclick";
 import { Sidebar } from "./sidebar";
+import axios from "axios";
 
 export default function Navigation({ children }: { children: JSX.Element }) {
-  const { isOpen, setIsOpen, targetRef } = useClick();
+  const { isOpen, setIsOpen, targetRef } = useClick.auto();
   const pathname = useLocation().pathname;
 
   return (

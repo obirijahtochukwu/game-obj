@@ -18,7 +18,7 @@ export default function Settings() {
     balance,
   } = useGlobalContext();
 
-  const { isOpen, setIsOpen, targetRef } = useClick();
+  const { isOpen, setIsOpen, targetRef } = useClick.auto();
   const [play, setPlay] = useState("Manual");
   const [level, setLevel] = useState("Basic");
   const [chain, setChain] = useState("");

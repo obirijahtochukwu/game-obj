@@ -4,7 +4,7 @@ import { pages } from "./mock-data";
 import { useClick } from "../../lib/hooks/useclick";
 
 export const Sidebar = ({ pathname }) => {
-  const { isOpen, setIsOpen, targetRef } = useClick();
+  const { isOpen, setIsOpen, targetRef } = useClick.auto();
 
   return (
     <>
