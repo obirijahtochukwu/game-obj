@@ -5,9 +5,13 @@ import { useGlobalContext } from "../context";
 import { toPercentage } from "../../../../lib/constants";
 
 export default function Games() {
-  const [isBet, setIsBet] = useState(false);
+  const [bet, setBet] = useState({ state: false, data: {} });
   const { match } = useGlobalContext();
-  const props = { isBet, setIsBet };
+  const props = {
+    bet,
+    isOpen: bet.state,
+    setIsOpen: (e) => setBet({ state: false, data: {} }),
+  };
 
   return (
     <section className=" grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6 max-sm:max-w-md max-sm:mx-auto mt-10">
@@ -15,11 +19,11 @@ export default function Games() {
       {match.odds?.map((prop, idx) => (
         <div
           key={idx}
-          onClick={() => setIsBet(true)}
+          onClick={() => setBet({ state: true, data: prop })}
           className=" bg-muted rounded-2xl flex flex-col min-h-64 gap-4 p-4 text-primary cursor-pointer hover:scale-105 duration-200 hover:border-primary border-2 border-transparent"
         >
           <div className=" text-xl font-semibold tracking-tight">
-            Premier League
+            {prop.league.name}
           </div>
           <section className="flex items-center justify-between">
             <div className="">

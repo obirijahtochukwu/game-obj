@@ -54,6 +54,7 @@ const AppProvider = ({ children }) => {
             return {
               teams: props.teams,
               odd: odd.data.response[0].bookmakers[0].bets[0],
+              league: props.league,
             };
           })
       );
