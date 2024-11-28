@@ -11,8 +11,8 @@ export default function Bet({ props }) {
   return (
     <Modal {...props}>
       <section className=" flex flex-col gap-4 w-80">
-        <div className=" text-2xl font-semibold text-primary">
-          {props.bet?.data?.league?.name}
+        <div className=" text-lg font-semibold text-primary/70">
+          {props.bet.title}
         </div>
         <Select
           label={chain || ""}

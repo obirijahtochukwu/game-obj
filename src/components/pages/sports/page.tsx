@@ -3,6 +3,9 @@ import { tabs } from "./mock-data";
 import { Icons } from "../../ui/icons";
 import Games from "./ui/games";
 import { AppProvider } from "./context";
+import Basketball from "./ui/basketball";
+import Baseball from "./ui/baseball";
+import Tennis from "./ui/tennis";
 
 export default function Sports() {
   const [tab, setTab] = useState(tabs[0]);
@@ -25,8 +28,15 @@ export default function Sports() {
           ))}
         </section>
 
-        {/* {console.log(matches)} */}
-        <Games />
+        {tab == "Football" ? (
+          <Games />
+        ) : tab == "Basketball" ? (
+          <Basketball />
+        ) : tab == "Baseball" ? (
+          <Baseball />
+        ) : tab == "Tennis" ? (
+          <Tennis />
+        ) : null}
       </article>
     </AppProvider>
   );

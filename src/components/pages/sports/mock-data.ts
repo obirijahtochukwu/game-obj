@@ -1,8 +1,1 @@
-export const tabs = [
-  "Cricket",
-  "Baseball",
-  "Football",
-  "Basketball",
-  "Tennis",
-  "Baseball",
-];
+export const tabs = ["Cricket", "Baseball", "Football", "Basketball", "Tennis"];

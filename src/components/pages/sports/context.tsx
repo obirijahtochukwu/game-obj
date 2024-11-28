@@ -1,14 +1,14 @@
 import axios from "axios";
 import React, { createContext, useContext, useEffect, useState } from "react";
 import { toast } from "react-toastify";
-import { api_football } from "../../../lib/constants";
-import { api_football_headers } from "./../../../lib/constants";
+import { api } from "../../../lib/constants";
 
 interface context {
   match?: any;
   fixtues?: any[];
   odds?: any[];
 }
+
 const AppContext = createContext<context>({});
 
 const AppProvider = ({ children }) => {
@@ -20,10 +20,8 @@ const AppProvider = ({ children }) => {
     const fetchMatches = async () => {
       try {
         const fixturesResponse = await axios.get(
-          `${api_football}fixtures?league=${leagueId}&season=2024`,
-          {
-            ...api_football_headers,
-          }
+          `${api.football_url}fixtures?league=${leagueId}&season=2024`,
+          { headers: api.football_headers }
         );
         setMatch({
           ...match,
@@ -46,10 +44,8 @@ const AppProvider = ({ children }) => {
           .filter((item, index) => index < 10)
           .map(async (props, idx) => {
             const odd = await axios.get(
-              `${api_football}odds?fixture=${props.fixture.id}`,
-              {
-                ...api_football_headers,
-              }
+              `${api.football_url}odds?fixture=${props.fixture.id}`,
+              { headers: api.football_headers }
             );
             return {
               teams: props.teams,
@@ -65,8 +61,6 @@ const AppProvider = ({ children }) => {
       matchesWithOdds().then((odds) => setMatch({ ...match, odds }));
     }
   }, [match.fixtues.length]);
-
-  console.log(match);
 
   return (
     <AppContext.Provider value={{ match }}>{children}</AppContext.Provider>
