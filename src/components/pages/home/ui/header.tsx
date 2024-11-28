@@ -1,5 +1,6 @@
 import React from "react";
 import { games } from "../mock-data";
+import { Link } from "react-router-dom";
 
 export default function Header() {
   return (
@@ -32,13 +33,16 @@ export default function Header() {
         />
       </section>
       <section className=" flex flex-col w-full gap-4">
-        {games.map(({ label, image }) => (
+        {games.map(({ label, image, url }) => (
           <div className="flex items-center gap-3 bg-primary/10 p-4 rounded-xl text-xl font-semibold text-primary">
             <img src={image} alt="" className=" h-12 w-12" />
             <div className=" truncate">{label}</div>
-            <div className="ml-auto cursor-pointer h-12 min-w-32 flex items-center justify-center rounded-lg text-dark bg-primary text-lg font-semibold truncate">
+            <Link
+              to={url}
+              className="ml-auto cursor-pointer h-12 min-w-32 flex items-center justify-center rounded-lg text-dark bg-primary text-lg font-semibold truncate"
+            >
               Play Now
-            </div>
+            </Link>
           </div>
         ))}
       </section>
