@@ -8,7 +8,7 @@ import Baseball from "./ui/baseball";
 import Tennis from "./ui/tennis";
 
 export default function Sports() {
-  const [tab, setTab] = useState(tabs[0]);
+  const [tab, setTab] = useState(tabs[2]);
 
   return (
     <AppProvider>

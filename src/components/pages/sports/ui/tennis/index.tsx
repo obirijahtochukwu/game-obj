@@ -28,25 +28,17 @@ export default function Tennis() {
           onClick={() => setBet({ state: true, title: prop.league_name })}
           className=" bg-muted rounded-2xl flex flex-col min-h-64 gap-4 p-4 text-primary cursor-pointer hover:scale-105 duration-200 hover:border-primary border-2 border-transparent"
         >
-          <div className=" text-xl font-semibold tracking-tight text-secondary">
+          <div className=" text-xl font-semibold tracking-tight text-primary">
             {prop.league_name}
           </div>
           <section className="flex items-center justify-between">
             <div className="">
               <div className="flex items-center gap-2 text-lg font-medium">
-                <img
-                  src={"prop.teams.home.logo"}
-                  alt=""
-                  className="h-7 w-8 bg-secondary rounded-full"
-                />
+                <div className="h-8 w-8 bg-[#374df5] rounded-full" />
                 {prop.home}
               </div>
               <div className="flex items-center gap-2 text-lg font-medium mt-6">
-                <img
-                  src={"prop.teams.away.logo"}
-                  alt=""
-                  className="h-7 w-8 bg-secondary rounded-full"
-                />
+                <div className="h-7 w-8 bg-[#374df5] rounded-full" />
                 {prop.away}
               </div>
             </div>

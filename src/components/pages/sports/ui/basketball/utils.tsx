@@ -5,7 +5,7 @@ export const fetchData = async ({ basketballSate, setBasketballSate }) => {
   setBasketballSate({ ...basketballSate, loading: true });
   try {
     const response = await axios.get(
-      `${api.sports_url}markets?sport_id=3&is_have_odds=true&since=1732814779`,
+      `${api.sports_url}markets?sport_id=3&is_have_odds=true`,
       {
         headers: api.sports_headers,
       }
