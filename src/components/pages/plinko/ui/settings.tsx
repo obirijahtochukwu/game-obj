@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Icons } from "../../../ui/icons";
 import Select from "../../../ui/select";
+import axios from "axios";
 
 export default function Settings({
   rows,
@@ -19,6 +20,27 @@ export default function Settings({
   const [level, setLevel] = useState("Basic");
   const [chain, setChain] = useState("");
   const rows_list = [10, 11, 12, 13, 14, 15, 16];
+
+  const sub = () => {
+    axios
+      .post(
+        "http://localhost:5000/add-game",
+        {
+          userId: "6759c08c8bc5aaad9f20233c",
+          game: "Plinko",
+          result: "win",
+          betAmount: 9,
+        },
+        { withCredentials: true }
+      )
+      .then((response) => {
+        console.log(response);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
   return (
     <article
       className={`${

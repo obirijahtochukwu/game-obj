@@ -96,19 +96,18 @@ body {
   position: relative;
 }
 
-
 .b {
   --i: 0;
   --bg: transparent;
   background: var(--bg);
   border-radius: 100%;
-  box-shadow: 0 0 calc(1*var(--reelSize)) 0 rgba(0, 0, 0, .125);
-  height: calc(100% - var(--index)*2*var(--reelSize));
-  left: calc(var(--index)*var(--reelSize));
+  box-shadow: 0 0 calc(1 * var(--reelSize)) 0 rgba(0, 0, 0, 0.125);
+  height: calc(100% - var(--index) * 2 * var(--reelSize));
+  left: calc(var(--index) * var(--reelSize));
   overflow: hidden;
   position: absolute;
-  top: calc(var(--index)*var(--reelSize));
-  width: calc(100% - var(--index)*2*var(--reelSize));
+  top: calc(var(--index) * var(--reelSize));
+  width: calc(100% - var(--index) * 2 * var(--reelSize));
   will-change: transform;
   transform-style: preserve-3d;
   backface-visibility: hidden;
@@ -131,19 +130,39 @@ body {
 
   to {
     transform: rotate(-960deg);
-
   }
 }
 
 .i {
-  font-size: calc(var(--reelSize)/2);
+  font-size: calc(var(--reelSize) / 2);
   height: var(--reelSize);
   left: 0;
-  line-height: calc(var(--reelSize)*.9);
+  line-height: calc(var(--reelSize) * 0.9);
   margin-top: calc(var(--reelSize) / -2);
   position: absolute;
   top: 50%;
   transform-origin: center right;
   width: 50%;
   padding: 5px;
+}
+
+.date::-webkit-calendar-picker-indicator {
+  background-image: url(http://icons.iconarchive.com/icons/dakirby309/simply-styled/256/Calendar-icon.png);
+  background-position: center;
+  background-size: 20px 20px;
+  background-repeat: no-repeat;
+  color: rgba(204, 204, 204, 0);
+}
+
+.date::-webkit-datetime-edit-text {
+  color: transparent;
+}
+.date::-webkit-datetime-edit-month-field {
+  color: transparent;
+}
+.date::-webkit-datetime-edit-day-field {
+  color: transparent;
+}
+.date::-webkit-datetime-edit-year-field {
+  color: transparent;
 }

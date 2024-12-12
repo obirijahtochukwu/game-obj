@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 
 export const useClick = {
   auto: () => {
@@ -8,8 +8,9 @@ export const useClick = {
     const targetRef = useRef<HTMLInputElement>();
 
     useEffect(() => {
-      const close = (e) => {
-        if (targetRef.current && !targetRef.current.contains(e.target)) {
+      const close = (e: MouseEvent) => {
+        const target = e.target as Node; // Type assertion to Node
+        if (targetRef.current && !targetRef.current.contains(target)) {
           setIsOpen(false);
         }
       };
@@ -25,11 +26,18 @@ export const useClick = {
       targetRef,
     };
   },
-  manual: ({ isOpen, setIsOpen }) => {
+  manual: ({
+    isOpen,
+    setIsOpen,
+  }: {
+    isOpen: boolean;
+    setIsOpen: React.Dispatch<boolean>;
+  }) => {
     const targetRef = useRef<HTMLInputElement>();
     useEffect(() => {
-      const close = (e) => {
-        if (targetRef.current && !targetRef.current.contains(e.target)) {
+      const close = (e: MouseEvent) => {
+        const target = e.target as Node; // Type assertion to Node
+        if (targetRef.current && !targetRef.current.contains(target)) {
           setIsOpen(false);
         }
       };

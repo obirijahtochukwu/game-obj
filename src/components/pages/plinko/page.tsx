@@ -25,9 +25,17 @@ export default function Plinko() {
   }, [canvasRef, rows]);
 
   const handleClick = async () => {
-    if (ballManager) {
-      ballManager.addBall(predict().point);
-      console.log(predict().point);
+    try {
+      const response = await axios.post("http://localhost:5000/plinko", {
+        data: 1,
+      });
+      console.log(response);
+
+      if (ballManager) {
+        ballManager.addBall(response.data.point);
+      }
+    } catch (error) {
+      console.log(error);
     }
   };
 
@@ -38,7 +46,7 @@ export default function Plinko() {
       <section className="bg-muted rounded-3xl mb-10">
         <div className="flex gap-7 p-4">
           <Settings {...props} />
-          <main className="sm:h-[600px] h-96 w-full lg:w-[calc(100%-384px)] bg-advance rounded-3xl relative flex justify-center">
+          <main className="sm:h-[700px] h-96 w-full lg:w-[calc(100%-384px)] bg-advance rounded-3xl relative flex justify-center">
             <Icons.setting
               onClick={() => setSetting(!setting)}
               className=" absolute top-4 left-4 z-10 lg:hidden cursor-pointer"

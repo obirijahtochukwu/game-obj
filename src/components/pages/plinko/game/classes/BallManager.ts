@@ -27,8 +27,8 @@ export class BallManager {
     this.balls = [];
     this.canvasRef = canvasRef;
     this.ctx = this.canvasRef.getContext("2d")!;
-    this.obstacles = createObstacles(rows);
-    this.sinks = createSinks(rows, rows + 1);
+    this.obstacles = createObstacles(rows + 1);
+    this.sinks = createSinks();
     this.update();
     this.onFinish = onFinish;
   }

@@ -55,14 +55,14 @@ export const createObstacles = (rows: number): Obstacle[] => {
   return obstacles;
 };
 
-export const createSinks = (rows: number, NUM_SINKS: number): Sink[] => {
+export const createSinks = (): Sink[] => {
   const sinks = [];
   const SPACING = obstacleRadius * 2;
 
   for (let i = 0; i < NUM_SINKS; i++) {
     const x =
       WIDTH / 2 + sinkWidth * (i - Math.floor(NUM_SINKS / 2)) - SPACING * 1.5;
-    const y = rows * 35;
+    const y = NUM_SINKS * 35;
     const width = sinkWidth;
     const height = width;
     sinks.push({ x, y, width, height, multiplier: MULTIPLIERS[i + 1] });

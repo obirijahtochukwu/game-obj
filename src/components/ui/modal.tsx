@@ -11,12 +11,12 @@ export default function Modal({
   isOpen: boolean;
   setIsOpen: React.Dispatch<boolean>;
   side?: boolean;
-  classname: string;
+  classname?: string;
   children: JSX.Element;
 }) {
   const { targetRef } = useClick.manual({
-    isOpen: isOpen,
-    setIsOpen: setIsOpen,
+    isOpen,
+    setIsOpen,
   });
 
   return (

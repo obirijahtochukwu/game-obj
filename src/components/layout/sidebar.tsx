@@ -3,8 +3,8 @@ import { Icons } from "../ui/icons";
 import { pages } from "./mock-data";
 import { useClick } from "../../lib/hooks/useclick";
 
-export const Sidebar = ({ pathname }) => {
-  const { isOpen, setIsOpen, targetRef } = useClick.auto();
+export const Sidebar = ({ pathname }: { pathname: string }) => {
+  const { isOpen, setIsOpen, targetRef }: any = useClick.auto();
 
   return (
     <>
