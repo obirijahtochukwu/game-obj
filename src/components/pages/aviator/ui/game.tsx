@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import ApexCharts from "react-apexcharts";
 import { chartOptions, chartSeries } from "../data";
-import { useGlobalContext } from "../context";
+import { useAviatorContext } from "../context";
 
 export default function Game() {
   const {
@@ -13,7 +13,7 @@ export default function Game() {
     betAmount,
     isRunning,
     cashOut,
-  } = useGlobalContext();
+  } = useAviatorContext();
 
   return (
     <div className="w-full my-10 h-80 sm:h-96">

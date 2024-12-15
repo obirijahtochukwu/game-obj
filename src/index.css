@@ -166,3 +166,35 @@ body {
 .date::-webkit-datetime-edit-year-field {
   color: transparent;
 }
+
+.dice-container {
+  perspective: 1000px;
+}
+
+.dice {
+  width: 100px;
+  height: 100px;
+  transition: transform 2s ease-in-out;
+}
+
+.dice.rolling {
+  animation: roll 2s linear infinite;
+}
+
+@keyframes roll {
+  0% {
+    transform: rotateX(0deg) rotateY(0deg);
+  }
+  25% {
+    transform: rotateX(90deg) rotateY(0deg);
+  }
+  50% {
+    transform: rotateX(180deg) rotateY(0deg);
+  }
+  75% {
+    transform: rotateX(270deg) rotateY(0deg);
+  }
+  100% {
+    transform: rotateX(360deg) rotateY(0deg);
+  }
+}

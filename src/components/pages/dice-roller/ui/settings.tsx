@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Icons } from "../../../ui/icons";
 import Select from "../../../ui/select";
-import { useGlobalContext } from "../context";
+import { useDiceRollerContext } from "../context";
 
 export default function Settings() {
   const {
@@ -12,12 +12,13 @@ export default function Settings() {
     rollDice,
     setting,
     setSetting,
-  } = useGlobalContext();
+  } = useDiceRollerContext();
 
   const [chain, setChain] = useState("");
 
   return (
-    <article
+    <form
+      onSubmit={rollDice}
       className={`${
         setting ? " translate-x-0" : " max-lg:-translate-x-[700px]"
       } bg-advance p-4 w-full sm:max-w-96 lg:rounded-3xl flex flex-col gap-6 | max-lg:fixed max-lg:h-full max-lg:top-0 max-lg:left-0 max-lg:z-50 duration-300 max-lg:pt-12 max-lg:overflow-y-auto custom-scrollbar`}
@@ -38,6 +39,8 @@ export default function Settings() {
         <input
           type="number"
           placeholder="0.0000005"
+          required
+          autoFocus
           value={betAmount}
           onChange={(e) => setBetAmount(parseFloat(e.target.value))}
           className="h-14 w-full bg-muted border border-gray rounded-lg font-semibold text-base text-primary px-3 py-1.5 mt-2 gap-3 focus:outline-none"
@@ -50,18 +53,18 @@ export default function Settings() {
         <article className="h-14 w-full bg-muted border border-gray rounded-lg flex items-center justify-between font-semibold text-base text-primary px-3 py-1.5 mt-2 gap-3">
           <input
             disabled
-            value={profitOnWin}
+            value={+profitOnWin || ""}
             className=" w-full h-full bg-transparent focus:outline-none"
           />
         </article>
       </section>
       <button
         disabled={isRolling}
-        onClick={rollDice}
-        className=" w-full mt-4 flex items-center justify-center bg-secondary min-h-12 rounded-xl text-primary font-semibold text-xl"
+        type="submit"
+        className=" w-full mt-auto flex items-center justify-center bg-secondary min-h-12 rounded-xl text-primary font-semibold text-xl"
       >
         Bet
       </button>
-    </article>
+    </form>
   );
 }

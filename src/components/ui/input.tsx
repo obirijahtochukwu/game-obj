@@ -1,11 +1,16 @@
 import { useEffect, useState } from "react";
 import { useClick } from "../../lib/hooks/useclick";
+import { inputEvent } from "../../lib/types";
 
 export const Input = {
   number: ({
+    required,
+    disabled,
     value,
     onChange,
   }: {
+    required?: boolean;
+    disabled?: boolean;
     value: string | number;
     onChange?: (name: string | number) => void;
   }) => {
@@ -20,6 +25,8 @@ export const Input = {
     return (
       <input
         onChange={handleChange}
+        required={required}
+        disabled={disabled}
         value={value}
         placeholder="0.00"
         className="h-14 w-full bg-muted border border-gray rounded-lg font-semibold text-base text-primary px-3 py-1.5 mt-2 focus:outline-none"
@@ -39,7 +46,7 @@ const formInputStyle =
   "h-10 w-full bg-transparent px-4 py-2 text-base text-primary focus:outline-none z-10 text-primary";
 
 export const FormInput = {
-  text: (props?: React.InputHTMLAttributes<HTMLInputElement>) => {
+  text: (props?: inputEvent) => {
     const [animation, setAnimation] = useState(false);
     const { targetRef } = useClick.manual({
       isOpen: animation,
@@ -67,7 +74,7 @@ export const FormInput = {
       </div>
     );
   },
-  email: (props?: React.InputHTMLAttributes<HTMLInputElement>) => {
+  email: (props?: inputEvent) => {
     const [animation, setAnimation] = useState(false);
     const { targetRef } = useClick.manual({
       isOpen: animation,
@@ -94,7 +101,7 @@ export const FormInput = {
       </div>
     );
   },
-  password: (props?: React.InputHTMLAttributes<HTMLInputElement>) => {
+  password: (props?: inputEvent) => {
     const [animation, setAnimation] = useState(false);
     const { targetRef } = useClick.manual({
       isOpen: animation,
@@ -121,7 +128,7 @@ export const FormInput = {
       </div>
     );
   },
-  number: (props?: React.InputHTMLAttributes<HTMLInputElement>) => {
+  number: (props?: inputEvent) => {
     const [animation, setAnimation] = useState(false);
     const { targetRef } = useClick.manual({
       isOpen: animation,
@@ -148,7 +155,7 @@ export const FormInput = {
       </div>
     );
   },
-  date: (props?: React.InputHTMLAttributes<HTMLInputElement>) => {
+  date: (props?: inputEvent) => {
     const [animation, setAnimation] = useState(false);
     const { targetRef } = useClick.manual({
       isOpen: animation,
@@ -175,7 +182,7 @@ export const FormInput = {
       </div>
     );
   },
-  setting: (props?: React.InputHTMLAttributes<HTMLInputElement>) => (
+  setting: (props?: inputEvent) => (
     <input
       {...props}
       className="h-14 w-full bg-muted border border-gray rounded-lg flex items-center justify-between font-semibold text-base text-primary px-3 py-1.5 mt-2 gap-3"

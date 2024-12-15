@@ -1,8 +1,8 @@
-import React, { useState } from "react";
+import React, { FormEvent, useState } from "react";
 import { Icons } from "../../../ui/icons";
 import Select from "../../../ui/select";
 import { useClick } from "../../../../lib/hooks/useclick";
-import { useGlobalContext } from "../context";
+import { useAviatorContext } from "../context";
 import Infos from "./infos";
 import { Input } from "../../../ui/input";
 
@@ -16,7 +16,7 @@ export default function Settings() {
     betAmount,
     setBetAmount,
     balance,
-  } = useGlobalContext();
+  } = useAviatorContext();
 
   const { isOpen, setIsOpen, targetRef } = useClick.auto();
   const [play, setPlay] = useState("Manual");
@@ -25,7 +25,12 @@ export default function Settings() {
   const cashouts = [1.0, 1.1, 1.9, 2.3, 2.7, 3.1, 3.5];
 
   return (
-    <article
+    <form
+      onSubmit={(e: FormEvent) => {
+        e.preventDefault();
+        setSetting(false);
+        startGame();
+      }}
       className={`${
         setting ? " translate-x-0" : " max-lg:-translate-x-[700px]"
       } bg-advance p-4 w-full sm:max-w-96 lg:rounded-3xl flex flex-col gap-6 | max-lg:fixed max-lg:h-full max-lg:top-0 max-lg:left-0 max-lg:z-50 duration-300 max-lg:pt-12 max-lg:overflow-y-auto custom-scrollbar`}
@@ -59,6 +64,8 @@ export default function Settings() {
           <input
             type="number"
             placeholder="0.0000005"
+            autoFocus
+            required
             value={betAmount}
             onChange={(e) => setBetAmount(parseFloat(e.target.value))}
             className=" w-full h-full bg-transparent focus:outline-none"
@@ -87,18 +94,15 @@ export default function Settings() {
         <div className=" text-base font-medium text-primary/80">
           Profit on Win
         </div>
-        <Input.number value={`${betAmount * cashOutAt} SOL`} />
+        <Input.number disabled value={`${betAmount * cashOutAt} SOL`} />
       </section>
       <button
-        onClick={() => {
-          setSetting(false);
-          startGame();
-        }}
+        type="submit"
         className=" w-full mt-4 flex items-center justify-center bg-secondary min-h-12 rounded-xl text-primary font-semibold text-xl"
       >
         Bet
       </button>
       <Infos balance={balance} />
-    </article>
+    </form>
   );
 }

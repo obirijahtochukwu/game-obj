@@ -1,11 +1,16 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
 import { toast } from "react-toastify";
+import { submitGame } from "../../../lib/utils/submit-game";
+import { useGlobalContext } from "../../../lib/global-context";
 
 const AppContext = createContext();
 
 const AppProvider = ({ children }) => {
+  const { user, getGamesHishtory } = useGlobalContext();
+  const getHistory = () => getGamesHishtory(user.info._id, user.info);
+
   const [balance, setBalance] = useState(1000);
-  const [betAmount, setBetAmount] = useState(30);
+  const [betAmount, setBetAmount] = useState(null);
   const [cashOutAt, setCashOutAt] = useState(2.5);
   const [multiplier, setMultiplier] = useState(1.0);
   const [isRunning, setIsRunning] = useState(false);
@@ -86,7 +91,31 @@ const AppProvider = ({ children }) => {
   useEffect(() => {
     if (isCrashed && userCashout === null) {
       toast.error(`Game Over. You lost $${betAmount}.`);
+      submitGame(
+        {
+          userId: user.info._id,
+          username: user.info.name,
+          game: "Aviator",
+          result: "loss",
+          betAmount: betAmount,
+          multiplier: multiplier,
+          payout: betAmount * cashOutAt,
+        },
+        getHistory
+      );
     } else if (userCashout) {
+      submitGame(
+        {
+          userId: user.info._id,
+          username: user.info.name,
+          game: "Aviator",
+          result: "win",
+          betAmount: betAmount,
+          multiplier: multiplier,
+          payout: betAmount * cashOutAt,
+        },
+        getHistory
+      );
       toast.success(
         `You cashed out at ${multiplier}x! New balance: ${
           betAmount * cashOutAt + balance
@@ -120,7 +149,7 @@ const AppProvider = ({ children }) => {
 };
 
 // Custom hook for context
-export const useGlobalContext = () => {
+export const useAviatorContext = () => {
   return useContext(AppContext);
 };
 

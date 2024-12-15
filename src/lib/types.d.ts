@@ -13,6 +13,7 @@ export interface slotCoin {
 }
 
 export type changeEvent = React.ChangeEvent<HTMLInputElement>;
+export type inputEvent = React.InputHTMLAttributes<HTMLInputElement>;
 
 export interface gameHistory {
   betAmount?: number;

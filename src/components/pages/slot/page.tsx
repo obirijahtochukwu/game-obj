@@ -5,6 +5,7 @@ import Table from "../../ui/table";
 import { AppProvider, useSlotContext } from "./context";
 import { useGlobalContext } from "../../../lib/global-context";
 import { useEffect, useState } from "react";
+import { filteredAndPublicGameHistory } from "./../../../lib/utils/filtered-and-public-game-histor";
 
 export default function Slot() {
   return (
@@ -19,17 +20,11 @@ function Page() {
   const { setting, setSetting, selectedCoins, gameState } = useSlotContext();
   const [filterLabels, setFilterLabels] = useState(["all bets"]);
 
-  const filteredAndPublicGameHistory = user.gameHistory
-    .map((item) => ({ ...item, public: "all bets" }))
-    .filter((item) => {
-      return filterLabels.every((label: string) =>
-        Object.values(item).some((value) => value == label)
-      );
-    });
+  const data = user.gameHistory.filter(({ game }) => game == "Slot");
 
   const props = {
-    title: "Dice Roll",
-    data: filteredAndPublicGameHistory,
+    title: "Slot",
+    data: filteredAndPublicGameHistory(data, filterLabels),
     filterLabels,
     setFilterLabels,
   };

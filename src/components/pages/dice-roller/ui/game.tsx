@@ -1,5 +1,5 @@
 import React from "react";
-import { useGlobalContext } from "../context";
+import { useDiceRollerContext } from "../context";
 import Select from "../../../ui/select";
 import { Input } from "../../../ui/input";
 
@@ -17,7 +17,7 @@ export default function Game() {
     rollDice,
     setting,
     setSetting,
-  } = useGlobalContext();
+  } = useDiceRollerContext();
 
   const multipliers = [1.0, 1.1, 1.9, 2.3, 2.7, 3.1, 3.5];
 
@@ -33,11 +33,11 @@ export default function Game() {
 
     return (
       <div className="grid grid-cols-3 gap-2 w-24 h-24 scale-150 sm:scale-[3.4] bg-white rounded-sm shadow-lg p-3 mb-5 absolute top-20 left-16 sm:top-44 sm:left-36">
-        {dots[number]?.map((active, index) => (
+        {dots[number]?.map((active: boolean, index: number) => (
           <div
             key={index}
             className={`w-4 h-4 rounded-full ${
-              active ? "bg-dark" : "bg-transparent"
+              active ? "bg-dark rolling" : "bg-transparent"
             }`}
           ></div>
         ))}
