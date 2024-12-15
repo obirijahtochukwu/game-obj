@@ -5,7 +5,6 @@ export default function Coin({ coin, idx }: { coin: coin; idx: number }) {
   return (
     <div
       id={coin.coin}
-      onClick={() => console.log(coin)}
       style={{
         transform: `rotate(${(360 / 12) * idx}deg)`,
       }}

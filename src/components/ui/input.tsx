@@ -175,4 +175,10 @@ export const FormInput = {
       </div>
     );
   },
+  setting: (props?: React.InputHTMLAttributes<HTMLInputElement>) => (
+    <input
+      {...props}
+      className="h-14 w-full bg-muted border border-gray rounded-lg flex items-center justify-between font-semibold text-base text-primary px-3 py-1.5 mt-2 gap-3"
+    />
+  ),
 };

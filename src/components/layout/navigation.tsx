@@ -12,11 +12,11 @@ import { Sidebar } from "./sidebar";
 import axios from "axios";
 import Signup from "../../auth/signup";
 import Leftbar from "./leftbar";
-import { useGlobalContext } from "../../lib/context";
+import { useGlobalContext } from "../../lib/global-context";
 import Login from "../../auth/login";
 
 export default function Navigation({ children }: { children: JSX.Element }) {
-  const { logout, userLoggedIn } = useGlobalContext();
+  const { logout, user } = useGlobalContext();
   const [isSignup, setIsSignup] = useState(false);
   const [isLogin, setIsLogin] = useState(false);
   const { isOpen, setIsOpen, targetRef } = useClick.auto();
@@ -37,13 +37,13 @@ export default function Navigation({ children }: { children: JSX.Element }) {
     <article className="p-4 md:p-7 flex">
       <Signup {...props} />
       <Login {...props} />
-      {userLoggedIn == "true" && <Leftbar {...props} />}
+      {user.loggedIn == "true" && <Leftbar {...props} />}
 
       <section
         className={`${
           isOpen ? " md:w-[calc(100%-274px)]" : "md:w-[calc(100%-120px)] w-full"
         } ${
-          userLoggedIn == "false" ? "!w-full" : "md:ml-7"
+          user.loggedIn == "false" ? "!w-full" : "md:ml-7"
         } flex flex-col gap-7 duration-300`}
       >
         <nav className="flex items-center max-md:justify-between gap-4 h-14 py-0.5">
@@ -61,7 +61,7 @@ export default function Navigation({ children }: { children: JSX.Element }) {
               placeholder=""
             />
           </div>
-          {userLoggedIn == "true" ? (
+          {user.loggedIn == "true" ? (
             <button
               onClick={logout}
               className=" bg-secondary flex items-center justify-center max-md:h-11 w-44 md:w-56 h-full gap-2 rounded-xl text-base md:text-xl font-semibold text-primary"

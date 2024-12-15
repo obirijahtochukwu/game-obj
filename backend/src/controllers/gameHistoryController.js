@@ -3,7 +3,7 @@ const GameHistory = require("../models/game-history");
 
 const getGames = async (req, res) => {
   try {
-    const games = await GameHistory.find({ userId: req.userId }).sort({
+    const games = await GameHistory.find({ userId: req.params.id }).sort({
       createdAt: -1,
     });
     res.json(games);
@@ -28,6 +28,7 @@ const addGame = async (req, res) => {
 
     const gameHistory = new GameHistory({
       userId: req.body.userId,
+      username: user.name,
       game,
       result,
       betAmount,

@@ -3,66 +3,49 @@ import Coin from "./coin";
 import getClosestNum from "../../../../lib/getClosestNum";
 import { SMSoundService } from "../../../../lib/hooks/useSoundProvider";
 import { coin } from "../../../../lib/types";
+import { useSlotContext } from "../context";
 
 export default function Circle({
-  data,
+  coinData,
   id,
-  idx,
-  play,
   animation,
-  picks,
-  setPicks,
 }: {
-  data: coin[];
+  coinData: coin[];
   id: string;
-  play: boolean;
-  idx: number;
   animation: string;
-  picks: coin[];
-  setPicks: React.Dispatch<coin[]>;
 }) {
-  const ref = useRef<HTMLInputElement>();
-  const [isActive, setIsActive] = useState(false);
+  const { selectedCoins, setSelectedCoins, isGameActive } = useSlotContext();
 
-  const handleClick = (event) => {
-    if (play && !isActive) {
+  const ref = useRef<HTMLInputElement>();
+  const [isSelectionInProgress, setIsSelectionInProgress] = useState(false);
+
+  const selectCoin = (event) => {
+    if (isGameActive && !isSelectionInProgress) {
       document.getElementById(id).style.animationName = "";
-      if (picks.length < 3) {
-        SMSoundService.coin();
+      if (selectedCoins.length < 3) {
+        SMSoundService.coin(); // Play sound effect
       }
-      const correct = getClosestNum(
-        data.map(
-          ({ coin }) =>
-            document.getElementById(coin).getBoundingClientRect().top
-        ),
-        event.clientY
-      );
-      setPicks([
-        ...picks,
-        data.find(
-          ({ coin }) =>
-            document.getElementById(coin).getBoundingClientRect().top == correct
-        ),
-      ]);
-      setIsActive(true);
+      const selectedCoin = getClosestNum(coinData, event.clientY); // Find closest coin
+      setSelectedCoins([...selectedCoins, selectedCoin]);
+      setIsSelectionInProgress(true);
     }
   };
 
   useEffect(() => {
-    if (picks.length == 4) {
-      setIsActive(false);
+    if (selectedCoins.length == 4) {
+      setIsSelectionInProgress(false);
     }
-  }, [picks]);
+  }, [selectedCoins]);
 
   return (
     <div
       ref={ref}
-      onClick={handleClick}
+      onClick={selectCoin}
       style={{ animation: animation }}
       id={id}
       className="b z-10"
     >
-      {data?.map(
+      {coinData?.map(
         (coin, idx) => idx < 12 && <Coin key={idx} coin={coin} idx={idx} />
       )}
     </div>

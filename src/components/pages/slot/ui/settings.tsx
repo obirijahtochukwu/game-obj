@@ -1,29 +1,39 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Icons } from "../../../ui/icons";
 import Select from "../../../ui/select";
-import { useClick } from "../../../../lib/hooks/useclick";
+import { useSlotContext } from "../context";
+import { FormInput } from "../../../ui/input";
 
-export default function Settings({
-  segments,
-  setSegments,
-  handleClick,
-  setting,
-  setSetting,
-}: {
-  segments: number;
-  setSegments: React.Dispatch<number>;
-  handleClick: () => void;
-  setting: boolean;
-  setSetting: React.Dispatch<boolean>;
-}) {
-  const { isOpen, setIsOpen, targetRef } = useClick.auto();
+export default function Settings() {
+  const {
+    startGame,
+    setting,
+    setSetting,
+    risklevel,
+    setRiskLevel,
+    gamble,
+    setGamble,
+  } = useSlotContext();
+
   const [play, setPlay] = useState("Manual");
   const [level, setLevel] = useState("Basic");
   const [chain, setChain] = useState("");
-  const segment_list = [10, 11, 12, 13, 14, 15, 16];
+
+  useEffect(() => {
+    const item = risklevel.list.find(({ label }) => label == level);
+
+    if (item.tag) {
+      setRiskLevel({ ...risklevel, current: item });
+      setGamble({
+        ...gamble,
+        payout: gamble.betAmount * risklevel.current.multiplier,
+      });
+    }
+  }, [level, gamble.betAmount]);
 
   return (
-    <article
+    <form
+      onSubmit={startGame}
       className={`${
         setting ? " translate-x-0" : " max-lg:-translate-x-[700px]"
       } bg-advance p-4 w-full sm:max-w-96 lg:rounded-3xl flex flex-col gap-6 | max-lg:fixed max-lg:h-full max-lg:top-0 max-lg:left-0 max-lg:z-50 duration-300 max-lg:pt-12 max-lg:overflow-y-auto custom-scrollbar`}
@@ -55,7 +65,12 @@ export default function Settings({
         <div className=" text-base font-medium text-primary/80">Bet Amount</div>
         <article className="h-14 w-full bg-muted border border-gray rounded-lg flex items-center justify-between font-semibold text-base text-primary px-3 py-1.5 mt-2 gap-3">
           <input
-            type="text"
+            type="number"
+            required
+            value={gamble.betAmount}
+            onChange={(e) =>
+              setGamble({ ...gamble, betAmount: +e.target.value })
+            }
             placeholder="0.0000005"
             className=" w-full h-full bg-transparent focus:outline-none"
           />
@@ -76,26 +91,18 @@ export default function Settings({
       <Select
         label={level || ""}
         title="Risk"
-        data={["basic", "medium", "Hard"]}
+        data={["Basic", "Medium", "Hard"]}
         handleClick={(name) => setLevel(name)}
       />{" "}
       <div className="w-full">
-        <Select
-          label={segments.toString() || ""}
-          title="Rows"
-          data={segment_list}
-          handleClick={(name) => setSegments(+name)}
-        />
+        <FormInput.setting disabled value={gamble.payout} />
         <button
-          onClick={() => {
-            setSetting(false);
-            handleClick();
-          }}
+          type="submit"
           className=" w-full mt-4 flex items-center justify-center bg-secondary h-12 rounded-xl text-primary font-semibold text-xl"
         >
           Bet
         </button>
       </div>
-    </article>
+    </form>
   );
 }

@@ -2,22 +2,22 @@ import { SYMBOLS_FOOD } from "./ui/symbols";
 
 export const slots = [
   {
-    id: "j",
+    id: "slot-1",
     data: SYMBOLS_FOOD,
     animation: "rotateCounterClockwise 0.3s infinite linear",
   },
   {
-    id: "jo",
+    id: "slot-2",
     data: SYMBOLS_FOOD,
     animation: "rotateClockwise 0.5s infinite linear",
   },
   {
-    id: "joe",
+    id: "slot-3",
     data: SYMBOLS_FOOD,
     animation: "rotateClockwise 1s infinite linear",
   },
   {
-    id: "jole",
+    id: "slot-4",
     data: SYMBOLS_FOOD,
     animation: "rotateCounterClockwise 1s infinite linear",
   },

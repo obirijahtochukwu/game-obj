@@ -11,17 +11,17 @@ import { router } from "./lib/routes";
 import axios from "axios";
 import Login from "./components/pages/login/page";
 import Home from "./components/pages/home/page";
-import { useGlobalContext } from "./lib/context";
+import { useGlobalContext } from "./lib/global-context";
 import Navigation from "./components/layout/navigation";
 
 function App() {
-  const { userLoggedIn } = useGlobalContext();
+  const { user } = useGlobalContext();
 
   return (
     <article className=" font-primary">
-      {userLoggedIn == "true" ? (
+      {user.loggedIn == "true" ? (
         <RouterProvider router={router} />
-      ) : userLoggedIn == "false" ? (
+      ) : user.loggedIn == "false" ? (
         <BrowserRouter>
           <Navigation>
             <>
