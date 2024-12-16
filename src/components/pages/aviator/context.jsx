@@ -90,7 +90,6 @@ const AppProvider = ({ children }) => {
 
   useEffect(() => {
     if (isCrashed && userCashout === null) {
-      toast.error(`Game Over. You lost $${betAmount}.`);
       submitGame(
         {
           userId: user.info._id,
@@ -115,11 +114,6 @@ const AppProvider = ({ children }) => {
           payout: betAmount * cashOutAt,
         },
         getHistory
-      );
-      toast.success(
-        `You cashed out at ${multiplier}x! New balance: ${
-          betAmount * cashOutAt + balance
-        }`
       );
     }
   }, [isCrashed]);

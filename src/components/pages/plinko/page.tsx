@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { FormEvent, useEffect, useRef, useState } from "react";
 import Settings from "./ui/settings";
 import { Icons } from "../../ui/icons";
 import Details from "./ui/details";
@@ -6,12 +6,23 @@ import { BallManager } from "./game/classes/BallManager";
 import { baseURL } from "../../../lib/paths";
 import axios from "axios";
 import { predict } from "../../../lib/predict";
+import { useGlobalContext } from "../../../lib/global-context";
+import { filteredAndPublicGameHistory } from "../../../lib/utils/filtered-and-public-game-histor";
+import Table from "../../ui/table";
+import { submitGame } from "../../../lib/utils/submit-game";
 
 export default function Plinko() {
   const [setting, setSetting] = useState(false);
+  const [filterLabels, setFilterLabels] = useState(["all bets"]);
   const [rows, setRows] = useState(16);
+  const [multiplier, setMultiplier] = useState(1);
+  const [betAmount, setBetAmount] = useState(null);
   const [ballManager, setBallManager] = useState<BallManager>();
   const canvasRef = useRef<any>();
+
+  const { user, getGamesHishtory } = useGlobalContext();
+  const getHistory = () => getGamesHishtory(user.info._id, user.info);
+  const data = user.gameHistory.filter(({ game }) => game == "Plinko");
 
   useEffect(() => {
     if (canvasRef.current) {
@@ -22,9 +33,12 @@ export default function Plinko() {
       );
       setBallManager(ballManager);
     }
-  }, [canvasRef, rows]);
+  }, [canvasRef]);
 
-  const handleClick = async () => {
+  const startGame = async (e: FormEvent) => {
+    e.preventDefault();
+    setSetting(false);
+
     try {
       const response = await axios.post("http://localhost:5000/plinko", {
         data: 1,
@@ -33,13 +47,38 @@ export default function Plinko() {
 
       if (ballManager) {
         ballManager.addBall(response.data.point);
+        const winOrLoss = response.data.point == multiplier ? "win" : "loss";
+        submitGame(
+          {
+            userId: user.info._id,
+            username: user.info.name,
+            game: "Plinko",
+            result: winOrLoss,
+            betAmount: betAmount,
+            multiplier: multiplier,
+            payout: betAmount * multiplier,
+          },
+          getHistory
+        );
       }
     } catch (error) {
       console.log(error);
     }
   };
 
-  const props = { rows, setRows, handleClick, setting, setSetting };
+  const props = {
+    title: "Plinko",
+    data: filteredAndPublicGameHistory(data, filterLabels),
+    filterLabels,
+    setFilterLabels,
+    startGame,
+    setting,
+    setSetting,
+    multiplier,
+    setMultiplier,
+    betAmount,
+    setBetAmount,
+  };
 
   return (
     <article>
@@ -63,7 +102,7 @@ export default function Plinko() {
           Webet <Icons.expand className=" cursor-pointer" />
         </div>
       </section>
-      <Details />
+      <Table {...props} />
     </article>
   );
 }
