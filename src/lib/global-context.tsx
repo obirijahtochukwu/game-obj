@@ -30,6 +30,14 @@ const AppProvider = ({ children }: { children: JSX.Element }) => {
   // fetch user details
   useEffect(() => {
     axios
+      .get("https://webnet-backend-alpha.vercel.app/", {
+        withCredentials: true,
+      })
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((err) => console.log(err));
+    axios
       .get("http://localhost:5000/user", { withCredentials: true })
       .then((res) => {
         console.log(res);
