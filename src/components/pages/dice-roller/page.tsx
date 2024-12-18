@@ -20,7 +20,7 @@ function Page() {
   const { setSetting } = useDiceRollerContext();
   const [filterLabels, setFilterLabels] = useState(["all bets"]);
 
-  const data = user.gameHistory.filter(({ game }) => game == "Dice Roll");
+  const data = user?.gameHistory?.filter(({ game }) => game == "Dice Roll");
 
   const props = {
     title: "Dice Roll",

@@ -20,7 +20,7 @@ function Page() {
   const { setting, setSetting, selectedCoins, gameState } = useSlotContext();
   const [filterLabels, setFilterLabels] = useState(["all bets"]);
 
-  const data = user.gameHistory.filter(({ game }) => game == "Slot");
+  const data = user?.gameHistory?.filter(({ game }) => game == "Slot");
 
   const props = {
     title: "Slot",

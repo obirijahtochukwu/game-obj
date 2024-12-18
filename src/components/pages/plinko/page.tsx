@@ -23,7 +23,7 @@ export default function Plinko() {
 
   const { user, getGamesHishtory } = useGlobalContext();
   const getHistory = () => getGamesHishtory(user.info._id, user.info);
-  const data = user.gameHistory.filter(({ game }) => game == "Plinko");
+  const data = user?.gameHistory?.filter(({ game }) => game == "Plinko");
 
   useEffect(() => {
     if (canvasRef.current) {

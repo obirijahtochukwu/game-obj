@@ -20,7 +20,7 @@ function Page() {
   const { setSetting } = useAviatorContext();
   const [filterLabels, setFilterLabels] = useState(["all bets"]);
 
-  const data = user.gameHistory.filter(({ game }) => game == "Aviator");
+  const data = user?.gameHistory?.filter(({ game }) => game == "Aviator");
 
   const props = {
     title: "Aviator",

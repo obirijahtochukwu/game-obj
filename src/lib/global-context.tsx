@@ -21,6 +21,7 @@ const AppProvider = ({ children }: { children: JSX.Element }) => {
   });
 
   const logout = () => {
+    localStorage.removeItem("token");
     axios
       .post(backend_api + "/logout", {}, { withCredentials: true })
       .then(() => {
