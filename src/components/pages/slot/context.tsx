@@ -11,6 +11,7 @@ import { SMSoundService } from "../../../lib/hooks/useSoundProvider";
 import { coin, slotCoin } from "../../../lib/types";
 import axios from "axios";
 import { useGlobalContext } from "../../../lib/global-context";
+import { submitGame } from "../../../lib/utils/submit-game";
 
 interface context {
   gamble?: {
@@ -62,6 +63,7 @@ const AppContext = createContext<context>({});
 
 const AppProvider = ({ children }) => {
   const { user, getGamesHishtory } = useGlobalContext();
+  const getHistory = () => getGamesHishtory(user.info._id, user.info);
 
   const [risklevel, setRiskLevel] = useState({
     current: { tag: 2, label: "Basic", multiplier: 2.5 },
@@ -84,30 +86,6 @@ const AppProvider = ({ children }) => {
     setIsGameActive(true);
     setSelectedCoins([]);
     SMSoundService.coin();
-  };
-
-  const submitGame = async (result: string) => {
-    try {
-      const response = await axios.post(
-        "http://localhost:5000/add-game",
-        {
-          userId: user.info._id,
-          username: user.info.name,
-          game: "Dice Roll",
-          result: result,
-          betAmount: gamble.betAmount,
-          multiplier: risklevel.current.multiplier,
-          payout: gamble.payout,
-        },
-        { withCredentials: true }
-      );
-      if (response.data.betAmount) {
-        getGamesHishtory(user.info._id, user.info);
-      }
-      console.log(response);
-    } catch (error) {
-      console.log(error);
-    }
   };
 
   // Ring bell during gameplay
@@ -150,12 +128,24 @@ const AppProvider = ({ children }) => {
 
   // Play win or loss sound based on game state
   useEffect(() => {
+    if (gameState.label) {
+      submitGame(
+        {
+          userId: user.info._id,
+          username: user.info.name,
+          game: "Slot",
+          result: gameState.label,
+          betAmount: gamble.betAmount,
+          multiplier: risklevel.current.multiplier,
+          payout: gamble.payout,
+        },
+        getHistory
+      );
+    }
     if (gameState.label === "win") {
       SMSoundService.win();
-      submitGame("win");
     } else if (gameState.label === "loss") {
       SMSoundService.unlucky();
-      submitGame("loss");
     }
   }, [gameState]);
 

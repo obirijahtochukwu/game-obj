@@ -5,6 +5,7 @@ import Language from "./language";
 import CreateAccount from "./create-account";
 import Agreement from "./agreement";
 import axios from "axios";
+import { backend_api } from "../../lib/constants";
 
 const initialSate = {
   count: 1,
@@ -29,7 +30,7 @@ export default function Signup({ isSignup, setIsSignup }) {
     } else {
       axios
         .post(
-          "http://localhost:5000/signup/",
+          backend_api + "/signup",
           { ...steps.form },
           { withCredentials: true }
         )

@@ -5,6 +5,8 @@ import { changeEvent } from "../../lib/types";
 import { Buttons } from "../../components/ui/buttons";
 import { Icons } from "../../components/ui/icons";
 import axios from "axios";
+import { backend_api } from "../../lib/constants";
+import { setStore } from "../../lib/utils/store";
 
 export default function Login({ isLogin, setIsLogin }) {
   const [form, setForm] = useState({ email: "", password: "" });
@@ -13,12 +15,10 @@ export default function Login({ isLogin, setIsLogin }) {
     e.preventDefault();
 
     axios
-      .post(
-        "http://localhost:5000/login/",
-        { ...form },
-        { withCredentials: true }
-      )
+      .post(backend_api + "/login", { ...form }, { withCredentials: true })
       .then((response) => {
+        setStore("token", response.data.token);
+
         setForm({ email: "", password: "" });
         console.log(response);
         window.location.href = "/";

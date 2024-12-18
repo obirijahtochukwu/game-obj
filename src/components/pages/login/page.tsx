@@ -1,5 +1,6 @@
 import axios from "axios";
 import React, { useState } from "react";
+import { backend_api } from "../../../lib/constants";
 
 export default function Login() {
   const [form, setForm] = useState({
@@ -9,7 +10,7 @@ export default function Login() {
 
   const register = () => {
     axios
-      .post("http://localhost:5000/signup/", { ...form.data })
+      .post(backend_api + "/signup/", { ...form.data })
       .then((response) => {
         setForm({ ...form, data: {} });
         console.log(response);

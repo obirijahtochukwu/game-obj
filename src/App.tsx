@@ -26,7 +26,6 @@ function App() {
           <Navigation>
             <>
               <Navigate to="/login" />
-              {/* <RouterProvider router={router} /> */}
               <Routes>
                 <Route path="/login" element={<Home />} />
               </Routes>

@@ -10,6 +10,7 @@ import { useGlobalContext } from "../../../lib/global-context";
 import { filteredAndPublicGameHistory } from "../../../lib/utils/filtered-and-public-game-histor";
 import Table from "../../ui/table";
 import { submitGame } from "../../../lib/utils/submit-game";
+import { backend_api } from "../../../lib/constants";
 
 export default function Plinko() {
   const [setting, setSetting] = useState(false);
@@ -40,7 +41,7 @@ export default function Plinko() {
     setSetting(false);
 
     try {
-      const response = await axios.post("http://localhost:5000/plinko", {
+      const response = await axios.post(backend_api + "/plinko", {
         data: 1,
       });
       console.log(response);

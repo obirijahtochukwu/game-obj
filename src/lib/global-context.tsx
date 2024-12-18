@@ -1,6 +1,8 @@
 import axios from "axios";
 import React, { createContext, useContext, useEffect, useState } from "react";
 import { userData } from "./types";
+import { backend_api } from "./constants";
+import { getStore, setStore } from "./utils/store";
 
 interface context {
   user?: userData;
@@ -20,7 +22,7 @@ const AppProvider = ({ children }: { children: JSX.Element }) => {
 
   const logout = () => {
     axios
-      .post("http://localhost:5000/logout", {}, { withCredentials: true })
+      .post(backend_api + "/logout", {}, { withCredentials: true })
       .then(() => {
         console.log("");
         window.location.href = "/";
@@ -30,15 +32,9 @@ const AppProvider = ({ children }: { children: JSX.Element }) => {
   // fetch user details
   useEffect(() => {
     axios
-      .get("https://webnet-backend-alpha.vercel.app/", {
+      .get(backend_api + "/user/" + getStore("token"), {
         withCredentials: true,
       })
-      .then((res) => {
-        console.log(res);
-      })
-      .catch((err) => console.log(err));
-    axios
-      .get("http://localhost:5000/user", { withCredentials: true })
       .then((res) => {
         console.log(res);
         if (res.data.email) {
@@ -48,13 +44,16 @@ const AppProvider = ({ children }: { children: JSX.Element }) => {
           setUser({ ...user, loggedIn: "false" });
         }
       })
-      .catch((err) => setUser({ ...user, loggedIn: "false" }));
+      .catch((err) => {
+        setUser({ ...user, loggedIn: "false" });
+        console.log(err);
+      });
   }, []);
 
   // fetch game history
   const getGamesHishtory = (id: string, userInfo: userData) => {
     axios
-      .get(`http://localhost:5000/game-history/${id}`, {
+      .get(`/game-history/${id}`, {
         withCredentials: true,
       })
       .then((res) => {

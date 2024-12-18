@@ -4,7 +4,7 @@ import { gameHistory } from "../types";
 export const submitGame = async (data: gameHistory, getHistory) => {
   try {
     const response = await axios.post(
-      "http://localhost:5000/add-game",
+      "/add-game",
       { ...data },
       { withCredentials: true }
     );
