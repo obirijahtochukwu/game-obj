@@ -34,7 +34,7 @@ export default function Navigation({ children }: { children: JSX.Element }) {
   };
 
   return (
-    <article className="p-4 md:p-7 flex">
+    <article className={`p-4 md:p-7 flex welcome-anime`}>
       <Signup {...props} />
       <Login {...props} />
       {user.loggedIn == "true" && <Leftbar {...props} />}

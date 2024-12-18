@@ -19,6 +19,16 @@ function App() {
 
   return (
     <article className=" font-primary">
+      <div
+        className={`${
+          user.loggedIn != "pending" ? " h-0" : " h-1/2"
+        } fixed top-0 w-screen bg-black z-50 duration-500`}
+      ></div>
+      <div
+        className={`${
+          user.loggedIn != "pending" ? " h-0" : " h-1/2"
+        } fixed bottom-0 w-screen bg-black z-50 duration-500`}
+      ></div>
       {user.loggedIn == "true" ? (
         <RouterProvider router={router} />
       ) : user.loggedIn == "false" ? (
@@ -33,8 +43,8 @@ function App() {
           </Navigation>
         </BrowserRouter>
       ) : (
-        <div className=" h-screen w-screen flex items-center justify-center text-3xl text-primary">
-          Loading
+        <div className="h-screen w-screen flex items-center justify-center text-3xl text-primary">
+          <div className="bars"></div>
         </div>
       )}
     </article>
