@@ -54,7 +54,7 @@ const AppProvider = ({ children }: { children: JSX.Element }) => {
   // fetch game history
   const getGamesHishtory = (id: string, userInfo: userData) => {
     axios
-      .get(`/game-history`, {
+      .get(backend_api + `/game-history`, {
         withCredentials: true,
       })
       .then((res) => {
