@@ -18,7 +18,6 @@ export default function Login({ isLogin, setIsLogin }) {
       .post(backend_api + "/login", { ...form }, { withCredentials: true })
       .then((response) => {
         setStore("token", response.data.token);
-
         setForm({ email: "", password: "" });
         console.log(response);
         window.location.href = "/";

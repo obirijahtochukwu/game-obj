@@ -6,6 +6,7 @@ import CreateAccount from "./create-account";
 import Agreement from "./agreement";
 import axios from "axios";
 import { backend_api } from "../../lib/constants";
+import { setStore } from "../../lib/utils/store";
 
 const initialSate = {
   count: 1,
@@ -37,6 +38,8 @@ export default function Signup({ isSignup, setIsSignup }) {
         .then((response) => {
           setSteps(initialSate);
           console.log(response);
+          setStore("token", response.data.token);
+
           window.location.href = "/";
         })
         .catch((err) => {
