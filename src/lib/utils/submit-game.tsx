@@ -1,10 +1,11 @@
 import axios from "axios";
 import { gameHistory } from "../types";
+import { backend_api } from "../constants";
 
 export const submitGame = async (data: gameHistory, getHistory) => {
   try {
     const response = await axios.post(
-      "/add-game",
+      backend_api + "/add-game",
       { ...data },
       { withCredentials: true }
     );
