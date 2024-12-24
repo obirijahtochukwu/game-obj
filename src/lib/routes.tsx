@@ -7,6 +7,8 @@ import Aviator from "../components/pages/aviator/page";
 import DiceRoller from "../components/pages/dice-roller/page";
 import Sports from "../components/pages/sports/page";
 import Login from "../components/pages/login/page";
+import Blackjack from "../components/pages/blackjack/page";
+import Roullete from "../components/pages/roullete/page";
 
 export const router = createBrowserRouter([
   {
@@ -59,6 +61,26 @@ export const router = createBrowserRouter([
       <>
         <Navigation>
           <DiceRoller />
+        </Navigation>
+      </>
+    ),
+  },
+  {
+    path: "/blackjack",
+    element: (
+      <>
+        <Navigation>
+          <Blackjack />
+        </Navigation>
+      </>
+    ),
+  },
+  {
+    path: "/roullete",
+    element: (
+      <>
+        <Navigation>
+          <Roullete />
         </Navigation>
       </>
     ),

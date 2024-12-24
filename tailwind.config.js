@@ -13,6 +13,11 @@ module.exports = {
       },
       fontFamily: {
         primary: "DM Sans",
+        secondary: "Bitter",
+      },
+      boxShadow: {
+        smError: "inset -11px -11px 23px #c11313,inset 11px 11px 23px #ff1919",
+        smDark: "inset -11px -11px 23px #c85022, inset 11px 11px 23px #ff6c2e",
       },
     },
   },
