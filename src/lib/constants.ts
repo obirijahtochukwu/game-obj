@@ -17,4 +17,6 @@ export const api = {
 export const toPercentage = (decimal: number) =>
   `${(decimal * 10).toFixed(0)}%`;
 
-export const backend_api = "https://webnet-backend-5kmt.vercel.app";
+export const backend_api = "http://localhost:5000";
+
+// || "https://webnet-backend-5kmt.vercel.app";

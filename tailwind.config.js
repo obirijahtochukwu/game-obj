@@ -13,6 +13,7 @@ module.exports = {
       },
       fontFamily: {
         primary: "DM Sans",
+        poppins: "Poppins",
         secondary: "Bitter",
       },
       boxShadow: {

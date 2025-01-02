@@ -32,3 +32,10 @@ export interface userData {
   info: { name?: string; _id?: string } | any;
   gameHistory: gameHistory[];
 }
+
+export interface gamble {
+  betAmount?: null | number;
+  payout?: null | number;
+  multiplier?: null | number;
+  outcomes?: number[] | string[] | any;
+}

@@ -10,7 +10,7 @@
 }
 
 body {
-  background: #181818;
+  background: #fff;
   width: 100%;
   overflow-x: hidden;
 }
@@ -232,6 +232,7 @@ body {
   body {
     padding: 0 20px;
   }
+
   .roulette-wheel {
     float: none;
     left: 30px;
