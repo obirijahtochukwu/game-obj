@@ -10,6 +10,7 @@ module.exports = {
         muted: "#313131",
         gray: "#B4B4B4",
         advance: "#444444",
+        success: "#22c55e",
       },
       fontFamily: {
         primary: "DM Sans",

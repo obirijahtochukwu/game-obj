@@ -10,7 +10,7 @@
 }
 
 body {
-  background: #fff;
+  background: #181818;
   width: 100%;
   overflow-x: hidden;
 }
@@ -297,4 +297,8 @@ body {
   left: 50%;
   margin: -7px;
   will-change: transform;
+}
+
+.radial-grad {
+  background: radial-gradient(50% 50% at 50% 50%, #21CC63 0%, #168B37 100%);
 }

@@ -12,6 +12,7 @@ import { coin, slotCoin } from "../../../lib/types";
 import axios from "axios";
 import { useGlobalContext } from "../../../lib/global-context";
 import { submitGame } from "../../../lib/utils/submit-game";
+import gameSoundEffect from "../../../lib/utils/game-sound-effect";
 
 interface context {
   gamble?: {
@@ -142,11 +143,7 @@ const AppProvider = ({ children }) => {
         getHistory
       );
     }
-    if (gameState.label === "win") {
-      SMSoundService.win();
-    } else if (gameState.label === "loss") {
-      SMSoundService.unlucky();
-    }
+    gameSoundEffect(gameState.label);
   }, [gameState]);
 
   return (

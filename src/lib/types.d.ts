@@ -39,3 +39,20 @@ export interface gamble {
   multiplier?: null | number;
   outcomes?: number[] | string[] | any;
 }
+
+export interface video_poker_deck {
+  rank: string;
+  suit: string;
+}
+
+export interface payoutTable {
+  "Royal Flush": number;
+  "Straight Flush": number;
+  FourOfAKind: number;
+  FullHouse: number;
+  Flush: number;
+  Straight: number;
+  ThreeOfAKind: number;
+  TwoPair: number;
+  OnePair: number;
+}

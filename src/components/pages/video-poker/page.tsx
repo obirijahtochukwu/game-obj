@@ -1,8 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 import { AppProvider, useVideoPokerContext } from "./context";
 import Settings from "./ui/settings";
 import { Icons } from "../../ui/icons";
 import Game from "./ui/game";
+import Table from "../../ui/table";
+import { useGlobalContext } from "../../../lib/global-context";
+import { filteredAndPublicGameHistory } from "../../../lib/utils/filtered-and-public-game-histor";
 
 export default function VideoPoker() {
   return (
@@ -13,7 +16,20 @@ export default function VideoPoker() {
 }
 
 function Page() {
+  const { user } = useGlobalContext();
   const { setIsSetting, isSetting } = useVideoPokerContext();
+
+  const [filterLabels, setFilterLabels] = useState(["all bets"]);
+
+  const data = user?.gameHistory?.filter(({ game }) => game == "Video Poker");
+
+  const props = {
+    title: "Video Poker",
+    data: filteredAndPublicGameHistory(data, filterLabels),
+    filterLabels,
+    setFilterLabels,
+  };
+
   return (
     <article>
       <section className="bg-muted rounded-3xl mb-10">
@@ -28,6 +44,7 @@ function Page() {
           </main>
         </div>
       </section>
+      <Table {...props} />
     </article>
   );
 }

@@ -10,7 +10,6 @@ import Login from "../components/pages/login/page";
 import Blackjack from "../components/pages/blackjack/page";
 import Roullete from "../components/pages/roullete/page";
 import VideoPoker from "../components/pages/video-poker/page";
-import Page from "../cv/page";
 
 export const router = createBrowserRouter([
   {
@@ -104,16 +103,6 @@ export const router = createBrowserRouter([
         <Navigation>
           <Sports />
         </Navigation>
-      </>
-    ),
-  },
-  {
-    path: "/cv",
-    element: (
-      <>
-        {/* <Navigation> */}
-        <Page />
-        {/* </Navigation> */}
       </>
     ),
   },
