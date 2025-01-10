@@ -100,7 +100,7 @@ export default function Settings() {
           className={buttonClass(
             `${
               gamble.outcomes.length < 1 && "cursor-not-allowed opacity-70"
-            } bg-secondary`
+            } bg-gradient-custom`
           )}
         >
           Start Play

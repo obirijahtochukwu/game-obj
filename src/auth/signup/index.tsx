@@ -67,12 +67,16 @@ export default function Signup({ isSignup, setIsSignup }) {
           </div>
         </header>
         <section className=" grid grid-cols-3 gap-0.5">
-          <div className=" h-1 bg-secondary rounded-l-sm" />
+          <div className=" h-1 bg-gradient-custom rounded-l-sm" />
           <div
-            className={`${steps.count > 1 ? " bg-secondary" : "bg-gray"} h-1`}
+            className={`${
+              steps.count > 1 ? " bg-gradient-custom" : "bg-gray"
+            } h-1`}
           />
           <div
-            className={`${steps.count == 3 ? " bg-secondary" : "bg-gray"} h-1`}
+            className={`${
+              steps.count == 3 ? " bg-gradient-custom" : "bg-gray"
+            } h-1`}
           />
           {steps.count > 1 ? (
             <div

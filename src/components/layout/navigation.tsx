@@ -53,7 +53,7 @@ export default function Navigation({ children }: { children: JSX.Element }) {
           >
             Webet
           </Link>
-          <div className=" h-full w-full max-lg:hidden max-w-lg rounded-xl bg-primary/10 backdrop-blur-md border border-muted p-4 flex items-center gap-2.5 text-primary">
+          <div className=" h-full w-full max-lg:hidden max-w-lg rounded-xl bg-advance backdrop-blur-md border border-muted p-4 flex items-center gap-2.5 text-primary">
             <Icons.search />
             <input
               type="text"
@@ -64,7 +64,7 @@ export default function Navigation({ children }: { children: JSX.Element }) {
           {user.loggedIn == "true" ? (
             <button
               onClick={logout}
-              className=" bg-secondary flex items-center justify-center max-md:h-11 w-44 md:w-56 h-full gap-2 rounded-xl text-base md:text-xl font-semibold text-primary"
+              className=" bg-gradient-custom flex items-center justify-center max-md:h-11 w-44 md:w-56 h-full gap-2 rounded-xl text-base md:text-xl font-semibold text-primary"
             >
               {" "}
               <Icons.wallet />
@@ -80,7 +80,7 @@ export default function Navigation({ children }: { children: JSX.Element }) {
               </button>
               <button
                 onClick={() => setIsSignup(true)}
-                className=" bg-secondary flex items-center justify-center max-md:h-11 w-fit h-full px-4 gap-2 rounded-xl text-base md:text-xl font-semibold text-primary"
+                className=" bg-gradient-custom flex items-center justify-center max-md:h-11 w-fit h-full px-4 gap-2 rounded-xl text-base md:text-xl font-semibold text-primary"
               >
                 Register
               </button>

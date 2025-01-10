@@ -86,7 +86,7 @@ export default function Plinko() {
       <section className="bg-muted rounded-3xl mb-10">
         <div className="flex gap-7 p-4">
           <Settings {...props} />
-          <main className="sm:h-[700px] h-96 w-full lg:w-[calc(100%-384px)] bg-advance rounded-3xl relative flex justify-center">
+          <main className="sm:h-[700px] h-96 w-full lg:w-[calc(100%-384px)] bg-dark rounded-3xl relative flex justify-center">
             <Icons.setting
               onClick={() => setSetting(!setting)}
               className=" absolute top-4 left-4 z-10 lg:hidden cursor-pointer"
@@ -99,7 +99,7 @@ export default function Plinko() {
             ></canvas>
           </main>
         </div>
-        <div className=" bg-advance h-16 flex items-center justify-between px-8 text-primary text-2xl font-semibold rounded-b-3xl">
+        <div className=" bg-dark h-16 flex items-center justify-between px-8 text-primary text-2xl font-semibold rounded-b-3xl">
           Webet <Icons.expand className=" cursor-pointer" />
         </div>
       </section>

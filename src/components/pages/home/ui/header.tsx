@@ -1,6 +1,7 @@
 import React from "react";
 import { games } from "../mock-data";
 import { Link } from "react-router-dom";
+import { Buttons } from "../../../ui/buttons";
 
 export default function Header() {
   return (
@@ -22,9 +23,7 @@ export default function Header() {
           <div className=" text-xl font-medium tracking-tighter">
             Try Pragmatic's newest Enhanced RTP creation, Big Bass..
           </div>
-          <div className="mt-5 cursor-pointer h-12 w-32 flex items-center justify-center rounded-lg text-dark bg-primary text-lg font-semibold">
-            Play Now
-          </div>
+          <Buttons.play_now classname="mt-5 ">Play Now</Buttons.play_now>
         </div>
         <img
           src="./media/home/header.png"
@@ -34,12 +33,12 @@ export default function Header() {
       </section>
       <section className=" flex flex-col w-full gap-4">
         {games.map(({ label, image, url }) => (
-          <div className="flex items-center gap-3 bg-primary/10 p-4 rounded-xl text-xl font-semibold text-primary">
+          <div className="flex items-center gap-3 bg-advance p-4 rounded-xl text-xl font-semibold text-primary">
             <img src={image} alt="" className=" h-12 w-12" />
             <div className=" truncate">{label}</div>
             <Link
               to={url}
-              className="ml-auto cursor-pointer h-12 min-w-32 flex items-center justify-center rounded-lg text-dark bg-primary text-lg font-semibold truncate"
+              className="ml-auto cursor-pointer h-12 min-w-32 flex items-center justify-center rounded-lg text-primary bg-gradient-custom text-lg font-semibold truncate"
             >
               Play Now
             </Link>

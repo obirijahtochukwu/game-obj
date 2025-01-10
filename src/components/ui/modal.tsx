@@ -24,7 +24,7 @@ export default function Modal({
       <section
         className={`${
           isOpen ? " opacity-100 visible" : " opacity-0 invisible"
-        } duration-150 bg-black/10 backdrop-blur-sm fixed top-0 left-0 w-full h-full z-50`}
+        } duration-150 bg-background/10 backdrop-blur-sm fixed top-0 left-0 w-full h-full z-50`}
       ></section>
       <main
         ref={targetRef}

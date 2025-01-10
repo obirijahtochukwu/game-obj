@@ -38,7 +38,7 @@ export default function Basketball() {
                 <img
                   src={"prop.teams.home.logo"}
                   alt=""
-                  className="h-7 w-8 bg-secondary rounded-full"
+                  className="h-7 w-8 bg-gradient-custom rounded-full"
                 />
                 {prop.home}
               </div>
@@ -46,7 +46,7 @@ export default function Basketball() {
                 <img
                   src={"prop.teams.away.logo"}
                   alt=""
-                  className="h-7 w-8 bg-secondary rounded-full"
+                  className="h-7 w-8 bg-gradient-custom rounded-full"
                 />
                 {prop.away}
               </div>

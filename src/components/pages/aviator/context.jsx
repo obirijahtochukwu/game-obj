@@ -23,7 +23,9 @@ const AppProvider = ({ children }) => {
   const [setting, setSetting] = useState(false);
 
   // Start the game
-  const startGame = () => {
+  const startGame = (e: FormEvent) => {
+    e.preventDefault();
+    setSetting(false);
     if (betAmount > 0 && betAmount <= balance) {
       // Deduct bet from balance
       setBalance((prev) => prev - betAmount);

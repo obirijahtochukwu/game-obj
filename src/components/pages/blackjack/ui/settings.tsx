@@ -76,7 +76,7 @@ export default function Settings() {
               Hit
             </button>
             <button
-              className={buttonClass(" bg-secondary")}
+              className={buttonClass(" bg-gradient-custom")}
               onClick={playerStand}
             >
               Stand

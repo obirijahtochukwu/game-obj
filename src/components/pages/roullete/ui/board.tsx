@@ -8,7 +8,7 @@ export default function Board() {
 
   const className = (num: number) =>
     `${
-      gamble.outcomes.includes(num) ? " border-2 border-green-700" : ""
+      gamble.outcomes.includes(num) ? " border-2 border-advance" : ""
     } h-14 flex items-center justify-center  text-primary font-semibold text-xl even:bg-red-700 even:shadow-smError bg-secondary shadow-smDark cursor-pointer`;
 
   const select = (num: number | string) => {
@@ -69,7 +69,7 @@ export default function Board() {
             onClick={() => select(name)}
             className={`${
               gamble.outcomes.includes(name)
-                ? " border-2 border-green-700 border-t-2"
+                ? " border-2 border-advance border-t-2"
                 : ""
             } h-14 w-1/2 flex items-center justify-center  text-primary font-semibold text-xl even:bg-red-700 even:shadow-smError bg-secondary shadow-smDark border-t border-primary cursor-pointer`}
           >

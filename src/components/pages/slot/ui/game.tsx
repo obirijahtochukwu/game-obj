@@ -18,8 +18,8 @@ export default function Game() {
   }, []);
 
   return (
-    <div>
-      <article className=" h-[429px] w-[429px] bg-primary mx-auto relative rounded-full">
+    <div className="my-auto">
+      <article className=" h-[429px] w-[429px] bg-primary relative rounded-full">
         {slots.map(({ id, animation, data }, idx) => (
           <Circle
             key={idx}

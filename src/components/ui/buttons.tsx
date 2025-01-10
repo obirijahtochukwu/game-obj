@@ -16,7 +16,21 @@ export const Buttons = {
   ) => (
     <button
       {...props}
-      className={`${props?.classname} w-full flex items-center justify-center min-h-12 rounded-lg bg-secondary text-primary font-semibold text-xl disabled:opacity-70 disabled:cursor-not-allowed`}
+      className={`${props?.classname} ${
+        props?.classname?.includes("bg") || "bg-gradient-custom"
+      } w-full flex items-center justify-center min-h-12 rounded-lg text-primary font-semibold text-xl disabled:opacity-70 disabled:cursor-not-allowed`}
+    >
+      {props.children}
+    </button>
+  ),
+  play_now: (
+    props: React.ButtonHTMLAttributes<HTMLButtonElement> & {
+      classname?: string;
+    }
+  ) => (
+    <button
+      {...props}
+      className={`${props?.classname} h-12 w-32 flex items-center justify-center rounded-lg text-primary bg-gradient-custom text-lg font-semibold`}
     >
       {props.children}
     </button>

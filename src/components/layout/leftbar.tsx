@@ -19,7 +19,7 @@ export default function Leftbar({
       ref={targetRef}
       className={`${
         isOpen ? "group" : ""
-      } sticky z-50 backdrop-blur-md top-7 min-w-24 w-fit overflow-x-hidden h-[calc(100vh-56px)] bg-[#313131] rounded-xl py-9 px-5 duration-300 flex flex-col items-center gap-6 max-md:hidden`}
+      } sticky z-50 backdrop-blur-md top-7 min-w-24 w-fit overflow-x-hidden h-[calc(100vh-56px)] bg-advance rounded-xl py-9 px-5 duration-300 flex flex-col items-center gap-6 max-md:hidden`}
     >
       <div
         onClick={() => window.innerWidth > 1000 && setIsOpen(!isOpen)}

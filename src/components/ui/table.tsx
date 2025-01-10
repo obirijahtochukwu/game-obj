@@ -71,11 +71,11 @@ export default function Table({
   }, [filterLabels]);
 
   return (
-    <article className=" bg-advance rounded-3xl p-4 pt-6">
-      <div className="flex justify-between items-center text-4xl font-semibold text-primary">
+    <article className=" bg-advance rounded-3xl pb-4 pt-6">
+      <div className="flex justify-between items-center text-4xl font-semibold text-primary px-4">
         {title}
       </div>
-      <section className="w-full overflow-x-auto hide-scrollbar">
+      <section className="w-full overflow-x-auto hide-scrollbar px-4">
         <div className="flex items-center mt-5 gap-4 w-fit">
           {[
             { value: "all bets", label: "all bets" },
@@ -126,8 +126,8 @@ export default function Table({
       <main className="w-full h-[340px] overflow-x-auto mt-9 custom-scrollbar rounded-lg">
         {currentData.length > 0 ? (
           <>
-            <div className="bg-Red w-fit min-w-full flex gap-14 items-center justify-between text-white font-medium pr-7 rounded-xl h-14">
-              <div className="flex gap-14 items-center justify-between rounded-lg bg-Red sticky left-0 top-0 w-fit pl-7 bg-advance">
+            <div className="bg-Red w-fit min-w-full flex gap-14 items-center justify-between text-white font-medium pr-7 h-14 border-gray border-b">
+              <div className="flex gap-14 items-center justify-between rounded-lg bg-Red sticky left-0 top-0 w-fit pl-10 bg-advance">
                 <div className="w-36">Game</div>
                 <div className="w-36">User</div>
               </div>
@@ -151,9 +151,13 @@ export default function Table({
               ) => (
                 <div
                   key={id}
-                  className="bg-advance h-14 w-fit min-w-full flex gap-14 items-center justify-between text-primary/80 font-medium text-base pr-7 border-gray border-t"
+                  className="odd:bg-dark h-14 w-fit min-w-full flex gap-14 items-center justify-between text-primary/80 font-medium text-base pr-7"
                 >
-                  <div className="flex gap-14 items-center justify-between h-full sticky left-0 top-0 w-fit pl-7 bg-advance ">
+                  <div
+                    className={`flex gap-14 items-center justify-between h-full sticky left-0 top-0 w-fit pl-7 bg-advance ${
+                      id % 2 != 0 && "bg-dark"
+                    }`}
+                  >
                     <div className="w-36">{game}</div>
                     <div className="w-36">{username}</div>
                   </div>

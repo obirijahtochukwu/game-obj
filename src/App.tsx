@@ -13,6 +13,9 @@ import Login from "./components/pages/login/page";
 import Home from "./components/pages/home/page";
 import { useGlobalContext } from "./lib/global-context";
 import Navigation from "./components/layout/navigation";
+import AdminNavigation from "./components/admin/layout/navigation";
+import Users from "./components/admin/pages/users/page";
+import { admin_router } from "./lib/admin-routes";
 
 function App() {
   const { user } = useGlobalContext();
@@ -22,15 +25,15 @@ function App() {
       <div
         className={`${
           user.loggedIn != "pending" ? " h-0" : " h-1/2"
-        } fixed top-0 w-screen bg-black z-50 duration-500`}
+        } fixed top-0 w-screen bg-background z-50 duration-500`}
       ></div>
       <div
         className={`${
           user.loggedIn != "pending" ? " h-0" : " h-1/2"
-        } fixed bottom-0 w-screen bg-black z-50 duration-500`}
+        } fixed bottom-0 w-screen bg-background z-50 duration-500`}
       ></div>
       {user.loggedIn == "true" ? (
-        <RouterProvider router={router} />
+        <RouterProvider router={admin_router} />
       ) : user.loggedIn == "false" ? (
         <BrowserRouter>
           <Navigation>

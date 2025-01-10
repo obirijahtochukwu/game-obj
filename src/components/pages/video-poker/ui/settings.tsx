@@ -22,12 +22,7 @@ export default function Settings() {
 
   return (
     <SettingModal isOpen={isSetting} setIsOpen={setIsSetting}>
-      <article
-        // onSubmit={(e) => {
-        //   startGame(e, generateRandomNumber());
-        // }}
-        className=" h-full flex-col flex gap-6"
-      >
+      <article className=" h-full flex-col flex gap-6">
         <Select
           label={chain || ""}
           title="Crypto Chain"
@@ -51,18 +46,14 @@ export default function Settings() {
           />
         </section>
 
-        <Buttons.secondary onClick={deal} classname=" mt-auto ">
+        <Buttons.secondary onClick={deal} classname=" mt-auto bg-secondary">
           Deal
         </Buttons.secondary>
         <Buttons.secondary onClick={redraw} classname=" !bg-primary !text-dark">
           Redraw
         </Buttons.secondary>
-        <Buttons.secondary
-          onClick={draw}
-          disabled={heldCards.length == 0}
-          classname="!bg-success"
-        >
-          Draw
+        <Buttons.secondary onClick={draw} disabled={heldCards.length == 0}>
+          Cashout
         </Buttons.secondary>
       </article>
     </SettingModal>

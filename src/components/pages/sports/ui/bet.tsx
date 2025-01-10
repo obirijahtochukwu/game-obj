@@ -37,7 +37,7 @@ export default function Bet({ props }) {
         />
         <button
           onClick={() => props.setIsBet(false)}
-          className=" w-full mt-4 flex items-center justify-center bg-secondary h-12 rounded-xl text-primary font-semibold text-xl"
+          className=" w-full mt-4 flex items-center justify-center bg-gradient-custom h-12 rounded-xl text-primary font-semibold text-xl"
         >
           Bet
         </button>

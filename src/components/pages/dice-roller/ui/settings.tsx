@@ -61,7 +61,7 @@ export default function Settings() {
       <button
         disabled={isRolling}
         type="submit"
-        className=" w-full mt-auto flex items-center justify-center bg-secondary min-h-12 rounded-xl text-primary font-semibold text-xl"
+        className=" w-full mt-auto flex items-center justify-center bg-gradient-custom min-h-12 rounded-xl text-primary font-semibold text-xl"
       >
         Bet
       </button>

@@ -3,14 +3,20 @@ module.exports = {
   content: ["./src/**/*.{js,jsx,ts,tsx}"],
   theme: {
     extend: {
+      backgroundImage: {
+        "gradient-custom":
+          "linear-gradient(128.49deg, #CB3CFF 19.86%, #7F25FB 68.34%)",
+      },
       colors: {
-        dark: "#181818",
+        pink: "#CB3CFF",
+        dark: "#0A1330",
         primary: "#FFFFFF",
         secondary: "#EB5E28",
-        muted: "#313131",
-        gray: "#B4B4B4",
-        advance: "#444444",
+        muted: "#0B1739",
+        gray: "#343B4F",
+        advance: "#0B1739",
         success: "#22c55e",
+        background: "#081028",
       },
       fontFamily: {
         primary: "DM Sans",
