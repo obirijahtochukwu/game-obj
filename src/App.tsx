@@ -22,7 +22,9 @@ function App() {
 
   return (
     <article className=" font-primary">
-      <div
+      <RouterProvider router={admin_router} />
+
+      {/* <div
         className={`${
           user.loggedIn != "pending" ? " h-0" : " h-1/2"
         } fixed top-0 w-screen bg-background z-50 duration-500`}
@@ -49,7 +51,7 @@ function App() {
         <div className="h-screen w-screen flex items-center justify-center text-3xl text-primary">
           <div className="bars"></div>
         </div>
-      )}
+      )} */}
     </article>
   );
 }
