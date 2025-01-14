@@ -170,3 +170,93 @@ export const betting_activity_chart = {
     labels: ["Dice roller", "Slot", "Aviator"],
   },
 };
+
+export const user_growth_chart = {
+  series: [
+    {
+      name: "series2",
+      data: [0, 32, 45, 32, 34, 52],
+      color: "#00C2FF",
+    },
+  ],
+
+  options: {
+    chart: {
+      height: "100%",
+      type: "area",
+      toolbar: {
+        show: false,
+      },
+    },
+    dataLabels: {
+      enabled: false,
+    },
+    stroke: {
+      curve: "smooth",
+    },
+    fill: {
+      type: "gradient", // Use gradient fill
+      gradient: {
+        shade: "light", // Shade type (light or dark)
+        type: "vertical", // Gradient direction
+        shadeIntensity: 0.5,
+        gradientToColors: ["#575DFF", "#57C3FF"], // Ending colors for each series
+        opacityFrom: 0.8, // Starting opacity
+        opacityTo: 0.3, // Ending opacity
+        stops: [0, 90, 100], // Gradient stops
+      },
+    },
+    colors: ["#575DFF", "#57C3FF"], // Colors for each series
+    xaxis: {
+      type: "category",
+      categories: ["Jan", "Feb", "Mar", "Apr", "May", "Jun"],
+
+      labels: {
+        show: true,
+        style: {
+          colors: "#ffffff80",
+          fontSize: "14px",
+          fontWeight: "500",
+          fontFamily: "quicksand",
+        },
+      },
+      axisTicks: {
+        show: false,
+      },
+    },
+    yaxis: {
+      lines: {
+        show: false,
+      },
+      min: 0,
+      max: 100,
+      tickAmount: 4,
+      labels: {
+        show: true,
+        style: {
+          colors: "#ffffff80",
+          fontSize: "14px",
+          fontWeight: "500",
+          fontFamily: "quicksand",
+        },
+      },
+    },
+    tooltip: {
+      style: {
+        fontSize: "12px",
+        backgroundColor: "#fff",
+        fontFamily: "quicksand",
+      },
+      onDatasetHover: {
+        style: {
+          fontSize: "12px",
+          fontFamily: undefined,
+        },
+      },
+      theme: "dark",
+    },
+    legend: {
+      show: false,
+    },
+  },
+};

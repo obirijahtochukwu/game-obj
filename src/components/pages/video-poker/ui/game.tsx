@@ -3,7 +3,7 @@ import gameSoundEffect from "../../../../lib/utils/game-sound-effect";
 import { video_poker_deck } from "../../../../lib/types";
 import { useVideoPokerContext } from "../context";
 import { evaluateHand, payoutTable } from "../utils";
-import { generateandomColor } from "../../../../lib/utils/generate-random-color";
+import { generateRandomColor } from "../../../../lib/utils/generate-random-color";
 
 const Game = () => {
   const {
@@ -54,7 +54,7 @@ const Game = () => {
         <section className=" flex flex-wrap gap-4">
           {Object.entries(payoutTable).map(([hand, multiplier]) => (
             <div
-              style={{ background: generateandomColor() }}
+              style={{ background: generateRandomColor() }}
               className=" w-max px-3 py-1 rounded-lg font-semibold"
               key={hand}
             >

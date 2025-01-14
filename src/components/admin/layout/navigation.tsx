@@ -8,12 +8,17 @@ export default function AdminNavigation({
   children: JSX.Element;
 }) {
   return (
-    <article className=" flex">
+    <article
+      // style={{ display: "grid", gridTemplateColumns: "288px auto" }}
+      className=" flex"
+    >
       <Sidebar />
-      <div className="w-full px-7 pb-10">
-        <Header />
-        {children}
-      </div>
+      <section className="w-full grid grid-cols-1">
+        <div className="px-7 pb-10">
+          <Header />
+          {children}
+        </div>
+      </section>
     </article>
   );
 }

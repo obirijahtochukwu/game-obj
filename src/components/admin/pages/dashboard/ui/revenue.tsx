@@ -23,11 +23,9 @@ export default function Revenue() {
           </div>
         </section>
       </div>
-      {/* @ts-ignore */}
       <ReactApexChart
         //  @ts-ignore
         options={revenue_chart.options}
-        //  @ts-ignore
         series={revenue_chart.series}
         type="area"
         height={350}

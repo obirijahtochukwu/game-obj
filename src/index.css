@@ -302,6 +302,7 @@ body {
 .radial-grad {
   background: radial-gradient(50% 50% at 50% 50%, #21cc63 0%, #168b37 100%);
 }
+
 input[type="checkbox"]:hover {
   opacity: 1;
 }
@@ -336,4 +337,10 @@ input[type="checkbox"]:before {
 
 input[type="checkbox"]:checked {
   background: #cb3cff;
+}
+
+.text-shadow-sm {
+  text-shadow: 0 0 1px #fff;
+  letter-spacing: 2px;
+
 }

@@ -5,6 +5,8 @@ import Navigation from "../components/layout/navigation";
 import Home from "../components/pages/home/page";
 import OrderList from "../components/admin/pages/order-lists/page";
 import Dashboard from "../components/admin/pages/dashboard/page";
+import GamesSports from "../components/admin/pages/games-sports/page";
+import Player from "../components/admin/pages/player/page";
 
 export const admin_router = createBrowserRouter([
   {
@@ -28,6 +30,22 @@ export const admin_router = createBrowserRouter([
     element: (
       <AdminNavigation>
         <Dashboard />
+      </AdminNavigation>
+    ),
+  },
+  {
+    path: "/admin/games",
+    element: (
+      <AdminNavigation>
+        <GamesSports />
+      </AdminNavigation>
+    ),
+  },
+  {
+    path: "/admin/player",
+    element: (
+      <AdminNavigation>
+        <Player />
       </AdminNavigation>
     ),
   },

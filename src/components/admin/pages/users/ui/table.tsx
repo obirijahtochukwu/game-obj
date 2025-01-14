@@ -1,5 +1,6 @@
 import React from "react";
 import { Icons } from "../../../../ui/icons";
+import { Link } from "react-router-dom";
 
 export default function Table() {
   return (
@@ -23,7 +24,7 @@ export default function Table() {
         {Array(7)
           .fill("")
           .map((e, idx) => (
-            <div className="w-fit min-w-full flex gap-14 items-center justify-between text-white text-sm font-medium pr-7 h-16 even:bg-dark">
+            <div className="w-fit min-w-full flex gap-14 items-center justify-between text-white text-sm font-medium pr-7 h-16 even:bg-dark font-advance">
               <div
                 className={`flex gap-14 items-center justify-between rounded-lg bg-Red sticky left-0 top-0 w-fit pl-6 bg-advance ${
                   idx % 2 == 0 && " bg-dark"
@@ -33,14 +34,17 @@ export default function Table() {
                   <input type="checkbox" name="" className="mr-5" id="" />
                   <div className="flex items-center gap-2 mt-auto bg-advance rounded-xl">
                     <img
-                      src="/media/home/assassins.png"
+                      src="/media/admin/user.png"
                       alt=""
                       className="h-7 w-7 rounded-full"
                     />
                     <div className="w-full">
-                      <div className="text-base font-medium leading-none">
+                      <Link
+                        to="/admin/player"
+                        className="text-base font-medium leading-none hover:underline"
+                      >
                         John Carter
-                      </div>
+                      </Link>
                       <div className="text-xs font-medium opacity-60">
                         john@google.com
                       </div>

@@ -8,6 +8,7 @@ module.exports = {
           "linear-gradient(128.49deg, #CB3CFF 19.86%, #7F25FB 68.34%)",
       },
       colors: {
+        error: "#F07B7B",
         pink: "#CB3CFF",
         dark: "#0A1330",
         primary: "#FFFFFF",
