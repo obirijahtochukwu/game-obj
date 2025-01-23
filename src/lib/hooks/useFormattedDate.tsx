@@ -16,5 +16,18 @@ export const useFormattedDate = () => {
     return formattedDate.replace(",", " |");
   };
 
-  return { formattedDate };
+  const extractDate = (dateString: string) => {
+    const options = {
+      year: "numeric",
+      month: "short", // Changed to 'short' for short month names (e.g., 'Jan')
+      day: "numeric",
+    };
+    const date = new Date(dateString);
+    // @ts-ignore
+    const formattedDate = date.toLocaleDateString("en-US", options);
+
+    return formattedDate;
+  };
+
+  return { formattedDate, extractDate };
 };

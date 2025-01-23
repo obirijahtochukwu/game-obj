@@ -1,23 +1,46 @@
+import {
+  AdminData,
+  topGames,
+  totalProfit,
+  userGrowth,
+} from "../../../../lib/types";
+import { getRequest } from "../../../../lib/utils/axios-helper";
+import { formattedNumber } from "../../../../lib/utils/formattedNumber";
 import { Icons } from "../../../ui/icons";
 
-export const dashboard_intro = [
-  { title: "Pageviews", value: "50.8K", percentage: "28.4%", Icon: Icons.view },
+export const dashboard_intro = (
+  page_views: number,
+  monthly_users: number,
+  new_signups: number,
+  total_payouts: number
+) => [
+  {
+    title: "Pageviews",
+    value: formattedNumber(page_views),
+    percentage: "28.4%",
+    Icon: Icons.view,
+  },
   {
     title: "Monthly users",
-    value: "23.6K",
+    value: formattedNumber(monthly_users),
     percentage: "12.6%",
     Icon: Icons.user,
   },
-  { title: "New sign ups", value: "756", percentage: "3.1%", Icon: Icons.add },
+  {
+    title: "New sign ups",
+    value: new_signups,
+    percentage: "3.1%",
+    Icon: Icons.add,
+  },
   {
     title: "Total payout",
-    value: "2.3K",
+    value: formattedNumber(total_payouts),
     percentage: "11.3%",
     Icon: Icons.star,
   },
 ];
 
-export const revenue_chart = {
+export const revenue_chart = (total_profit: totalProfit[]) => ({
   series: [
     {
       name: "series1",
@@ -25,8 +48,8 @@ export const revenue_chart = {
       color: "#CB3CFF",
     },
     {
-      name: "series2",
-      data: [11, 32, 45, 32, 34, 52, 41, 60, 50, 70, 80, 90],
+      name: "Game",
+      data: total_profit.map(({ profit }) => profit),
       color: "#00C2FF",
     },
   ],
@@ -54,7 +77,7 @@ export const revenue_chart = {
         gradientToColors: ["#575DFF", "#57C3FF"], // Ending colors for each series
         opacityFrom: 0.8, // Starting opacity
         opacityTo: 0.3, // Ending opacity
-        stops: [0, 90, 100], // Gradient stops
+        stops: [0, 60, 100], // Gradient stops
       },
     },
     colors: ["#575DFF", "#57C3FF"], // Colors for each series
@@ -93,7 +116,7 @@ export const revenue_chart = {
         show: false,
       },
       min: 0,
-      max: 150,
+      max: 1500,
       tickAmount: 5,
       labels: {
         show: true,
@@ -130,10 +153,13 @@ export const revenue_chart = {
       show: false,
     },
   },
-};
+});
 
-export const betting_activity_chart = {
-  series: [44, 55, 67],
+export const betting_activity_chart = (
+  totalPlays: number,
+  topGames: topGames[]
+) => ({
+  series: topGames.map(({ count }) => count),
   options: {
     chart: {
       height: 350,
@@ -154,7 +180,7 @@ export const betting_activity_chart = {
           },
           total: {
             show: true,
-            label: "70",
+            label: totalPlays,
             fontSize: "20px",
             paddingTop: "10px",
             color: "#fff",
@@ -167,15 +193,15 @@ export const betting_activity_chart = {
       },
     },
     colors: ["#CB3CFF", "#0E43FB", "#00C2FF"],
-    labels: ["Dice roller", "Slot", "Aviator"],
+    labels: topGames.map(({ _id }) => _id),
   },
-};
+});
 
-export const user_growth_chart = {
+export const user_growth_chart = (user_growth: userGrowth[]) => ({
   series: [
     {
-      name: "series2",
-      data: [0, 32, 45, 32, 34, 52],
+      name: "Registered users",
+      data: user_growth.map(({ userCount }) => userCount),
       color: "#00C2FF",
     },
   ],
@@ -229,7 +255,7 @@ export const user_growth_chart = {
         show: false,
       },
       min: 0,
-      max: 100,
+      max: user_growth.length * 8,
       tickAmount: 4,
       labels: {
         show: true,
@@ -259,4 +285,4 @@ export const user_growth_chart = {
       show: false,
     },
   },
-};
+});

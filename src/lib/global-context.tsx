@@ -1,10 +1,18 @@
 import axios from "axios";
-import React, { createContext, useContext, useEffect, useState } from "react";
-import { userData } from "./types";
+import React, {
+  createContext,
+  Dispatch,
+  useContext,
+  useEffect,
+  useState,
+} from "react";
+import { AdminData, userData } from "./types";
 import { backend_api } from "./constants";
 import { getStore, setStore } from "./utils/store";
 
 interface context {
+  admin?: AdminData;
+  setAdmin?: Dispatch<AdminData>;
   user?: userData;
   setUser?: React.Dispatch<userData>;
   logout?: () => void;
@@ -19,13 +27,15 @@ const AppProvider = ({ children }: { children: JSX.Element }) => {
     info: {},
     gameHistory: [],
   });
+  const [admin, setAdmin] = useState<AdminData>({
+    loggedIn: "pending",
+  });
 
   const logout = () => {
     localStorage.removeItem("token");
     axios
       .post(backend_api + "/logout", {}, { withCredentials: true })
       .then(() => {
-        console.log("");
         window.location.href = "/";
       });
   };
@@ -37,8 +47,10 @@ const AppProvider = ({ children }: { children: JSX.Element }) => {
         withCredentials: true,
       })
       .then((res) => {
-        console.log(res);
-        if (res.data.email) {
+        console.log(res.data);
+        if (res.data.token == "admin") {
+          setAdmin({ ...res.data, loggedIn: "admin" });
+        } else if (!res.data.token && res.data.email) {
           setUser({ ...user, info: res.data, loggedIn: "true" });
           getGamesHishtory(res.data._id, res.data);
         } else {
@@ -65,7 +77,9 @@ const AppProvider = ({ children }: { children: JSX.Element }) => {
   };
 
   return (
-    <AppContext.Provider value={{ user, setUser, logout, getGamesHishtory }}>
+    <AppContext.Provider
+      value={{ user, setUser, logout, getGamesHishtory, admin, setAdmin }}
+    >
       {children}
     </AppContext.Provider>
   );

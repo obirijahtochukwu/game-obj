@@ -1,10 +1,17 @@
 import React from "react";
 
 export const Buttons = {
-  primary: (props: React.ButtonHTMLAttributes<HTMLButtonElement>) => (
+  primary: (
+    props: React.ButtonHTMLAttributes<HTMLButtonElement> & {
+      classname?: string;
+    }
+  ) => (
     <button
       {...props}
-      className="h-10 w-full bg-primary flex items-center justify-center rounded-md font-semibold text-base text-dark"
+      className={
+        "h-10 w-full bg-gradient-custom flex items-center justify-center rounded-md font-semibold text-base text-dark " +
+        props.classname
+      }
     >
       {props.children}
     </button>

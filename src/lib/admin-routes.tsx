@@ -1,16 +1,28 @@
 import { createBrowserRouter } from "react-router-dom";
 import AdminNavigation from "../components/admin/layout/navigation";
 import Users from "../components/admin/pages/users/page";
-import Navigation from "../components/layout/navigation";
-import Home from "../components/pages/home/page";
+import Navigation from "../components/admin/layout/navigation";
 import OrderList from "../components/admin/pages/order-lists/page";
 import Dashboard from "../components/admin/pages/dashboard/page";
 import GamesSports from "../components/admin/pages/games-sports/page";
 import Player from "../components/admin/pages/player/page";
+import Login from "../components/admin/auth/login";
 
 export const admin_router = createBrowserRouter([
   {
-    path: "/admin/users",
+    path: "/login",
+    element: <Login />,
+  },
+  {
+    path: "/",
+    element: (
+      <AdminNavigation>
+        <div />
+      </AdminNavigation>
+    ),
+  },
+  {
+    path: "/users",
     element: (
       <AdminNavigation>
         <Users />
@@ -18,7 +30,7 @@ export const admin_router = createBrowserRouter([
     ),
   },
   {
-    path: "/admin/order-list",
+    path: "/order-list",
     element: (
       <AdminNavigation>
         <OrderList />
@@ -26,7 +38,7 @@ export const admin_router = createBrowserRouter([
     ),
   },
   {
-    path: "/admin/reports",
+    path: "/reports",
     element: (
       <AdminNavigation>
         <Dashboard />
@@ -34,7 +46,7 @@ export const admin_router = createBrowserRouter([
     ),
   },
   {
-    path: "/admin/games",
+    path: "/games",
     element: (
       <AdminNavigation>
         <GamesSports />
@@ -42,7 +54,7 @@ export const admin_router = createBrowserRouter([
     ),
   },
   {
-    path: "/admin/player",
+    path: "/user/:id",
     element: (
       <AdminNavigation>
         <Player />

@@ -10,7 +10,7 @@ import Login from "../components/pages/login/page";
 import Blackjack from "../components/pages/blackjack/page";
 import Roullete from "../components/pages/roullete/page";
 import VideoPoker from "../components/pages/video-poker/page";
-import AdminNavigation from "../components/admin/layout/navigation";
+import AdminNavigation from "../components/layout/navigation";
 
 export const router = createBrowserRouter([
   {
@@ -109,7 +109,7 @@ export const router = createBrowserRouter([
   },
 
   {
-    path: "/admin/reports",
+    path: "/reports",
     element: (
       <>
         <AdminNavigation>

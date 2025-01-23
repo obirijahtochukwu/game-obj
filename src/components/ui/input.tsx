@@ -37,9 +37,7 @@ export const Input = {
 
 const formInputClass = (animation: boolean) =>
   `${
-    animation
-      ? "text-sm bottom-7 text-primary/50 z-10 bg-muted/20"
-      : "bottom-1.5 -z-10"
+    animation ? "text-sm bottom-7 text-grey z-10 bg-muted" : "bottom-1.5 -z-10"
   } absolute ml-1 px-2 py-0.5 duration-200`;
 
 const formInputStyle =
@@ -60,7 +58,7 @@ export const FormInput = {
     }, [animation, props.value]);
 
     return (
-      <div className="relative h-fit z-10 bg-muted/40 rounded-md">
+      <div className="relative h-fit z-10 bg-muted rounded-md">
         <input
           {...props}
           ref={targetRef}
@@ -88,7 +86,7 @@ export const FormInput = {
     }, [animation, props.value]);
 
     return (
-      <div className="relative h-fit z-10 bg-muted/40 rounded-md">
+      <div className="relative h-fit z-10 bg-muted rounded-md">
         <input
           {...props}
           ref={targetRef}
@@ -115,7 +113,7 @@ export const FormInput = {
     }, [animation, props.value]);
 
     return (
-      <div className="relative h-fit z-10 bg-muted/40 rounded-md">
+      <div className="relative h-fit z-10 bg-muted rounded-md">
         <input
           {...props}
           ref={targetRef}
@@ -142,7 +140,7 @@ export const FormInput = {
     }, [animation, props.value]);
 
     return (
-      <div className="relative h-fit z-10 bg-muted/40 rounded-md">
+      <div className="relative h-fit z-10 bg-muted rounded-md">
         <input
           {...props}
           ref={targetRef}
@@ -169,7 +167,7 @@ export const FormInput = {
     }, [animation, props.value]);
 
     return (
-      <div className="relative h-fit z-10 bg-muted/40 rounded-md">
+      <div className="relative h-fit z-10 bg-muted rounded-md">
         <input
           {...props}
           ref={targetRef}

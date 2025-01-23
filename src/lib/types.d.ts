@@ -56,3 +56,74 @@ export interface payoutTable {
   TwoPair: number;
   OnePair: number;
 }
+
+export interface AdminData {
+  loggedIn?: string;
+  _id?: string;
+  page_views?: number;
+  monthly_users?: number;
+  new_signups?: number;
+  total_payouts?: number;
+  total_profit?: totalProfit[];
+  __v?: number;
+  id?: string;
+  name?: string;
+  email?: string;
+  token?: string;
+  topGames?: topGames[];
+  topPlayers?: topPlayer[];
+  user_growth?: userGrowth[];
+  average_bet_size?: number;
+  players_win_rate?: number;
+  total_players_session?: number;
+  game_and_sport_stats?: GameStatistics[];
+  inactive_users?: number;
+  players?: User[];
+}
+
+export interface topGames {
+  _id: string; // Game name
+  count: number; // Number of times played
+}
+
+export interface totalProfit {
+  month: string; // Game name
+  profit: number; // Number of times played
+}
+
+export interface topPlayer {
+  userId: {
+    _id: string;
+    email: string;
+  };
+  username: string | null;
+  email: string;
+  betCount: number;
+}
+
+export interface userGrowth {
+  _id: number | null;
+  month: string | null;
+  userCount: number;
+}
+
+export interface GameStatistics {
+  totalPlays: number;
+  totalPayout: number;
+  averageBetSize: number;
+  game: string;
+  winRate: number;
+  lossRate: number;
+  activePlayers: number;
+}
+
+export interface User {
+  _id: string;
+  name: string;
+  email: string;
+  password: string;
+  date_of_birth: string;
+  language: string;
+  createdAt: string;
+  totalPlays?: number; // Optional field
+}

@@ -1,7 +1,7 @@
 export const pages = [
-  { title: "Reports", url: "/admin/reports" },
-  { title: "Games", url: "/admin/games" },
-  { title: "Order List", url: "/admin/order-list" },
-  { title: "Users", url: "/admin/users" },
-  // { title: "Onboarding", url: "/admin/onboarding" },
+  { title: "Reports", url: "/reports" },
+  { title: "Games", url: "/games" },
+  { title: "Order List", url: "/order-list" },
+  { title: "Users", url: "/users" },
+  // { title: "Onboarding", url: "/onboarding" },
 ];
