@@ -1,19 +1,9 @@
-import {
-  AdminData,
-  topGames,
-  totalProfit,
-  userGrowth,
-} from "../../../../lib/types";
+import { AdminData, topGames, totalProfit, userGrowth } from "../../../../lib/types";
 import { getRequest } from "../../../../lib/utils/axios-helper";
 import { formattedNumber } from "../../../../lib/utils/formattedNumber";
 import { Icons } from "../../../ui/icons";
 
-export const dashboard_intro = (
-  page_views: number,
-  monthly_users: number,
-  new_signups: number,
-  total_payouts: number
-) => [
+export const dashboard_intro = (page_views: number, monthly_users: number, new_signups: number, total_payouts: number) => [
   {
     title: "Pageviews",
     value: formattedNumber(page_views),
@@ -83,20 +73,7 @@ export const revenue_chart = (total_profit: totalProfit[]) => ({
     colors: ["#575DFF", "#57C3FF"], // Colors for each series
     xaxis: {
       type: "category",
-      categories: [
-        "Jan",
-        "Feb",
-        "Mar",
-        "Apr",
-        "May",
-        "Jun",
-        "Jul",
-        "Aug",
-        "Sept",
-        "Oct",
-        "Nov",
-        "Dec",
-      ],
+      categories: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sept", "Oct", "Nov", "Dec"],
 
       labels: {
         show: true,
@@ -155,10 +132,7 @@ export const revenue_chart = (total_profit: totalProfit[]) => ({
   },
 });
 
-export const betting_activity_chart = (
-  totalPlays: number,
-  topGames: topGames[]
-) => ({
+export const betting_activity_chart = (totalPlays: number, topGames: topGames[]) => ({
   series: topGames.map(({ count }) => count),
   options: {
     chart: {
@@ -201,7 +175,7 @@ export const user_growth_chart = (user_growth: userGrowth[]) => ({
   series: [
     {
       name: "Registered users",
-      data: user_growth.map(({ userCount }) => userCount),
+      data: user_growth?.map(({ userCount }) => userCount),
       color: "#00C2FF",
     },
   ],
@@ -220,18 +194,7 @@ export const user_growth_chart = (user_growth: userGrowth[]) => ({
     stroke: {
       curve: "smooth",
     },
-    fill: {
-      type: "gradient", // Use gradient fill
-      gradient: {
-        shade: "light", // Shade type (light or dark)
-        type: "vertical", // Gradient direction
-        shadeIntensity: 0.5,
-        gradientToColors: ["#575DFF", "#57C3FF"], // Ending colors for each series
-        opacityFrom: 0.8, // Starting opacity
-        opacityTo: 0.3, // Ending opacity
-        stops: [0, 90, 100], // Gradient stops
-      },
-    },
+
     colors: ["#575DFF", "#57C3FF"], // Colors for each series
     xaxis: {
       type: "category",

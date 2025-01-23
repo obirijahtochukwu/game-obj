@@ -21,7 +21,7 @@ export default function Table({ userDetails }: any) {
           <div className="w-28 text-center">Total Payout ($)</div>
           <div className="w-32 text-center">Average Bet Siz ($)</div>
         </div>
-        {games.map(
+        {games?.map(
           (
             {
               game,

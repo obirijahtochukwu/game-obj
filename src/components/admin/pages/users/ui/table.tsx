@@ -11,13 +11,11 @@ export default function Table() {
   const { extractDate } = useFormattedDate();
 
   return (
-    <article className="rounded-lg border border-gray bg-advance mt-7 text-primary">
-      <div className=" p-6 pb-4 text-base font-medium border-b border-gray">
-        All Users
-      </div>
-      <main className="w-full overflow-x-auto custom-scrollbar">
-        <div className="w-fit min-w-full flex gap-14 items-center justify-between text-white text-sm font-medium pr-7 h-10 ">
-          <div className="flex gap-14 items-center justify-between rounded-lg bg-Red sticky left-0 top-0 w-fit pl-6 bg-advance">
+    <article className="mt-7 rounded-lg border border-gray bg-advance text-primary">
+      <div className="border-b border-gray p-6 pb-4 text-base font-medium">All Users</div>
+      <main className="custom-scrollbar w-full overflow-x-auto">
+        <div className="flex h-10 w-fit min-w-full items-center justify-between gap-14 pr-7 text-sm font-medium text-white">
+          <div className="bg-Red sticky left-0 top-0 flex w-fit items-center justify-between gap-14 rounded-lg bg-advance pl-6">
             <div className="w-52">
               <input type="checkbox" name="" className="mr-5" id="" />
               Name
@@ -29,40 +27,31 @@ export default function Table() {
           <div className="w-12"></div>
         </div>
         {players.map(({ _id, name, email, createdAt }, idx) => (
-          <div className="w-fit min-w-full flex gap-14 items-center justify-between text-white text-sm font-medium pr-7 h-16 even:bg-dark font-advance">
+          <div className="flex h-16 w-fit min-w-full items-center justify-between gap-14 pr-7 font-advance text-sm font-medium text-white even:bg-dark">
             <div
-              className={`flex gap-14 items-center justify-between rounded-lg bg-Red sticky left-0 top-0 w-fit pl-6 bg-advance ${
-                idx % 2 == 0 && " bg-dark"
+              className={`bg-Red sticky left-0 top-0 flex w-fit items-center justify-between gap-14 rounded-lg bg-advance pl-6 ${
+                idx % 2 == 0 && "bg-dark"
               }`}
             >
-              <div className="w-52 flex items-center">
+              <div className="flex w-52 items-center">
                 <input type="checkbox" name="" className="mr-5" id="" />
-                <div className="flex items-center gap-2 mt-auto bg-advance rounded-xl">
-                  <img
-                    src="/media/user.png"
-                    alt=""
-                    className="h-7 w-7 rounded-full"
-                  />
+                <div className="mt-auto flex items-center gap-2 rounded-xl">
+                  <img src="/media/user.png" alt="" className="h-7 w-7 rounded-full" />
                   <div className="w-full">
-                    <Link
-                      to={`/user/${_id}`}
-                      className="text-base font-medium leading-none hover:underline"
-                    >
+                    <Link to={`/user/${_id}`} className="text-base font-medium leading-none hover:underline">
                       {name}
                     </Link>
-                    <div className="text-xs font-medium opacity-60">
-                      {email}
-                    </div>
+                    <div className="text-xs font-medium opacity-60">{email}</div>
                   </div>
                 </div>
               </div>
               <div className="w-28">{idx + 1 * 0.05}Sol</div>
             </div>
             <div className="w-28">{extractDate(createdAt)}</div>
-            <div className="w-16 py-0.5 rounded-sm bg-success/15 text-success flex items-center justify-center gap-1">
+            <div className="flex w-16 items-center justify-center gap-1 rounded-sm bg-success/15 py-0.5 text-success">
               <div className="h-0.5 w-0.5 bg-success" /> Online
             </div>
-            <div className="w-12 flex items-center gap-1.5">
+            <div className="flex w-12 items-center gap-1.5">
               <Icons.edit />
               <Icons.delete />
             </div>

@@ -1,11 +1,5 @@
 import axios from "axios";
-import React, {
-  createContext,
-  Dispatch,
-  useContext,
-  useEffect,
-  useState,
-} from "react";
+import React, { createContext, Dispatch, useContext, useEffect, useState } from "react";
 import { AdminData, userData } from "./types";
 import { backend_api } from "./constants";
 import { getStore, setStore } from "./utils/store";
@@ -33,11 +27,9 @@ const AppProvider = ({ children }: { children: JSX.Element }) => {
 
   const logout = () => {
     localStorage.removeItem("token");
-    axios
-      .post(backend_api + "/logout", {}, { withCredentials: true })
-      .then(() => {
-        window.location.href = "/";
-      });
+    axios.post(backend_api + "/logout", {}, { withCredentials: true }).then(() => {
+      window.location.href = "/";
+    });
   };
 
   // fetch user details
@@ -47,7 +39,6 @@ const AppProvider = ({ children }: { children: JSX.Element }) => {
         withCredentials: true,
       })
       .then((res) => {
-        console.log(res.data);
         if (res.data.token == "admin") {
           setAdmin({ ...res.data, loggedIn: "admin" });
         } else if (!res.data.token && res.data.email) {
@@ -77,11 +68,7 @@ const AppProvider = ({ children }: { children: JSX.Element }) => {
   };
 
   return (
-    <AppContext.Provider
-      value={{ user, setUser, logout, getGamesHishtory, admin, setAdmin }}
-    >
-      {children}
-    </AppContext.Provider>
+    <AppContext.Provider value={{ user, setUser, logout, getGamesHishtory, admin, setAdmin }}>{children}</AppContext.Provider>
   );
 };
 

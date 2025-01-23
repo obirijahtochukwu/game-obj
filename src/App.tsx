@@ -1,12 +1,5 @@
 import React, { useEffect, useState } from "react";
-import {
-  BrowserRouter,
-  Navigate,
-  Route,
-  Router,
-  RouterProvider,
-  Routes,
-} from "react-router-dom";
+import { BrowserRouter, Navigate, Route, Router, RouterProvider, Routes } from "react-router-dom";
 import { router } from "./lib/routes";
 import axios from "axios";
 // import Login from "./components/pages/login/page";
@@ -22,20 +15,16 @@ function App() {
   const { user, admin } = useGlobalContext();
 
   return (
-    <article className=" font-primary">
+    <article className="font-primary">
       <div
         className={`${
-          user.loggedIn == "pending" && admin.loggedIn == "pending"
-            ? " h-1/2"
-            : "h-0"
-        } fixed top-0 w-screen bg-background z-50 duration-500`}
+          user.loggedIn == "pending" && admin.loggedIn == "pending" ? "h-1/2" : "h-0"
+        } fixed top-0 z-50 w-screen bg-background duration-500`}
       ></div>
       <div
         className={`${
-          user.loggedIn == "pending" && admin.loggedIn == "pending"
-            ? " h-1/2"
-            : "h-0"
-        } fixed bottom-0 w-screen bg-background z-50 duration-500`}
+          user.loggedIn == "pending" && admin.loggedIn == "pending" ? "h-1/2" : "h-0"
+        } fixed bottom-0 z-50 w-screen bg-background duration-500`}
       ></div>
       {user.loggedIn == "true" ? (
         <RouterProvider router={router} />
@@ -46,15 +35,20 @@ function App() {
           <>
             {/* <Navigate to="/login" /> */}
             <Routes>
-              {/* <Navigation>
-                <Route path="/login" element={<Home />} />
-              </Navigation> */}
+              <Route
+                path="/"
+                element={
+                  <Navigation>
+                    <Home />
+                  </Navigation>
+                }
+              />
               <Route path="/admin/login" element={<Login />} />
             </Routes>
           </>
         </BrowserRouter>
       ) : (
-        <div className="h-screen w-screen flex items-center justify-center text-3xl text-primary">
+        <div className="flex h-screen w-screen items-center justify-center text-3xl text-primary">
           <div className="bars"></div>
         </div>
       )}

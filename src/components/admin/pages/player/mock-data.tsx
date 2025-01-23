@@ -7,18 +7,16 @@ export const overview = (
   totalPlays: number
 ) => [
   { title: "Total Bets Placed", value: totalPlays },
-  { title: "Player Win Rate", value: `$${formattedNumber(totalProfit)}` },
+  { title: "Player Win Rate", value: `${Math.round(totalProfit)}%` },
   { title: "Average Bet Amount", value: `$${formattedNumber(averageBet)}` },
   { title: "Player balance", value: "$100k" },
 ];
 
-const gameNames = games.map(({ name }) => `${name}`);
-
-export const profit = {
+export const profit = (games: any) => ({
   series: [
     {
-      name: "series2",
-      data: [100, 32, 45, 92, 65, 34, 52, 67, 80, 90],
+      name: "Profit",
+      data: games?.map(({ profit }) => profit),
       color: "#00C2FF",
     },
   ],
@@ -26,7 +24,7 @@ export const profit = {
   options: {
     chart: {
       height: "100%",
-      type: "area",
+      type: "bar",
       toolbar: {
         show: false,
       },
@@ -37,22 +35,11 @@ export const profit = {
     stroke: {
       curve: "smooth",
     },
-    fill: {
-      type: "gradient", // Use gradient fill
-      gradient: {
-        shade: "light", // Shade type (light or dark)
-        type: "vertical", // Gradient direction
-        shadeIntensity: 0.5,
-        gradientToColors: ["#575DFF", "#57C3FF"], // Ending colors for each series
-        opacityFrom: 0.8, // Starting opacity
-        opacityTo: 0.3, // Ending opacity
-        stops: [0, 90, 100], // Gradient stops
-      },
-    },
+
     colors: ["#575DFF", "#57C3FF"], // Colors for each series
     xaxis: {
       type: "category",
-      categories: gameNames,
+      categories: games?.map(({ game }) => game),
 
       labels: {
         show: true,
@@ -72,7 +59,7 @@ export const profit = {
         show: false,
       },
       min: 0,
-      max: 100,
+      max: 1000,
       tickAmount: 4,
       labels: {
         show: true,
@@ -109,4 +96,4 @@ export const profit = {
       show: false,
     },
   },
-};
+});
