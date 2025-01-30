@@ -9,9 +9,6 @@ import { Base64 } from "js-base64";
 
 export default function Games() {
   const { match } = useGlobalContext();
-  const [img, setImg] = useState("");
-  const [h, setH] = useState("");
-  const [bet, setBet] = useState({ state: false, title: "" });
   const [team, setTeam] = useState(() => ({
     state: false,
     data: {},
@@ -22,16 +19,13 @@ export default function Games() {
     const leagueId = 39;
     const fetchMatches = async () => {
       try {
-        const fixturesResponse = await axios.get(
-          `https://allsportsapi2.p.rapidapi.com/api/cricket/team/187765`,
-          {
-            headers: {
-              "x-rapidapi-host": "allsportsapi2.p.rapidapi.com",
-              "x-rapidapi-key":
-                "63360b5a3amsh4e0bc66f94f70c0p17ceaajsn0e6df622a18c",
-            },
-          }
-        );
+        const fixturesResponse = await axios.get(`https://allsportsapi2.p.rapidapi.com/api/cricket/team/187765`, {
+          headers: {
+            "x-rapidapi-host": "allsportsapi2.p.rapidapi.com",
+            "x-rapidapi-key": "63360b5a3amsh4e0bc66f94f70c0p17ceaajsn0e6df622a18c",
+          },
+        });
+        console.log(fixturesResponse);
       } catch (error) {
         console.error("Error fetching data:", error);
       }
@@ -41,8 +35,6 @@ export default function Games() {
   }, []);
 
   useEffect(() => {
-    console.log(team.state);
-
     if (team.state) {
       document.body.style.overflowY = "hidden";
     } else {
@@ -57,17 +49,15 @@ export default function Games() {
   };
 
   return (
-    <section className=" grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6 max-sm:max-w-md max-sm:mx-auto mt-10">
+    <section className="mt-10 grid grid-cols-1 gap-6 max-sm:mx-auto max-sm:max-w-md sm:grid-cols-2 xl:grid-cols-3">
       {team.state ? <TeamDetails {...props} /> : false}
       {match.odds?.map((prop, idx) => (
         <div
           key={idx}
           onClick={() => setTeam({ state: true, data: prop })}
-          className=" bg-muted rounded-2xl flex flex-col min-h-64 gap-4 p-4 text-primary cursor-pointer hover:scale-105 duration-200 hover:border-primary border-2 border-transparent"
+          className="flex min-h-64 cursor-pointer flex-col gap-4 rounded-2xl border-2 border-transparent bg-muted p-4 text-primary duration-200 hover:scale-105 hover:border-primary"
         >
-          <div className=" text-xl font-semibold tracking-tight">
-            {prop.league.name}
-          </div>
+          <div className="text-xl font-semibold tracking-tight">{prop.league.name}</div>
           <section className="flex items-center justify-between">
             <div className="">
               <div className="flex items-center gap-2 text-lg font-medium">
@@ -75,31 +65,31 @@ export default function Games() {
 
                 {prop.teams.home.name}
               </div>
-              <div className="flex items-center gap-2 text-lg font-medium mt-6">
+              <div className="mt-6 flex items-center gap-2 text-lg font-medium">
                 <img src={prop.teams.away.logo} alt="" className="h-8 w-8" />
                 {prop.teams.away.name}
               </div>
             </div>
-            <div className=" text-lg font-medium">VS</div>
+            <div className="text-lg font-medium">VS</div>
             <div>
-              <div className=" w-14 h-8 rounded-lg flex items-center justify-center bg-primary/20 text-base font-medium">
+              <div className="flex h-8 w-14 items-center justify-center rounded-lg bg-primary/20 text-base font-medium">
                 {prop.odd.values[0].odd}
               </div>
-              <div className="mt-6 w-14 h-8 rounded-lg flex items-center justify-center bg-primary/20 text-base font-medium">
+              <div className="mt-6 flex h-8 w-14 items-center justify-center rounded-lg bg-primary/20 text-base font-medium">
                 {prop.odd.values[2].odd}
               </div>
             </div>
           </section>
-          <section className="flex flex-wrap gap-2 mt-auto">
-            <div className="h-10 rounded-lg bg-primary/20 flex items-center justify-between gap-4 px-3 text-base font-medium">
+          <section className="mt-auto flex flex-wrap gap-2">
+            <div className="flex h-10 items-center justify-between gap-4 rounded-lg bg-primary/20 px-3 text-base font-medium">
               {prop.teams.home.name}
               <div className="">{toPercentage(prop.odd.values[0].odd)}</div>
             </div>
-            <div className=" h-10 rounded-lg bg-primary/20 flex items-center justify-between gap-4 px-3 text-base font-medium">
+            <div className="flex h-10 items-center justify-between gap-4 rounded-lg bg-primary/20 px-3 text-base font-medium">
               Draw
               <div className="">{toPercentage(prop.odd.values[1].odd)}</div>
             </div>
-            <div className="h-10 rounded-lg bg-primary/20 flex items-center justify-between gap-4 px-3 text-base font-medium">
+            <div className="flex h-10 items-center justify-between gap-4 rounded-lg bg-primary/20 px-3 text-base font-medium">
               {prop.teams.away.name}
               <div className="">{toPercentage(prop.odd.values[2].odd)}</div>
             </div>

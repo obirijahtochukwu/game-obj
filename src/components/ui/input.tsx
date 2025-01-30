@@ -29,127 +29,54 @@ export const Input = {
         disabled={disabled}
         value={value}
         placeholder="0.00"
-        className="h-14 w-full bg-muted border border-gray rounded-lg font-semibold text-base text-primary px-3 py-1.5 mt-2 focus:outline-none"
+        className="mt-2 h-14 w-full rounded-lg border border-gray bg-dark px-3 py-1.5 text-base font-semibold text-primary focus:outline-none"
       />
     );
   },
 };
 
-const formInputClass = (animation: boolean) =>
-  `${
-    animation ? "text-sm bottom-7 text-grey z-10 bg-muted" : "bottom-1.5 -z-10"
-  } absolute ml-1 px-2 py-0.5 duration-200`;
+const formInputClass = `absolute bottom-1.5 left-1 -z-10 px-2 py-0.5 text-grey duration-300`;
 
-const formInputStyle =
-  "h-10 w-full bg-transparent px-4 py-2 text-base text-primary focus:outline-none z-10 text-primary";
+const formInputStyle = "h-10 w-full bg-transparent px-4 py-2 text-base text-primary focus:outline-none z-10 text-primary";
 
 export const FormInput = {
   text: (props?: inputEvent) => {
-    const [animation, setAnimation] = useState(false);
-    const { targetRef } = useClick.manual({
-      isOpen: animation,
-      setIsOpen: setAnimation,
-    });
-
-    useEffect(() => {
-      if (targetRef.current.value) {
-        setAnimation(true);
-      }
-    }, [animation, props.value]);
-
     return (
-      <div className="relative h-fit z-10 bg-muted rounded-md">
-        <input
-          {...props}
-          ref={targetRef}
-          onFocus={() => setAnimation(true)}
-          onClick={() => setAnimation(true)}
-          type="text"
-          placeholder=""
-          className={formInputStyle}
-        />
-        <div className={formInputClass(animation)}>{props?.placeholder}</div>
+      <div className="relative z-10 h-fit rounded-md bg-dark">
+        <input {...props} id="input-anime" type="text" placeholder="" className={formInputStyle} />
+        <label htmlFor="input-anime" className={formInputClass}>
+          {props?.placeholder}
+        </label>
       </div>
     );
   },
   email: (props?: inputEvent) => {
-    const [animation, setAnimation] = useState(false);
-    const { targetRef } = useClick.manual({
-      isOpen: animation,
-      setIsOpen: setAnimation,
-    });
-
-    useEffect(() => {
-      if (targetRef.current.value) {
-        setAnimation(true);
-      }
-    }, [animation, props.value]);
-
     return (
-      <div className="relative h-fit z-10 bg-muted rounded-md">
-        <input
-          {...props}
-          ref={targetRef}
-          onClick={() => setAnimation(true)}
-          type="email"
-          placeholder=""
-          className={formInputStyle}
-        />
-        <div className={formInputClass(animation)}>{props?.placeholder}</div>
+      <div className="relative z-10 h-fit rounded-md bg-dark">
+        <input {...props} id="input-anime-email" type="email" placeholder="" className={formInputStyle} />
+        <label htmlFor="input-anime-email" className={formInputClass}>
+          {props?.placeholder}
+        </label>
       </div>
     );
   },
   password: (props?: inputEvent) => {
-    const [animation, setAnimation] = useState(false);
-    const { targetRef } = useClick.manual({
-      isOpen: animation,
-      setIsOpen: setAnimation,
-    });
-
-    useEffect(() => {
-      if (targetRef.current.value) {
-        setAnimation(true);
-      }
-    }, [animation, props.value]);
-
     return (
-      <div className="relative h-fit z-10 bg-muted rounded-md">
-        <input
-          {...props}
-          ref={targetRef}
-          onClick={() => setAnimation(true)}
-          type="password"
-          placeholder=""
-          className={formInputStyle}
-        />
-        <div className={formInputClass(animation)}>{props?.placeholder}</div>
+      <div className="relative z-10 h-fit rounded-md bg-dark">
+        <input {...props} id="input-anime-password" type="password" placeholder="" className={formInputStyle} />
+        <label htmlFor="input-anime-password" className={formInputClass}>
+          {props?.placeholder}
+        </label>
       </div>
     );
   },
   number: (props?: inputEvent) => {
-    const [animation, setAnimation] = useState(false);
-    const { targetRef } = useClick.manual({
-      isOpen: animation,
-      setIsOpen: setAnimation,
-    });
-
-    useEffect(() => {
-      if (targetRef.current.value) {
-        setAnimation(true);
-      }
-    }, [animation, props.value]);
-
     return (
-      <div className="relative h-fit z-10 bg-muted rounded-md">
-        <input
-          {...props}
-          ref={targetRef}
-          onClick={() => setAnimation(true)}
-          type="text"
-          placeholder=""
-          className={formInputStyle}
-        />
-        <div className={formInputClass(animation)}>{props?.placeholder}</div>
+      <div className="relative z-10 h-fit rounded-md bg-dark">
+        <input {...props} id="input-anime-number" type="text" placeholder="" className={formInputStyle} />
+        <label htmlFor="input-anime-number" className={formInputClass}>
+          {props?.placeholder}
+        </label>
       </div>
     );
   },
@@ -167,23 +94,29 @@ export const FormInput = {
     }, [animation, props.value]);
 
     return (
-      <div className="relative h-fit z-10 bg-muted rounded-md">
+      <div className="relative z-10 h-fit rounded-md bg-dark">
         <input
           {...props}
+          id="input-anime-date"
           ref={targetRef}
           onClick={() => setAnimation(true)}
           type="date"
+          name="placeholder"
+          placeholder=""
           className={formInputStyle + `${animation || " date"}`}
         />
 
-        <div className={formInputClass(animation)}>{props?.placeholder}</div>
+        <label htmlFor="input-anime-date" className={formInputClass}>
+          {props?.placeholder}
+        </label>
       </div>
     );
   },
   setting: (props?: inputEvent) => (
     <input
       {...props}
-      className="h-14 w-full bg-muted border border-gray rounded-lg flex items-center justify-between font-semibold text-base text-primary px-3 py-1.5 mt-2 gap-3"
+      id="input-anime"
+      className="mt-2 flex h-14 w-full items-center justify-between gap-3 rounded-lg border border-gray bg-dark px-3 py-1.5 text-base font-semibold text-primary"
     />
   ),
 };

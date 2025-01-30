@@ -11,6 +11,8 @@ interface context {
   setUser?: React.Dispatch<userData>;
   logout?: () => void;
   getGamesHishtory?: (id: string, userInfo: userData) => void;
+  refresh?: boolean;
+  setRefresh?: Dispatch<boolean>;
 }
 
 const AppContext = createContext<context>({});
@@ -21,6 +23,7 @@ const AppProvider = ({ children }: { children: JSX.Element }) => {
     info: {},
     gameHistory: [],
   });
+  const [refresh, setRefresh] = useState(false);
   const [admin, setAdmin] = useState<AdminData>({
     loggedIn: "pending",
   });
@@ -32,15 +35,19 @@ const AppProvider = ({ children }: { children: JSX.Element }) => {
     });
   };
 
-  // fetch user details
+  // fetch user data
+  console.log(typeof `${getStore("token")}`);
+
   useEffect(() => {
     axios
       .get(backend_api + "/user/" + getStore("token"), {
         withCredentials: true,
       })
       .then((res) => {
+        console.log(res.data);
         if (res.data.token == "admin") {
           setAdmin({ ...res.data, loggedIn: "admin" });
+          console.log(res.data);
         } else if (!res.data.token && res.data.email) {
           setUser({ ...user, info: res.data, loggedIn: "true" });
           getGamesHishtory(res.data._id, res.data);
@@ -50,9 +57,9 @@ const AppProvider = ({ children }: { children: JSX.Element }) => {
       })
       .catch((err) => {
         setUser({ ...user, loggedIn: "false" });
-        console.log(err);
-      });
-  }, []);
+      })
+      .finally(() => setRefresh(false));
+  }, [refresh]);
 
   // fetch game history
   const getGamesHishtory = (id: string, userInfo: userData) => {
@@ -62,13 +69,14 @@ const AppProvider = ({ children }: { children: JSX.Element }) => {
       })
       .then((res) => {
         setUser({ info: userInfo, loggedIn: "true", gameHistory: res.data });
-        console.log(res.data);
       })
-      .catch((err) => console.log(err));
+      .catch((err) => {});
   };
 
   return (
-    <AppContext.Provider value={{ user, setUser, logout, getGamesHishtory, admin, setAdmin }}>{children}</AppContext.Provider>
+    <AppContext.Provider value={{ user, setUser, logout, getGamesHishtory, admin, setAdmin, setRefresh }}>
+      {children}
+    </AppContext.Provider>
   );
 };
 

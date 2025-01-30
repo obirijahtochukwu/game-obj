@@ -1,10 +1,4 @@
-import React, {
-  createContext,
-  Dispatch,
-  useContext,
-  useEffect,
-  useState,
-} from "react";
+import React, { createContext, Dispatch, useContext, useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import { submitGame } from "../../../lib/utils/submit-game";
 import { useGlobalContext } from "../../../lib/global-context";
@@ -117,7 +111,6 @@ const AppProvider = ({ children }) => {
     setGameDeck(combinations);
   };
   // TODO: Handle game logic at Game start
-  console.log(gameDeck);
 
   useEffect(() => {
     if (playerHand.length === 0 && dealerHand.length === 0) {

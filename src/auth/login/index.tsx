@@ -19,30 +19,17 @@ export default function Login({ isLogin, setIsLogin }) {
       .then((response) => {
         setStore("token", response.data.token);
         setForm({ email: "", password: "" });
-        console.log(response);
         window.location.href = "/";
       })
-      .catch((err) => {
-        console.log(err);
-      });
+      .catch((err) => {});
   };
 
   return (
-    <Modal
-      isOpen={isLogin}
-      setIsOpen={setIsLogin}
-      classname="!w-full max-w-md !min-h-96 !pt-3.5 !rounded-2xl !bg-dark"
-    >
-      <form
-        onSubmit={handleSubmit}
-        className="flex flex-col gap-6 text-primary"
-      >
-        <header className=" flex justify-between items-center">
-          <div className=" text-2xl font-semibold">Webet</div>
-          <div
-            onClick={() => setIsLogin(false)}
-            className=" text-lg font-medium cursor-pointer"
-          >
+    <Modal isOpen={isLogin} setIsOpen={setIsLogin} classname="!w-full max-w-md !min-h-96 !pt-3.5 !rounded-2xl !bg-dark">
+      <form onSubmit={handleSubmit} className="flex flex-col gap-6 text-primary">
+        <header className="flex items-center justify-between">
+          <div className="text-2xl font-semibold">Webet</div>
+          <div onClick={() => setIsLogin(false)} className="cursor-pointer text-lg font-medium">
             Exit
           </div>
         </header>
@@ -50,37 +37,28 @@ export default function Login({ isLogin, setIsLogin }) {
           required
           autoFocus
           value={form.email}
-          onChange={(e: changeEvent) =>
-            setForm({ ...form, email: e.target.value })
-          }
+          onChange={(e: changeEvent) => setForm({ ...form, email: e.target.value })}
           placeholder="Email"
         />
         <FormInput.password
           required
           value={form.password}
-          onChange={(e: changeEvent) =>
-            setForm({ ...form, password: e.target.value })
-          }
+          onChange={(e: changeEvent) => setForm({ ...form, password: e.target.value })}
           placeholder="Password"
         />
         <Buttons.primary>Sign in</Buttons.primary>
-        <section className=" flex items-center gap-3 text-lg font-semibold">
-          <div className=" w-full h-px bg-advance" />
+        <section className="flex items-center gap-3 text-lg font-semibold">
+          <div className="h-px w-full bg-advance" />
           OR
-          <div className=" w-full h-px bg-advance" />
+          <div className="h-px w-full bg-advance" />
         </section>
-        <div className=" text-sm font-normal text-center">
-          <section className=" flex justify-center items-center gap-4 mb-4">
-            {[<Icons.facebook />, <Icons.google />, <Icons.telegram />].map(
-              (Icon, idx) => (
-                <div
-                  key={idx}
-                  className="p-4 bg-muted rounded-full cursor-pointer"
-                >
-                  {Icon}
-                </div>
-              )
-            )}
+        <div className="text-center text-sm font-normal">
+          <section className="mb-4 flex items-center justify-center gap-4">
+            {[<Icons.facebook />, <Icons.google />, <Icons.telegram />].map((Icon, idx) => (
+              <div key={idx} className="cursor-pointer rounded-full bg-muted p-4">
+                {Icon}
+              </div>
+            ))}
           </section>{" "}
           Already have an account? Sign in
         </div>

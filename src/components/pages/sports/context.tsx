@@ -16,10 +16,7 @@ const AppProvider = ({ children }) => {
 
   function League(league: string, country: string) {
     const item = (name: string, nation: string) =>
-      league.toLowerCase() == name.toLowerCase() &&
-      country.toLowerCase() == nation.toLowerCase()
-        ? true
-        : false;
+      league.toLowerCase() == name.toLowerCase() && country.toLowerCase() == nation.toLowerCase() ? true : false;
 
     const top_league =
       item("Premier League", "england") ||
@@ -37,18 +34,13 @@ const AppProvider = ({ children }) => {
     const leagueId = 39;
     const fetchMatches = async () => {
       try {
-        const fixturesResponse = await axios.get(
-          `${api.football_url}fixtures?date=${new Date()
-            .toISOString()
-            .slice(0, 10)}`,
-          { headers: api.football_headers }
-        );
+        const fixturesResponse = await axios.get(`${api.football_url}fixtures?date=${new Date().toISOString().slice(0, 10)}`, {
+          headers: api.football_headers,
+        });
 
         setMatch({
           ...match,
-          fixtues: fixturesResponse.data.response.filter((item) =>
-            League(item.league.name, item.league.country)
-          ),
+          fixtues: fixturesResponse.data.response.filter((item) => League(item.league.name, item.league.country)),
         });
       } catch (error) {
         console.error("Error fetching data:", error);
@@ -69,30 +61,22 @@ const AppProvider = ({ children }) => {
         match.fixtues
           .filter((item, index) => index < 100)
           .map(async (props, idx) => {
-            const odd = await axios.get(
-              `${api.football_url}odds?fixture=${props.fixture.id}`,
-              { headers: api.football_headers }
-            );
+            const odd = await axios.get(`${api.football_url}odds?fixture=${props.fixture.id}`, { headers: api.football_headers });
             return {
               ...props,
               odd: odd.data.response[0]?.bookmakers[0].bets[0],
             };
-          })
+          }),
       );
       return odds;
     };
 
     if (match.fixtues.length > 1) {
-      matchesWithOdds().then((odds) =>
-        setMatch({ fixtues: [], odds: odds.filter(({ odd }) => odd?.id) })
-      );
+      matchesWithOdds().then((odds) => setMatch({ fixtues: [], odds: odds.filter(({ odd }) => odd?.id) }));
     }
   }, [match.fixtues.length]);
-  console.log(match?.fixtues);
 
-  return (
-    <AppContext.Provider value={{ match }}>{children}</AppContext.Provider>
-  );
+  return <AppContext.Provider value={{ match }}>{children}</AppContext.Provider>;
 };
 
 // Custom hook for context

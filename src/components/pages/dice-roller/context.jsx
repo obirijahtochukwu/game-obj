@@ -47,7 +47,7 @@ const AppProvider = ({ children }) => {
             result: winCondition,
             betAmount: betAmount,
             multiplier: multiplier,
-            payout: +profitOnWin,
+            payout: finalResult > winningTarget ? +profitOnWin : 0,
           },
           getHistory
         );

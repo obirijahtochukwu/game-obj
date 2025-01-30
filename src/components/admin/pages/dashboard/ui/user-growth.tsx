@@ -5,7 +5,6 @@ import { useGlobalContext } from "../../../../../lib/global-context";
 
 export default function UserGrowth() {
   const user_growth = useGlobalContext().admin.user_growth.filter(({ month }) => month != null);
-  console.log(user_growth);
   const { options, series } = user_growth_chart(user_growth);
 
   return (

@@ -16,7 +16,6 @@ export default function Player() {
       .get(`${backend_api}/admin/player/${pathname}`)
       .then((res) => {
         setuserDetails(res.data);
-        console.log(res.data);
         setIsLoading(false);
       })
       .catch(() => setIsLoading(false));
@@ -27,7 +26,7 @@ export default function Player() {
   return (
     <article className="text-primary">
       <Header {...props} />
-      <section className="text-primary grid grid-cols-12 gap-7 mt-7">
+      <section className="mt-7 grid grid-cols-12 gap-7 text-primary">
         <Profit {...props} />
         <Table {...props} />
       </section>

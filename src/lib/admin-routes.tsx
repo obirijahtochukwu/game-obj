@@ -10,14 +10,10 @@ import Login from "../components/admin/auth/login";
 
 export const admin_router = createBrowserRouter([
   {
-    path: "/login",
-    element: <Login />,
-  },
-  {
     path: "/",
     element: (
       <AdminNavigation>
-        <div />
+        <Dashboard />
       </AdminNavigation>
     ),
   },

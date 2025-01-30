@@ -4,6 +4,7 @@ import { useGlobalContext } from "../../lib/global-context";
 import formatDateToTime from "../../lib/utils/formatDateToTime";
 import { gameHistory, userData } from "../../lib/types";
 import filterTableLabelsByCondition from "../../lib/utils/filter-table-labels-by-condition ";
+import { formattedNumber } from "../../lib/utils/formattedNumber";
 
 export default function Table({
   title,
@@ -22,10 +23,8 @@ export default function Table({
   const itemsPerPage = 5;
   const totalPage = Math.ceil(data.length / itemsPerPage);
 
-  const currentData = data.slice(
-    (currentPage - 1) * itemsPerPage,
-    currentPage * itemsPerPage
-  );
+  const reversedData = data.reverse();
+  const currentData = reversedData.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage);
 
   const handleFilterChange = (name: string) => {
     const isExistingLabel = filterLabels.includes(name);
@@ -33,33 +32,13 @@ export default function Table({
       setFilterLabels(filterLabels.filter((e: string) => e != name));
     } else {
       if (name == "all bets") {
-        filterTableLabelsByCondition(
-          filterLabels,
-          user.info._id,
-          name,
-          setFilterLabels
-        );
+        filterTableLabelsByCondition(filterLabels, user.info._id, name, setFilterLabels);
       } else if (name == user.info._id) {
-        filterTableLabelsByCondition(
-          filterLabels,
-          "all bets",
-          name,
-          setFilterLabels
-        );
+        filterTableLabelsByCondition(filterLabels, "all bets", name, setFilterLabels);
       } else if (name == "win") {
-        filterTableLabelsByCondition(
-          filterLabels,
-          "loss",
-          name,
-          setFilterLabels
-        );
+        filterTableLabelsByCondition(filterLabels, "loss", name, setFilterLabels);
       } else if (name == "loss") {
-        filterTableLabelsByCondition(
-          filterLabels,
-          "win",
-          name,
-          setFilterLabels
-        );
+        filterTableLabelsByCondition(filterLabels, "win", name, setFilterLabels);
       } else {
         setFilterLabels([...filterLabels, name]);
       }
@@ -71,12 +50,10 @@ export default function Table({
   }, [filterLabels]);
 
   return (
-    <article className=" bg-advance rounded-3xl pb-4 pt-6">
-      <div className="flex justify-between items-center text-4xl font-semibold text-primary px-4">
-        {title}
-      </div>
-      <section className="w-full overflow-x-auto hide-scrollbar px-4">
-        <div className="flex items-center mt-5 gap-4 w-fit">
+    <article className="rounded-3xl bg-advance pb-4 pt-6">
+      <div className="flex items-center justify-between px-4 text-4xl font-semibold text-primary">{title}</div>
+      <section className="hide-scrollbar w-full overflow-x-auto px-4">
+        <div className="mt-5 flex w-fit items-center gap-4">
           {[
             { value: "all bets", label: "all bets" },
             { value: `${user.info._id}`, label: "my bets" },
@@ -90,90 +67,66 @@ export default function Table({
                 handleFilterChange(value);
               }}
               className={`${
-                filterLabels.find((e) => e == value)
-                  ? " bg-primary/80 text-dark"
-                  : "border-primary/60 text-primary/80 "
-              } flex items-center px-4 h-12 rounded-lg border text-base font-semibold cursor-pointer truncate duration-300 capitalize`}
+                filterLabels.find((e) => e == value) ? "bg-primary/80 text-dark" : "border-primary/60 text-primary/80"
+              } flex h-12 cursor-pointer items-center truncate rounded-lg border px-4 text-base font-semibold capitalize duration-300`}
             >
               {label}
             </div>
           ))}
-          <div className=" px-4 h-12 rounded-lg border border-primary/60 text-primary/80 text-base font-semibold flex items-center gap-3">
+          <div className="flex h-12 items-center gap-3 rounded-lg border border-primary/60 px-4 text-base font-semibold text-primary/80">
             {currentPage}/{totalPage}
             <div className={totalPage == 1 && "hidden"}>
               <Icons.arrow
                 onClick={() => setCurrentPage(currentPage + 1)}
                 color="#ffffff90"
                 className={
-                  data.length / itemsPerPage > currentPage
-                    ? " -rotate-90 h-4 cursor-pointer"
-                    : " -rotate-90 h-4 invisible"
+                  data.length / itemsPerPage > currentPage ? "h-4 -rotate-90 cursor-pointer" : "invisible h-4 -rotate-90"
                 }
               />
               <Icons.arrow
                 onClick={() => setCurrentPage(currentPage - 1)}
                 color="#ffffff90"
-                className={
-                  currentPage == 1
-                    ? " -rotate-90 h-4 invisible"
-                    : " rotate-90 h-4 cursor-pointer"
-                }
+                className={currentPage == 1 ? "invisible h-4 -rotate-90" : "h-4 rotate-90 cursor-pointer"}
               />
             </div>
           </div>
         </div>
       </section>
-      <main className="w-full h-[340px] overflow-x-auto mt-9 custom-scrollbar rounded-lg">
+      <main className="custom-scrollbar mt-9 h-[340px] w-full overflow-x-auto rounded-lg">
         {currentData.length > 0 ? (
           <>
-            <div className="bg-Red w-fit min-w-full flex gap-14 items-center justify-between text-white font-medium pr-7 h-14 border-gray border-b">
-              <div className="flex gap-14 items-center justify-between rounded-lg bg-Red sticky left-0 top-0 w-fit pl-10 bg-advance">
+            <div className="bg-Red flex h-14 w-fit min-w-full items-center justify-between gap-14 border-b border-gray pr-7 font-medium text-white">
+              <div className="bg-Red sticky left-0 top-0 flex w-fit items-center justify-between gap-14 rounded-lg bg-advance pl-7">
                 <div className="w-36">Game</div>
-                <div className="w-36">User</div>
+                <div className="w-36">User Name</div>
               </div>
-              <div className="w-36">Time</div>
-              <div className="w-36">Bet Amount</div>
-              <div className="w-36">Multiplier</div>
-              <div className="w-36">Payout</div>
+              <div className="w-20 text-center">Time</div>
+              <div className="w-20 whitespace-nowrap text-center">Bet Amount</div>
+              <div className="w-20">Multiplier</div>
+              <div className="w-20 text-right">Payout</div>
             </div>
-            {currentData?.map(
-              (
-                {
-                  betAmount,
-                  createdAt,
-                  game,
-                  multiplier,
-                  payout,
-                  result,
-                  username,
-                },
-                id
-              ) => (
+            {currentData?.map(({ betAmount, createdAt, game, multiplier, payout, result, username }, id) => (
+              <div
+                key={id}
+                className="flex h-14 w-fit min-w-full items-center justify-between gap-14 pr-7 font-advance text-base font-medium text-primary/80 odd:bg-dark"
+              >
                 <div
-                  key={id}
-                  className="odd:bg-dark h-14 w-fit min-w-full flex gap-14 items-center justify-between text-primary/80 font-medium text-base pr-7"
+                  className={`sticky left-0 top-0 flex h-full w-fit items-center justify-between gap-14 bg-advance pl-7 ${
+                    id % 2 != 0 && "bg-dark"
+                  }`}
                 >
-                  <div
-                    className={`flex gap-14 items-center justify-between h-full sticky left-0 top-0 w-fit pl-7 bg-advance ${
-                      id % 2 != 0 && "bg-dark"
-                    }`}
-                  >
-                    <div className="w-36">{game}</div>
-                    <div className="w-36">{username}</div>
-                  </div>
-                  <div className="w-36">{formatDateToTime(createdAt)}</div>
-                  <div className="w-36">{betAmount?.toFixed(1)} SOL</div>
-                  <div className="w-36">{multiplier?.toFixed(1)} x</div>
-                  <div className="w-36">
-                    {result == "loss" && "-"}
-                    {payout}
-                  </div>
+                  <div className="w-36">{game}</div>
+                  <div className="w-36">{username}</div>
                 </div>
-              )
-            )}
+                <div className="w-20 text-center">{formatDateToTime(createdAt)}</div>
+                <div className="w-20 text-center">${formattedNumber(betAmount)}</div>
+                <div className="w-20 text-center">{multiplier?.toFixed(1)} x</div>
+                <div className="w-20 text-right">${payout}</div>
+              </div>
+            ))}
           </>
         ) : (
-          <section className=" text-secondary flex justify-center items-center text-xl font-semibold h-full -mt-10">
+          <section className="-mt-10 flex h-full items-center justify-center text-xl font-semibold text-secondary">
             Opps! No game found
           </section>
         )}

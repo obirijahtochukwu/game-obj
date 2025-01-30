@@ -11,6 +11,7 @@ import Blackjack from "../components/pages/blackjack/page";
 import Roullete from "../components/pages/roullete/page";
 import VideoPoker from "../components/pages/video-poker/page";
 import AdminNavigation from "../components/layout/navigation";
+import Profile from "../components/pages/profile/page";
 
 export const router = createBrowserRouter([
   {
@@ -26,6 +27,16 @@ export const router = createBrowserRouter([
   {
     path: "/login",
     element: <Login />,
+  },
+  {
+    path: "/profile/:id",
+    element: (
+      <>
+        <Navigation>
+          <Profile />
+        </Navigation>
+      </>
+    ),
   },
   {
     path: "/plinko",

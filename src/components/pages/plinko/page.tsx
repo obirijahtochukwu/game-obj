@@ -30,7 +30,7 @@ export default function Plinko() {
       const ballManager = new BallManager(
         // ts-ignore
         rows,
-        canvasRef.current as unknown as HTMLCanvasElement
+        canvasRef.current as unknown as HTMLCanvasElement,
       );
       setBallManager(ballManager);
     }
@@ -44,7 +44,6 @@ export default function Plinko() {
       const response = await axios.post(backend_api + "/plinko", {
         data: 1,
       });
-      console.log(response);
 
       if (ballManager) {
         ballManager.addBall(response.data.point);
@@ -59,12 +58,10 @@ export default function Plinko() {
             multiplier: multiplier,
             payout: betAmount * multiplier,
           },
-          getHistory
+          getHistory,
         );
       }
-    } catch (error) {
-      console.log(error);
-    }
+    } catch (error) {}
   };
 
   const props = {
@@ -83,24 +80,16 @@ export default function Plinko() {
 
   return (
     <article>
-      <section className="bg-muted rounded-3xl mb-10">
+      <section className="mb-10 rounded-3xl bg-muted">
         <div className="flex gap-7 p-4">
           <Settings {...props} />
-          <main className="sm:h-[700px] h-96 w-full lg:w-[calc(100%-384px)] bg-dark rounded-3xl relative flex justify-center">
-            <Icons.setting
-              onClick={() => setSetting(!setting)}
-              className=" absolute top-4 left-4 z-10 lg:hidden cursor-pointer"
-            />
-            <canvas
-              ref={canvasRef}
-              width="700"
-              height="700"
-              className=" max-sm:scale-[0.9] scale-90 relative -left-6"
-            ></canvas>
+          <main className="relative flex h-96 w-full justify-center rounded-3xl bg-dark sm:h-[700px] lg:w-[calc(100%-384px)]">
+            <Icons.setting onClick={() => setSetting(!setting)} className="absolute left-4 top-4 z-10 cursor-pointer lg:hidden" />
+            <canvas ref={canvasRef} width="700" height="700" className="relative -left-6 scale-90 max-sm:scale-[0.9]"></canvas>
           </main>
         </div>
-        <div className=" bg-dark h-16 flex items-center justify-between px-8 text-primary text-2xl font-semibold rounded-b-3xl">
-          Webet <Icons.expand className=" cursor-pointer" />
+        <div className="flex h-16 items-center justify-between rounded-b-3xl bg-dark px-8 text-2xl font-semibold text-primary">
+          Webet <Icons.expand className="cursor-pointer" />
         </div>
       </section>
       <Table {...props} />

@@ -31,14 +31,11 @@ function Page() {
 
   return (
     <article>
-      <section className="bg-muted rounded-3xl mb-10">
+      <section className="mb-10 rounded-3xl bg-muted">
         <div className="flex gap-7 p-4">
           <Settings />
-          <main className="sm:h-[600px] h-fit w-full lg:w-[calc(100%-384px)] bg-dark rounded-3xl relative flex flex-col items-center justify-center p-4 sm:p-8">
-            <Icons.setting
-              onClick={() => setSetting(true)}
-              className=" absolute top-4 left-4 z-10 lg:hidden cursor-pointer"
-            />
+          <main className="relative flex h-fit w-full flex-col items-center justify-center rounded-3xl bg-dark p-4 sm:h-[600px] sm:p-8 lg:w-[calc(100%-384px)]">
+            <Icons.setting onClick={() => setSetting(true)} className="absolute left-4 top-4 z-10 cursor-pointer lg:hidden" />
             <Game />
           </main>
         </div>

@@ -9,6 +9,7 @@ import Navigation from "./components/layout/navigation";
 import AdminNavigation from "./components/layout/navigation";
 import { admin_router } from "./lib/admin-routes";
 import Login from "./components/admin/auth/login";
+import Signup from "./components/admin/auth/signup";
 // import { Login } from './components/admin/auth/login';
 
 function App() {
@@ -16,6 +17,13 @@ function App() {
 
   return (
     <article className="font-primary">
+      <aside
+        style={{
+          // background: `linear-gradient(to bottom, rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 1)), url("./media/Background.png")`,
+          backgroundColor: "transparent",
+        }}
+        className="!fixed bottom-0 top-0 -z-10 w-screen bg-opacity-10 bg-cover bg-fixed bg-center bg-no-repeat"
+      />
       <div
         className={`${
           user.loggedIn == "pending" && admin.loggedIn == "pending" ? "h-1/2" : "h-0"
@@ -44,6 +52,7 @@ function App() {
                 }
               />
               <Route path="/admin/login" element={<Login />} />
+              <Route path="/admin/signup" element={<Signup />} />
             </Routes>
           </>
         </BrowserRouter>
