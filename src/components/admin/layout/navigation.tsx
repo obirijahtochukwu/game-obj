@@ -3,6 +3,7 @@ import Sidebar from "./sidebar";
 import Header from "./header";
 import axios from "axios";
 import { backend_api } from "../../../lib/constants";
+import UniverseBackground from "../auth/anime";
 
 export default function AdminNavigation({ children }: { children: JSX.Element }) {
   useEffect(() => {
@@ -13,8 +14,9 @@ export default function AdminNavigation({ children }: { children: JSX.Element })
   }, []);
 
   return (
-    <article className="flex">
+    <article className="z-10 flex">
       <Sidebar />
+      <UniverseBackground />
       <section className="grid w-full grid-cols-1">
         <div className="px-7 pb-10">
           <Header />

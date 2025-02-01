@@ -7,7 +7,7 @@ const AppContext = createContext();
 
 const AppProvider = ({ children }) => {
   const { user, getGamesHishtory } = useGlobalContext();
-  const getHistory = () => getGamesHishtory(user.info._id, user.info);
+  const getHistory = (result: string, amount: number) => getGamesHishtory(result, amount, user.info);
 
   const [balance, setBalance] = useState(1000);
   const [betAmount, setBetAmount] = useState(null);

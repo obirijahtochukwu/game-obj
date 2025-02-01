@@ -19,14 +19,9 @@ export default function Game() {
 
   return (
     <div className="my-auto">
-      <article className=" h-[429px] w-[429px] bg-primary relative rounded-full">
+      <article className="relative h-[429px] w-[429px] rounded-full bg-primary">
         {slots.map(({ id, animation, data }, idx) => (
-          <Circle
-            key={idx}
-            id={id}
-            coinData={data}
-            animation={isGameActive ? animation : ""}
-          />
+          <Circle key={idx} id={id} coinData={data} animation={isGameActive ? animation : ""} />
         ))}
       </article>
     </div>

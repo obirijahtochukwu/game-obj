@@ -24,13 +24,13 @@ export const dashboard_intro = (page_views: number, monthly_users: number, new_s
   },
   {
     title: "Total payout",
-    value: formattedNumber(total_payouts),
+    value: `$${formattedNumber(total_payouts)}`,
     percentage: "11.3%",
     Icon: Icons.star,
   },
 ];
 
-export const revenue_chart = (total_profit: totalProfit[]) => ({
+export const revenue_chart = (monthly_profit: totalProfit[]) => ({
   series: [
     {
       name: "series1",
@@ -39,7 +39,7 @@ export const revenue_chart = (total_profit: totalProfit[]) => ({
     },
     {
       name: "Game",
-      data: total_profit.map(({ profit }) => profit),
+      data: monthly_profit.map(({ profit }) => profit).concat(Array(12).fill(0).slice(0, -monthly_profit.length)),
       color: "#00C2FF",
     },
   ],
@@ -167,7 +167,7 @@ export const betting_activity_chart = (totalPlays: number, topGames: topGames[])
       },
     },
     colors: ["#CB3CFF", "#0E43FB", "#00C2FF"],
-    labels: topGames.map(({ _id }) => _id),
+    labels: topGames.map(({ game }) => game),
   },
 });
 

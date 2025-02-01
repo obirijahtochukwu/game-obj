@@ -1,11 +1,4 @@
-import React, {
-  createContext,
-  Dispatch,
-  FormEvent,
-  useContext,
-  useEffect,
-  useState,
-} from "react";
+import React, { createContext, Dispatch, FormEvent, useContext, useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import { SMSoundService } from "../../../lib/hooks/useSoundProvider";
 import { coin, slotCoin } from "../../../lib/types";
@@ -43,7 +36,7 @@ const AppContext = createContext<context>({});
 
 const AppProvider = ({ children }) => {
   const { user, getGamesHishtory } = useGlobalContext();
-  const getHistory = () => getGamesHishtory(user.info._id, user.info);
+  const getHistory = (result: string, amount: number) => getGamesHishtory(result, amount, user.info);
 
   const [gamble, setGamble] = useState({
     outcomes: [],
@@ -71,14 +64,8 @@ const AppProvider = ({ children }) => {
 
   // rotateTo randomizes the end outcome of the wheel
   // so it doesn't only end at 0 at the top
-  const getRandomEndRotation = (
-    minNumberOfSpins: number,
-    maxNumberOfSpins: number
-  ) => {
-    var rotateTo = anime.random(
-      minNumberOfSpins * wheel.totalNumbers,
-      maxNumberOfSpins * wheel.totalNumbers
-    );
+  const getRandomEndRotation = (minNumberOfSpins: number, maxNumberOfSpins: number) => {
+    var rotateTo = anime.random(minNumberOfSpins * wheel.totalNumbers, maxNumberOfSpins * wheel.totalNumbers);
 
     return wheel.singleRotationDegree * rotateTo;
   };
@@ -97,10 +84,7 @@ const AppProvider = ({ children }) => {
   };
   // randomizing the number of spins that the ball should make
   // so every spin is different
-  const getBallNumberOfRotations = (
-    minNumberOfSpins: number,
-    maxNumberOfSpins: number
-  ) => {
+  const getBallNumberOfRotations = (minNumberOfSpins: number, maxNumberOfSpins: number) => {
     var numberOfSpins = anime.random(minNumberOfSpins, maxNumberOfSpins);
     return 360 * numberOfSpins;
   };
@@ -120,7 +104,7 @@ const AppProvider = ({ children }) => {
           multiplier: gamble.multiplier,
           payout: gamble.payout,
         },
-        getHistory
+        getHistory,
       );
 
     if (isInArray) {
@@ -156,19 +140,13 @@ const AppProvider = ({ children }) => {
       var wheelMinNumberOfSpins = 2;
       var wheelMaxNumberOfSpins = 4;
 
-      var lastNumberRotation = getRotationFromNumber(
-        wheel.lastNumber.toString()
-      ); //anime.get(wheel, "rotate", "deg");
+      var lastNumberRotation = getRotationFromNumber(wheel.lastNumber.toString()); //anime.get(wheel, "rotate", "deg");
 
       // minus in front to reverse it so it spins counterclockwise
-      var endRotation = -getRandomEndRotation(
-        ballMinNumberOfSpins,
-        ballMaxNumberOfSpins
-      );
+      var endRotation = -getRandomEndRotation(ballMinNumberOfSpins, ballMaxNumberOfSpins);
       var zeroFromEndRotation = getZeroEndRotation(endRotation);
       var ballEndRotation =
-        getBallNumberOfRotations(wheelMinNumberOfSpins, wheelMaxNumberOfSpins) +
-        getBallEndRotation(zeroFromEndRotation, number);
+        getBallNumberOfRotations(wheelMinNumberOfSpins, wheelMaxNumberOfSpins) + getBallEndRotation(zeroFromEndRotation, number);
 
       // reset to the last number
       anime.set([".layer-2", ".layer-4"], {
@@ -203,9 +181,7 @@ const AppProvider = ({ children }) => {
           { value: 25, duration: 900 },
           { value: 50, duration: 1000 },
         ],
-        rotate: [
-          { value: ballEndRotation, duration: wheel.singleSpinDuration },
-        ],
+        rotate: [{ value: ballEndRotation, duration: wheel.singleSpinDuration }],
         loop: 1,
         easing: `cubicBezier(${bezier.join(",")})`,
       });

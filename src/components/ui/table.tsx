@@ -50,7 +50,7 @@ export default function Table({
   }, [filterLabels]);
 
   return (
-    <article className="rounded-3xl bg-advance pb-4 pt-6">
+    <article className="overflow-x-hidden rounded-lg bg-advance pt-6">
       <div className="flex items-center justify-between px-4 text-4xl font-semibold text-primary">{title}</div>
       <section className="hide-scrollbar w-full overflow-x-auto px-4">
         <div className="mt-5 flex w-fit items-center gap-4">
@@ -59,7 +59,6 @@ export default function Table({
             { value: `${user.info._id}`, label: "my bets" },
             { value: "win", label: "win" },
             { value: "loss", label: "loss" },
-            // { value: "leaderboard", label: " leaderboard" },
           ].map(({ label, value }) => (
             <div
               key={label}

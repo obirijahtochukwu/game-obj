@@ -18,7 +18,7 @@ const UniverseBackground = () => {
   }, []);
 
   return (
-    <div className="universe-bg">
+    <div className="universe-bg -z-10">
       <div className="stars-container"></div>
     </div>
   );

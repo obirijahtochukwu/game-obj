@@ -64,7 +64,7 @@ export interface AdminData {
   monthly_users?: number;
   new_signups?: number;
   total_payouts?: number;
-  total_profit?: totalProfit[];
+  monthly_profit?: totalProfit[];
   __v?: number;
   id?: string;
   name?: string;
@@ -82,7 +82,7 @@ export interface AdminData {
 }
 
 export interface topGames {
-  _id: string; // Game name
+  game: string; // Game name
   count: number; // Number of times played
 }
 
@@ -99,6 +99,7 @@ export interface topPlayer {
   username: string | null;
   email: string;
   betCount: number;
+  profileImage: string;
 }
 
 export interface userGrowth {
@@ -125,5 +126,6 @@ export interface User {
   date_of_birth: string;
   language: string;
   createdAt: string;
-  totalPlays?: number; // Optional field
+  totalPlays?: number;
+  profileImage: string;
 }

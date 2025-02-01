@@ -11,8 +11,8 @@ export default function Games() {
   const { options, series } = betting_activity_chart(totalPlays, topGames);
 
   return (
-    <article className="col-span-5 h-full p-5 bg-advance border-gray border rounded-md">
-      <div className=" text-base font-medium">Most Popular Games/Sports</div>
+    <article className="col-span-5 h-full rounded-md border border-gray bg-advance p-5">
+      <div className="text-base font-medium">Most Popular Games/Sports</div>
       <div className="">
         <ReactApexChart
           // @ts-ignore
@@ -21,19 +21,11 @@ export default function Games() {
           type="radialBar"
         />
       </div>
-      <section className=" font-advance flex flex-col gap-6">
-        {topGames.map(({ _id, count }, idx) => (
-          <div className="flex items-center gap-2 font-medium text-base">
-            <div
-              className={`${
-                idx == 0
-                  ? "bg-pink"
-                  : idx == 1
-                  ? "bg-[#0E43FB]"
-                  : "bg-[#00C2FF]"
-              } w-2 h-2 rounded-full`}
-            />
-            <div className=" text-grey mr-auto">{_id}</div>
+      <section className="flex flex-col gap-6 font-advance">
+        {topGames.map(({ game, count }, idx) => (
+          <div className="flex items-center gap-2 text-base font-medium">
+            <div className={`${idx == 0 ? "bg-pink" : idx == 1 ? "bg-[#0E43FB]" : "bg-[#00C2FF]"} h-2 w-2 rounded-full`} />
+            <div className="mr-auto text-grey">{game}</div>
             {Math.round((count / totalPlays) * 100)}%
           </div>
         ))}

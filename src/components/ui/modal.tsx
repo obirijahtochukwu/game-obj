@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { useClick } from "../../lib/hooks/useclick";
 import { Icons } from "./icons";
+import { backgroundImage } from "../../lib/utils";
 
 export default function Modal({
   isOpen,
@@ -45,14 +46,14 @@ export default function Modal({
           side
             ? "right-0 top-0 h-full w-full max-w-md overflow-y-auto rounded-r-none rounded-br-none"
             : "left-1/2 h-max w-max max-w-md -translate-x-1/2"
-        } !fixed z-50 origin-top-right rounded-lg bg-advance p-5 shadow-sm duration-500`}
+        } !fixed z-50 origin-top-right rounded-lg bg-advance p-5 shadow-md duration-500`}
       >
         {close && (
           <div
             onClick={() => setIsOpen(false)}
-            className="absolute right-1 top-1 flex h-10 w-10 cursor-pointer items-center justify-center rounded-full bg-background p-1"
+            className="absolute right-1 top-1 flex h-8 w-8 cursor-pointer items-center justify-center rounded-md bg-background p-1"
           >
-            <Icons.close className="h-4 w-4" />
+            <Icons.close className="h-3 w-3" />
           </div>
         )}
         {children}

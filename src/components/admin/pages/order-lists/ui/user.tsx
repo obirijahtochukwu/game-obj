@@ -26,8 +26,8 @@ export default function User({ idx, _id, name, amount, email, createdAt, status,
         <div className="w-16 text-center">${formattedNumber(amount)}</div>
         <div
           title="click to approve"
-          onClick={() => setIsOpen(true)}
-          className={`${status == "processing" ? "bg-secondary/20 text-secondary" : "bg-success/15 text-success"} flex w-24 cursor-pointer items-center justify-center gap-1 rounded-sm py-0.5 capitalize`}
+          onClick={() => status == "processing" && setIsOpen(true)}
+          className={`${status == "processing" ? "cursor-pointer bg-secondary/20 text-secondary" : "bg-success/15 text-success"} flex w-24 items-center justify-center gap-1 rounded-sm py-0.5 capitalize`}
         >
           {status}
         </div>

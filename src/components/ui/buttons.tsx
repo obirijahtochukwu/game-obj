@@ -4,12 +4,12 @@ export const Buttons = {
   primary: (
     props: React.ButtonHTMLAttributes<HTMLButtonElement> & {
       classname?: string;
-    }
+    },
   ) => (
     <button
       {...props}
       className={
-        "h-10 w-full bg-gradient-custom flex items-center justify-center rounded-md font-semibold text-base text-dark " +
+        "flex h-10 w-full items-center justify-center rounded-md bg-gradient-custom text-base font-semibold text-primary " +
         props.classname
       }
     >
@@ -19,13 +19,13 @@ export const Buttons = {
   secondary: (
     props: React.ButtonHTMLAttributes<HTMLButtonElement> & {
       classname?: string;
-    }
+    },
   ) => (
     <button
       {...props}
       className={`${props?.classname} ${
         props?.classname?.includes("bg") || "bg-gradient-custom"
-      } w-full flex items-center justify-center min-h-12 rounded-lg text-primary font-semibold text-xl disabled:opacity-70 disabled:cursor-not-allowed`}
+      } flex min-h-12 w-full items-center justify-center rounded-lg text-xl font-semibold text-primary disabled:cursor-not-allowed disabled:opacity-70`}
     >
       {props.children}
     </button>
@@ -33,11 +33,11 @@ export const Buttons = {
   play_now: (
     props: React.ButtonHTMLAttributes<HTMLButtonElement> & {
       classname?: string;
-    }
+    },
   ) => (
     <button
       {...props}
-      className={`${props?.classname} h-12 w-32 flex items-center justify-center rounded-lg text-primary bg-gradient-custom text-lg font-semibold`}
+      className={`${props?.classname} flex h-12 w-32 items-center justify-center rounded-lg bg-gradient-custom text-lg font-semibold text-primary`}
     >
       {props.children}
     </button>

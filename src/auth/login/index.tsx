@@ -20,8 +20,11 @@ export default function Login({ isLogin, setIsLogin }) {
         setStore("token", response.data.token);
         setForm({ email: "", password: "" });
         window.location.href = "/";
+        console.log(response);
       })
-      .catch((err) => {});
+      .catch((err) => {
+        console.log(err);
+      });
   };
 
   return (
@@ -60,7 +63,7 @@ export default function Login({ isLogin, setIsLogin }) {
               </div>
             ))}
           </section>{" "}
-          Already have an account? Sign in
+          Already have an account? Sign up
         </div>
       </form>
     </Modal>

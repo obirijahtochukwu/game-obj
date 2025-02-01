@@ -4,15 +4,27 @@ import { AdminData, userData } from "./types";
 import { backend_api } from "./constants";
 import { getStore, setStore } from "./utils/store";
 
+interface betResult {
+  loss: boolean;
+  won: boolean;
+  amount: number;
+}
 interface context {
   admin?: AdminData;
   setAdmin?: Dispatch<AdminData>;
   user?: userData;
   setUser?: React.Dispatch<userData>;
   logout?: () => void;
-  getGamesHishtory?: (id: string, userInfo: userData) => void;
+  getGamesHishtory?: (result: string, amount: number, userInfo: userData) => void;
   refresh?: boolean;
   setRefresh?: Dispatch<boolean>;
+  showPopup?: (result: string, amount: any) => void;
+  betResult?: betResult;
+  setBetResult?: Dispatch<betResult>;
+  // isLoss?: boolean;
+  // setIsLoss?: Dispatch<boolean>;
+  // isWin?: boolean;
+  // setIsWin?: Dispatch<boolean>;
 }
 
 const AppContext = createContext<context>({});
@@ -27,6 +39,7 @@ const AppProvider = ({ children }: { children: JSX.Element }) => {
   const [admin, setAdmin] = useState<AdminData>({
     loggedIn: "pending",
   });
+  const [betResult, setBetResult] = useState({ loss: false, won: false, amount: 0 });
 
   const logout = () => {
     localStorage.removeItem("token");
@@ -36,8 +49,6 @@ const AppProvider = ({ children }: { children: JSX.Element }) => {
   };
 
   // fetch user data
-  console.log(typeof `${getStore("token")}`);
-
   useEffect(() => {
     axios
       .get(backend_api + "/user/" + getStore("token"), {
@@ -50,7 +61,7 @@ const AppProvider = ({ children }: { children: JSX.Element }) => {
           console.log(res.data);
         } else if (!res.data.token && res.data.email) {
           setUser({ ...user, info: res.data, loggedIn: "true" });
-          getGamesHishtory(res.data._id, res.data);
+          getGamesHishtory(null, null, res.data);
         } else {
           setUser({ ...user, loggedIn: "false" });
         }
@@ -62,7 +73,10 @@ const AppProvider = ({ children }: { children: JSX.Element }) => {
   }, [refresh]);
 
   // fetch game history
-  const getGamesHishtory = (id: string, userInfo: userData) => {
+  const getGamesHishtory = (result?: string, amount?: number, userInfo?: userData) => {
+    console.log(amount);
+
+    if (amount) showPopup(result, amount);
     axios
       .get(backend_api + `/game-history`, {
         withCredentials: true,
@@ -73,8 +87,31 @@ const AppProvider = ({ children }: { children: JSX.Element }) => {
       .catch((err) => {});
   };
 
+  // trigger bet result popup
+  const showPopup = (result: string, amount: number) => {
+    if (result == "win") {
+      setBetResult({ ...betResult, won: true, amount });
+    } else {
+      setBetResult({ ...betResult, loss: true, amount });
+    }
+  };
+
+  // count page viewers
+  useEffect(() => {
+    axios
+      .put(backend_api + "/add_page_view")
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
+
   return (
-    <AppContext.Provider value={{ user, setUser, logout, getGamesHishtory, admin, setAdmin, setRefresh }}>
+    <AppContext.Provider
+      value={{ user, setUser, logout, getGamesHishtory, admin, setAdmin, setRefresh, showPopup, betResult, setBetResult }}
+    >
       {children}
     </AppContext.Provider>
   );

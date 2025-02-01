@@ -10,6 +10,9 @@ import Leftbar from "./leftbar";
 import { useGlobalContext } from "../../lib/global-context";
 import Login from "../../auth/login";
 import UserPopup from "../ui/user-popup";
+import UniverseBackground from "../admin/auth/anime";
+import BetSuccess from "../ui/bet-success";
+import BetLoss from "../ui/bet-loss";
 
 export default function Navigation({ children }: { children: JSX.Element }) {
   const { logout, user } = useGlobalContext();
@@ -32,7 +35,10 @@ export default function Navigation({ children }: { children: JSX.Element }) {
   return (
     <article className={`welcome-anime flex p-4 backdrop-blur-2xl md:p-7`}>
       <Signup {...props} />
+      <UniverseBackground />
       <Login {...props} />
+      <BetSuccess />
+      <BetLoss />
       {user.loggedIn == "true" && <Leftbar {...props} />}
       <div className="w-full">
         <div className="grid grid-cols-1">

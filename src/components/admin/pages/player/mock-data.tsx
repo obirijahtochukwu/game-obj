@@ -1,15 +1,11 @@
 import { formattedNumber } from "../../../../lib/utils/formattedNumber";
 import { games } from "../games-sports/mock-data";
 
-export const overview = (
-  averageBet: number,
-  totalProfit: number,
-  totalPlays: number
-) => [
+export const overview = (averageBet: number, totalProfit: number, totalPlays: number, balance: number) => [
   { title: "Total Bets Placed", value: totalPlays },
-  { title: "Player Win Rate", value: `${Math.round(totalProfit)}%` },
+  { title: "Total payout", value: `$${formattedNumber(totalProfit)}` },
   { title: "Average Bet Amount", value: `$${formattedNumber(averageBet)}` },
-  { title: "Player balance", value: "$100k" },
+  { title: "Player balance", value: `$${formattedNumber(balance)}` },
 ];
 
 export const profit = (games: any) => ({

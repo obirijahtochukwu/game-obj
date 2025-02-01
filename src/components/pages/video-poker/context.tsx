@@ -1,22 +1,8 @@
-import React, {
-  createContext,
-  Dispatch,
-  useContext,
-  useEffect,
-  useState,
-} from "react";
-import { toast } from "react-toastify";
+import React, { createContext, Dispatch, useContext, useEffect, useState } from "react";
 import { submitGame } from "../../../lib/utils/submit-game";
 import { useGlobalContext } from "../../../lib/global-context";
 import { gamble, video_poker_deck } from "../../../lib/types";
-import {
-  evaluateHand,
-  initializeDeck,
-  payoutTable,
-  ranks,
-  shuffle,
-  suits,
-} from "./utils";
+import { evaluateHand, initializeDeck, payoutTable, ranks, shuffle, suits } from "./utils";
 import gameSoundEffect from "../../../lib/utils/game-sound-effect";
 
 export interface Card {
@@ -46,7 +32,7 @@ const AppContext = createContext<GameState>({});
 
 const AppProvider = ({ children }) => {
   const { user, getGamesHishtory } = useGlobalContext();
-  const getHistory = () => getGamesHishtory(user.info._id, user.info);
+  const getHistory = (result: string, amount: number) => getGamesHishtory(result, amount, user.info);
 
   const [balance, setBalance] = useState<any>(1000); // Player's balance
 
@@ -64,11 +50,7 @@ const AppProvider = ({ children }) => {
 
   const toggleHold = (index: number) => {
     gameSoundEffect("active");
-    setHeldCards((prevHeld) =>
-      prevHeld.includes(index)
-        ? prevHeld.filter((i) => i !== index)
-        : [...prevHeld, index]
-    );
+    setHeldCards((prevHeld) => (prevHeld.includes(index) ? prevHeld.filter((i) => i !== index) : [...prevHeld, index]));
   };
 
   const deal = () => {
@@ -82,9 +64,8 @@ const AppProvider = ({ children }) => {
 
   const redraw = () => {
     gameSoundEffect("start");
-    const newHand = hand.map((card, index) =>
-      heldCards.includes(index) ? card : deck.pop()
-    );
+    const newHand = hand.map((card, index) => (heldCards.includes(index) ? card : deck.pop()));
+    setIsSetting(false);
 
     const newDeck = deck.length < 5 ? shuffle(initializeDeck()) : deck;
     setDeck(newDeck.slice(5 - heldCards.length));
@@ -94,7 +75,11 @@ const AppProvider = ({ children }) => {
 
   const draw = () => {
     // @ts-ignore
-    const { result } = evaluateHand(hand, gamble, setGamble);
+    const { result, multiplier } = evaluateHand(hand, gamble, setGamble);
+    setIsSetting(false);
+    console.log(result);
+    console.log(multiplier);
+
     submitGame(
       {
         userId: user.info._id,
@@ -102,10 +87,10 @@ const AppProvider = ({ children }) => {
         game: "Video Poker",
         result: result || "win",
         betAmount: gamble.betAmount,
-        multiplier: gamble.multiplier,
-        payout: gamble.multiplier * gamble.betAmount,
+        multiplier: multiplier,
+        payout: multiplier * gamble.betAmount,
       },
-      getHistory
+      getHistory,
     );
   };
 

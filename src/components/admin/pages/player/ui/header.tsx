@@ -3,19 +3,15 @@ import { OverviewCard } from "./../../../../ui/overiew-card";
 import { overview } from "../mock-data";
 
 export default function Header({ userDetails }: any) {
-  const { averageBet, totalProfit, totalPlays } = userDetails;
+  const { averageBet, totalProfit, totalPlays, balance } = userDetails;
 
   return (
     <div>
-      <div className=" text-3xl font-semibold font-advance mt-3">
-        Player's Dashboard
-      </div>
-      <section className=" grid grid-cols-2 lg:grid-cols-4 gap-7 mt-4">
-        {overview(averageBet, totalProfit, totalPlays).map(
-          ({ title, value }: any) => (
-            <OverviewCard title={title} value={value} />
-          )
-        )}
+      <div className="mt-3 font-advance text-3xl font-semibold">Player's Dashboard</div>
+      <section className="mt-4 grid grid-cols-2 gap-7 lg:grid-cols-4">
+        {overview(averageBet, totalProfit, totalPlays, balance).map(({ title, value }: any) => (
+          <OverviewCard title={title} value={value} />
+        ))}
       </section>
     </div>
   );

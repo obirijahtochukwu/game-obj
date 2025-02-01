@@ -1,11 +1,4 @@
-import React, {
-  createContext,
-  Dispatch,
-  FormEvent,
-  useContext,
-  useEffect,
-  useState,
-} from "react";
+import React, { createContext, Dispatch, FormEvent, useContext, useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import { SMSoundService } from "../../../lib/hooks/useSoundProvider";
 import { coin, slotCoin } from "../../../lib/types";
@@ -64,7 +57,7 @@ const AppContext = createContext<context>({});
 
 const AppProvider = ({ children }) => {
   const { user, getGamesHishtory } = useGlobalContext();
-  const getHistory = () => getGamesHishtory(user.info._id, user.info);
+  const getHistory = (result: string, amount: number) => getGamesHishtory(result, amount, user.info);
 
   const [risklevel, setRiskLevel] = useState({
     current: { tag: 2, label: "Basic", multiplier: 2.5 },
@@ -82,6 +75,8 @@ const AppProvider = ({ children }) => {
 
   // click to start game
   const startGame = (e: FormEvent) => {
+    console.log("hhh");
+
     e.preventDefault();
     setSetting(false);
     setIsGameActive(true);
@@ -105,9 +100,7 @@ const AppProvider = ({ children }) => {
       setIsGameActive(false);
 
       const groupedCoins = selectedCoins.reduce((acc, coin) => {
-        const existingGroup = acc.find((group) =>
-          group.some((c) => c.id === coin.id)
-        );
+        const existingGroup = acc.find((group) => group.some((c) => c.id === coin.id));
         if (existingGroup) {
           existingGroup.push(coin);
         } else {
@@ -116,9 +109,7 @@ const AppProvider = ({ children }) => {
         return acc;
       }, []);
 
-      const winningGroup = groupedCoins.find(
-        (group) => group.length == risklevel.current.tag
-      );
+      const winningGroup = groupedCoins.find((group) => group.length == risklevel.current.tag);
       if (winningGroup) {
         setGameState({ label: "win", value: winningGroup[0].coin }); // Set winning details
       } else {
@@ -140,7 +131,7 @@ const AppProvider = ({ children }) => {
           multiplier: risklevel.current.multiplier,
           payout: gamble.payout,
         },
-        getHistory
+        getHistory,
       );
     }
     gameSoundEffect(gameState.label);

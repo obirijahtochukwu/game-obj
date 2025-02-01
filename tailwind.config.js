@@ -5,6 +5,7 @@ module.exports = {
     extend: {
       backgroundImage: {
         "gradient-custom": "linear-gradient(128.49deg, #CB3CFF 19.86%, #7F25FB 68.34%)",
+        image: "linear-gradient(to bottom, rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.5)), url('/public//media/Background.png')",
       },
       colors: {
         error: "#F07B7B",
@@ -28,6 +29,7 @@ module.exports = {
       boxShadow: {
         smError: "inset -11px -11px 23px #c11313,inset 11px 11px 23px #ff1919",
         smDark: "inset -11px -11px 23px #c85022, inset 11px 11px 23px #ff6c2e",
+        md: "0px 0px 12px #ffffff30",
       },
     },
   },

@@ -6,8 +6,8 @@ import { useGlobalContext } from "../../../lib/global-context";
 const AppContext = createContext();
 
 const AppProvider = ({ children }) => {
-  const { user, getGamesHishtory } = useGlobalContext();
-  const getHistory = () => getGamesHishtory(user.info._id, user.info);
+  const { user, getGamesHishtory ,showPopup} = useGlobalContext();
+  const getHistory = (result, amount) => getGamesHishtory(result, amount, user.info); 
 
   const [setting, setSetting] = useState(false);
   const [diceResult, setDiceResult] = useState(null);
