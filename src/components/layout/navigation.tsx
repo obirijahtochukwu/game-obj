@@ -39,7 +39,6 @@ export default function Navigation({ children }: { children: JSX.Element }) {
       <BetSuccess />
       <BetLoss />
       <Leftbar {...props} />
-      {user.loggedIn == "true" && <Leftbar {...props} />}
       <div className="w-full">
         <div className="grid grid-cols-1">
           <section className={`flex flex-col gap-7 text-primary duration-300 md:ml-7`}>
