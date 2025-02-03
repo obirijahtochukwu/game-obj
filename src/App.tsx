@@ -34,7 +34,6 @@ function App() {
           user.loggedIn == "pending" && admin.loggedIn == "pending" ? "h-1/2" : "h-0"
         } fixed bottom-0 z-50 w-screen bg-background duration-500`}
       ></div>
-      <RouterProvider router={router} />
       {admin.loggedIn == "admin" ? (
         <RouterProvider router={admin_router} />
       ) : user.loggedIn == "false" ? (
@@ -56,9 +55,7 @@ function App() {
           </>
         </BrowserRouter>
       ) : (
-        <div className="flex h-screen w-screen items-center justify-center text-3xl text-primary">
-          <div className="bars"></div>
-        </div>
+        <RouterProvider router={router} />
       )}
     </article>
   );
