@@ -10,13 +10,14 @@ import Table from "../../ui/table";
 export default function DiceRoller() {
   return (
     <AppProvider>
+      {/* <ExampleTable /> */}
       <Page />
     </AppProvider>
   );
 }
 
 function Page() {
-  const { user } = useGlobalContext();
+  const { user, setIsLogin } = useGlobalContext();
   const { setSetting } = useDiceRollerContext();
   const [filterLabels, setFilterLabels] = useState(["all bets"]);
 

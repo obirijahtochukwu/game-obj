@@ -3,6 +3,7 @@ import { Icons } from "../../../ui/icons";
 import Select from "../../../ui/select";
 import { useDiceRollerContext } from "../context";
 import SettingModal from "../../../ui/setting-modal";
+import { Buttons } from "../../../ui/buttons";
 
 export default function Settings() {
   const { betAmount, setBetAmount, isRolling, profitOnWin, rollDice, setting, setSetting } = useDiceRollerContext();
@@ -38,13 +39,9 @@ export default function Settings() {
             <input disabled value={+profitOnWin || ""} className="h-full w-full bg-transparent focus:outline-none" />
           </article>
         </section>
-        <button
-          disabled={isRolling}
-          type="submit"
-          className="mt-auto flex min-h-12 w-full items-center justify-center rounded-xl bg-gradient-custom text-xl font-semibold text-primary"
-        >
+        <Buttons.play_game disabled={isRolling} type="submit" classname=" mt-auto">
           Bet
-        </button>
+        </Buttons.play_game>
       </form>
     </SettingModal>
   );

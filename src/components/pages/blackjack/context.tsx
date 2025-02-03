@@ -44,7 +44,7 @@ interface GameState {
 const AppContext = createContext<GameState>({});
 
 const AppProvider = ({ children }) => {
-  // const { user, getGamesHishtory } = useGlobalContext();
+  // const { user, getGamesHishtory ,setIsLogin} = useGlobalContext();
   // const getHistory = () => getGamesHishtory(user.info._id, user.info);
 
   const [isSetting, setIsSetting] = useState(false);

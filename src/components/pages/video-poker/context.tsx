@@ -4,6 +4,7 @@ import { useGlobalContext } from "../../../lib/global-context";
 import { gamble, video_poker_deck } from "../../../lib/types";
 import { evaluateHand, initializeDeck, payoutTable, ranks, shuffle, suits } from "./utils";
 import gameSoundEffect from "../../../lib/utils/game-sound-effect";
+import { userExist } from "../../../lib/utils";
 
 export interface Card {
   suit?: string;
@@ -31,7 +32,7 @@ interface GameState {
 const AppContext = createContext<GameState>({});
 
 const AppProvider = ({ children }) => {
-  const { user, getGamesHishtory } = useGlobalContext();
+  const { user, getGamesHishtory, setIsLogin } = useGlobalContext();
   const getHistory = (result: string, amount: number) => getGamesHishtory(result, amount, user.info);
 
   const [balance, setBalance] = useState<any>(1000); // Player's balance
@@ -77,21 +78,22 @@ const AppProvider = ({ children }) => {
     // @ts-ignore
     const { result, multiplier } = evaluateHand(hand, gamble, setGamble);
     setIsSetting(false);
-    console.log(result);
-    console.log(multiplier);
-
-    submitGame(
-      {
-        userId: user.info._id,
-        username: user.info.name,
-        game: "Video Poker",
-        result: result || "win",
-        betAmount: gamble.betAmount,
-        multiplier: multiplier,
-        payout: multiplier * gamble.betAmount,
-      },
-      getHistory,
-    );
+    if (userExist) {
+      submitGame(
+        {
+          userId: user.info._id,
+          username: user.info.name,
+          game: "Video Poker",
+          result: result || "win",
+          betAmount: gamble.betAmount,
+          multiplier: multiplier,
+          payout: result ? multiplier * gamble.betAmount : 0,
+        },
+        getHistory,
+      );
+    } else {
+      setIsLogin(true);
+    }
   };
 
   return (

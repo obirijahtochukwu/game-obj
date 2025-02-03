@@ -21,10 +21,10 @@ interface context {
   showPopup?: (result: string, amount: any) => void;
   betResult?: betResult;
   setBetResult?: Dispatch<betResult>;
-  // isLoss?: boolean;
-  // setIsLoss?: Dispatch<boolean>;
-  // isWin?: boolean;
-  // setIsWin?: Dispatch<boolean>;
+  isLogin?: boolean;
+  setIsLogin?: Dispatch<boolean>;
+  isSignup?: boolean;
+  setIsSignup?: Dispatch<boolean>;
 }
 
 const AppContext = createContext<context>({});
@@ -39,6 +39,9 @@ const AppProvider = ({ children }: { children: JSX.Element }) => {
   const [admin, setAdmin] = useState<AdminData>({
     loggedIn: "pending",
   });
+  const [isLogin, setIsLogin] = useState(false);
+  const [isSignup, setIsSignup] = useState(false);
+
   const [betResult, setBetResult] = useState({ loss: false, won: false, amount: 0 });
 
   const logout = () => {
@@ -110,7 +113,22 @@ const AppProvider = ({ children }: { children: JSX.Element }) => {
 
   return (
     <AppContext.Provider
-      value={{ user, setUser, logout, getGamesHishtory, admin, setAdmin, setRefresh, showPopup, betResult, setBetResult }}
+      value={{
+        user,
+        setUser,
+        logout,
+        getGamesHishtory,
+        admin,
+        setAdmin,
+        setRefresh,
+        showPopup,
+        betResult,
+        setBetResult,
+        isSignup,
+        setIsSignup,
+        isLogin,
+        setIsLogin,
+      }}
     >
       {children}
     </AppContext.Provider>

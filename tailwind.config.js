@@ -6,6 +6,7 @@ module.exports = {
       backgroundImage: {
         "gradient-custom": "linear-gradient(128.49deg, #CB3CFF 19.86%, #7F25FB 68.34%)",
         image: "linear-gradient(to bottom, rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.5)), url('/public//media/Background.png')",
+        line: "linear-gradient(to right, #ffffff20, #ffffff)",
       },
       colors: {
         error: "#F07B7B",

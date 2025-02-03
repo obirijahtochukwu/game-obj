@@ -13,7 +13,7 @@ import Signup from "./components/admin/auth/signup";
 // import { Login } from './components/admin/auth/login';
 
 function App() {
-  const { user, admin } = useGlobalContext();
+  const { user, admin, setIsLogin } = useGlobalContext();
 
   return (
     <article className="font-primary">
@@ -34,9 +34,8 @@ function App() {
           user.loggedIn == "pending" && admin.loggedIn == "pending" ? "h-1/2" : "h-0"
         } fixed bottom-0 z-50 w-screen bg-background duration-500`}
       ></div>
-      {user.loggedIn == "true" ? (
-        <RouterProvider router={router} />
-      ) : admin.loggedIn == "admin" ? (
+      <RouterProvider router={router} />
+      {admin.loggedIn == "admin" ? (
         <RouterProvider router={admin_router} />
       ) : user.loggedIn == "false" ? (
         <BrowserRouter>

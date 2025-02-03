@@ -5,7 +5,7 @@ import { useGlobalContext } from "../../lib/global-context";
 
 export default function BetLoss() {
   const [isOpen, setIsOpen] = useState(false);
-  const { betResult, setBetResult } = useGlobalContext();
+  const { betResult, setBetResult, setIsLogin } = useGlobalContext();
 
   useEffect(() => {
     if (betResult.loss) {

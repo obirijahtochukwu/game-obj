@@ -8,7 +8,7 @@ import { toast } from "react-toastify";
 
 export default function DeleteUser({ _id, isOpen, setIsOpen }: { _id: string; isOpen: boolean; setIsOpen: Dispatch<boolean> }) {
   const [isloading, setIsloading] = useState(false);
-  const { setRefresh } = useGlobalContext();
+  const { setRefresh, setIsLogin } = useGlobalContext();
 
   const delete_user = (e: FormEvent) => {
     e.preventDefault();

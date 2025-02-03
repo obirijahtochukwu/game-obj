@@ -13,17 +13,17 @@ import UserPopup from "../ui/user-popup";
 import UniverseBackground from "../admin/auth/anime";
 import BetSuccess from "../ui/bet-success";
 import BetLoss from "../ui/bet-loss";
+import Logo from "../ui/logo";
+import Authentication from "../../auth";
 
 export default function Navigation({ children }: { children: JSX.Element }) {
-  const { logout, user } = useGlobalContext();
-  const [isSignup, setIsSignup] = useState(false);
-  const [isLogin, setIsLogin] = useState(false);
+  const { logout, user, setIsLogin, isLogin, setIsSignup } = useGlobalContext();
+  // const [isSignup, setIsSignup] = useState(false);
+  // const [isLogin, setIsLogin] = useState(false);
   const { isOpen, setIsOpen, targetRef } = useClick.auto();
   const pathname = useLocation().pathname;
 
   const props = {
-    isSignup,
-    setIsSignup,
     targetRef,
     isOpen,
     setIsOpen,
@@ -34,22 +34,18 @@ export default function Navigation({ children }: { children: JSX.Element }) {
 
   return (
     <article className={`welcome-anime flex p-4 backdrop-blur-2xl md:p-7`}>
-      <Signup {...props} />
       <UniverseBackground />
-      <Login {...props} />
+      <Authentication />
       <BetSuccess />
       <BetLoss />
+      <Leftbar {...props} />
       {user.loggedIn == "true" && <Leftbar {...props} />}
       <div className="w-full">
         <div className="grid grid-cols-1">
-          <section
-            className={`${isOpen ? "" : ""} ${
-              user.loggedIn == "false" ? "!w-full" : "md:ml-7"
-            } flex flex-col gap-7 text-primary duration-300`}
-          >
+          <section className={`flex flex-col gap-7 text-primary duration-300 md:ml-7`}>
             <nav className="flex h-14 items-center gap-7 py-0.5 max-md:justify-between">
               <Link to={"/"} className="text-lg font-semibold tracking-tighter text-primary md:mr-auto md:text-5xl">
-                Webet
+                <Logo />
               </Link>
               <div className="flex h-11 w-80 items-center gap-2.5 rounded-md border border-muted bg-advance px-4 text-primary backdrop-blur-md max-lg:hidden">
                 <Icons.search />

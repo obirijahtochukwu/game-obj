@@ -4,7 +4,7 @@ import { useGlobalContext } from "../../lib/global-context";
 import CoinRequest from "./coin-request";
 
 export default function UserPopup() {
-  const { user, logout } = useGlobalContext();
+  const { user, logout, setIsLogin } = useGlobalContext();
   const [isOpen, setIsOpen] = useState(false);
   const props = { isOpen, setIsOpen };
 

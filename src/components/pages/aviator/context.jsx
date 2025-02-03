@@ -2,11 +2,12 @@ import React, { createContext, useContext, useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import { submitGame } from "../../../lib/utils/submit-game";
 import { useGlobalContext } from "../../../lib/global-context";
+import { userExist } from "../../../lib/utils";
 
 const AppContext = createContext();
 
 const AppProvider = ({ children }) => {
-  const { user, getGamesHishtory } = useGlobalContext();
+  const { user, getGamesHishtory ,setIsLogin} = useGlobalContext();
   const getHistory = (result: string, amount: number) => getGamesHishtory(result, amount, user.info);
 
   const [balance, setBalance] = useState(1000);
@@ -26,6 +27,7 @@ const AppProvider = ({ children }) => {
   const startGame = (e: FormEvent) => {
     e.preventDefault();
     setSetting(false);
+    if (userExist) {
     if (betAmount > 0 && betAmount <= balance) {
       // Deduct bet from balance
       setBalance((prev) => prev - betAmount);
@@ -47,6 +49,9 @@ const AppProvider = ({ children }) => {
       }, crash * 1000);
     } else {
       alert("Invalid bet amount.");
+    }    
+    } else {
+      setIsLogin(true)
     }
   };
 
@@ -100,7 +105,7 @@ const AppProvider = ({ children }) => {
           result: "loss",
           betAmount: betAmount,
           multiplier: multiplier,
-          payout: betAmount * cashOutAt,
+          payout: 0,
         },
         getHistory
       );

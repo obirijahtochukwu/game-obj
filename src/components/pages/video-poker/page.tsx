@@ -16,7 +16,7 @@ export default function VideoPoker() {
 }
 
 function Page() {
-  const { user } = useGlobalContext();
+  const { user, setIsLogin } = useGlobalContext();
   const { setIsSetting, isSetting } = useVideoPokerContext();
 
   const [filterLabels, setFilterLabels] = useState(["all bets"]);
@@ -32,13 +32,13 @@ function Page() {
 
   return (
     <article>
-      <section className="bg-muted rounded-3xl mb-10">
+      <section className="mb-10 rounded-3xl bg-muted">
         <div className="flex gap-7 p-4">
           <Settings />
-          <main className="sm:h-fit h-96 w-full lg:w-[calc(100%-384px)] bg-dark rounded-3xl relative flex flex-col items-center justify-center p-8">
+          <main className="relative flex h-96 w-full flex-col items-center justify-center rounded-3xl bg-dark p-8 sm:h-fit lg:w-[calc(100%-384px)]">
             <Icons.setting
               onClick={() => setIsSetting(!isSetting)}
-              className=" absolute top-4 left-4 z-10 lg:hidden cursor-pointer"
+              className="absolute left-4 top-4 z-10 cursor-pointer lg:hidden"
             />
             <Game />
           </main>

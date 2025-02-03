@@ -312,6 +312,7 @@ input[type="checkbox"] {
   border-radius: 2px;
   background-color: white;
   cursor: pointer;
+  border-color: #cb3cff !important;
   line-height: 0;
   vertical-align: text-top;
   height: 20px;
@@ -371,4 +372,32 @@ input:not(:placeholder-shown) + label {
   transform: translateY(-24px);
   position: absolute;
   font-size: 12px;
+}
+
+.logo {
+  font-size: 4rem;
+  font-weight: bold;
+  color: #3498db;
+  text-transform: uppercase;
+  position: relative;
+  transform: perspective(500px) rotateX(20deg) rotateY(20deg);
+}
+
+.logo::before,
+.logo::after {
+  content: 'Webnet';
+  position: absolute;
+  top: 0;
+  left: 0;
+  color: rgba(52, 152, 219, 0.5);
+}
+
+.logo::before {
+  transform: translateZ(-20px);
+  /* Adds depth behind the text */
+}
+
+.logo::after {
+  transform: translateZ(-40px);
+  /* Adds more depth behind the text */
 }

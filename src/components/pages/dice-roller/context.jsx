@@ -2,11 +2,13 @@ import React, { createContext, useContext, useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import { submitGame } from "../../../lib/utils/submit-game";
 import { useGlobalContext } from "../../../lib/global-context";
+import { getStore } from "../../../lib/utils/store";
+import { userExist } from "../../../lib/utils";
 
 const AppContext = createContext();
 
 const AppProvider = ({ children }) => {
-  const { user, getGamesHishtory ,showPopup} = useGlobalContext();
+  const { user, getGamesHishtory ,showPopup,setIsLogin} = useGlobalContext();
   const getHistory = (result, amount) => getGamesHishtory(result, amount, user.info); 
 
   const [setting, setSetting] = useState(false);
@@ -17,14 +19,16 @@ const AppProvider = ({ children }) => {
   const [resultMessage, setResultMessage] = useState("");
 
   // Calculate win chance and profit dynamically
-  const winChance = ((1 / multiplier) * 100).toFixed(2); // Win chance as a percentage
-  const profitOnWin = (betAmount * multiplier).toFixed(2); // Profit = (Bet * Multiplier) - Bet
+  const winChance = ((1 / multiplier) * 100).toFixed(2); 
+  const profitOnWin = (betAmount * multiplier).toFixed(2); 
 
   const rollDice = (e: FormEvent) => {
     e.preventDefault();
+    setSetting(false);
+
+    if (userExist) {
     setIsRolling(true);
     setResultMessage("");
-    setSetting(false);
     let counter = 0;
     const interval = setInterval(() => {
       const randomDice = Math.floor(Math.random() * 6) + 1;
@@ -47,12 +51,15 @@ const AppProvider = ({ children }) => {
             result: winCondition,
             betAmount: betAmount,
             multiplier: multiplier,
-            payout: finalResult > winningTarget ? +profitOnWin : 0,
+            payout: winCondition == "win" ? +profitOnWin : 0,
           },
           getHistory
         );
       }
     }, 100); // Every 100ms, the dice will change
+      } else {
+      setIsLogin(true)
+    }
   };
 
   return (

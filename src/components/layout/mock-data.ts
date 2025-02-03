@@ -1,3 +1,4 @@
+import { userExist } from "../../lib/utils";
 import { Icons } from "../ui/icons";
 
 export const pages = (userId: string) => [
@@ -33,16 +34,16 @@ export const tabs = (userId: string) => [
     label: "Sports",
     Icon: Icons.globe,
     pages: [
-      { label: "cricket", Icon: Icons.cricket, url: "/cricket" },
-      { label: "baseball", Icon: Icons.baseball, url: "/baseball" },
-      { label: "football", Icon: Icons.football, url: "/football" },
-      { label: "basketball", Icon: Icons.basketball, url: "/basketball" },
-      { label: "tennis", Icon: Icons.tennis, url: "/tennis" },
+      { label: "cricket", Icon: Icons.cricket, url: userExist ? "/cricket" : "#cricket" },
+      { label: "baseball", Icon: Icons.baseball, url: userExist ? "/baseball" : "#baseball" },
+      { label: "football", Icon: Icons.football, url: userExist ? "/football" : "#football" },
+      { label: "basketball", Icon: Icons.basketball, url: userExist ? "/basketball" : "#basketball" },
+      { label: "tennis", Icon: Icons.tennis, url: userExist ? "/tennis" : "#tennis" },
     ],
   },
   {
     label: "Profile",
     Icon: Icons.profile,
-    url: "/profile/" + userId,
+    url: userExist ? "/profile/" + userId : "#profile",
   },
 ];

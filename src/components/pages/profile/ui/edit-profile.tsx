@@ -10,7 +10,7 @@ import axios from "axios";
 import { backend_api } from "../../../../lib/constants";
 
 export default function EditProfile() {
-  const { setRefresh, user } = useGlobalContext();
+  const { setRefresh, user, setIsLogin } = useGlobalContext();
   const [isOpen, setIsOpen] = useState(false);
   const [isUpdated, setIsUpdated] = useState(false);
   const [form, setForm] = useState<any>({

@@ -6,6 +6,7 @@ import axios from "axios";
 import { useGlobalContext } from "../../../lib/global-context";
 import { submitGame } from "../../../lib/utils/submit-game";
 import gameSoundEffect from "../../../lib/utils/game-sound-effect";
+import { userExist } from "../../../lib/utils";
 
 interface context {
   gamble?: {
@@ -56,7 +57,7 @@ interface context {
 const AppContext = createContext<context>({});
 
 const AppProvider = ({ children }) => {
-  const { user, getGamesHishtory } = useGlobalContext();
+  const { user, getGamesHishtory, setIsLogin } = useGlobalContext();
   const getHistory = (result: string, amount: number) => getGamesHishtory(result, amount, user.info);
 
   const [risklevel, setRiskLevel] = useState({
@@ -75,13 +76,15 @@ const AppProvider = ({ children }) => {
 
   // click to start game
   const startGame = (e: FormEvent) => {
-    console.log("hhh");
-
     e.preventDefault();
     setSetting(false);
-    setIsGameActive(true);
-    setSelectedCoins([]);
-    SMSoundService.coin();
+    if (userExist) {
+      setIsGameActive(true);
+      setSelectedCoins([]);
+      SMSoundService.coin();
+    } else {
+      setIsLogin(true);
+    }
   };
 
   // Ring bell during gameplay
@@ -129,7 +132,7 @@ const AppProvider = ({ children }) => {
           result: gameState.label,
           betAmount: gamble.betAmount,
           multiplier: risklevel.current.multiplier,
-          payout: gamble.payout,
+          payout: gameState.label == "win" ? gamble.payout : 0,
         },
         getHistory,
       );

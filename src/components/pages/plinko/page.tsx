@@ -11,6 +11,7 @@ import { filteredAndPublicGameHistory } from "../../../lib/utils/filtered-and-pu
 import Table from "../../ui/table";
 import { submitGame } from "../../../lib/utils/submit-game";
 import { backend_api } from "../../../lib/constants";
+import { userExist } from "../../../lib/utils";
 
 export default function Plinko() {
   const [setting, setSetting] = useState(false);
@@ -21,7 +22,7 @@ export default function Plinko() {
   const [ballManager, setBallManager] = useState<BallManager>();
   const canvasRef = useRef<any>();
 
-  const { user, getGamesHishtory } = useGlobalContext();
+  const { user, getGamesHishtory, setIsLogin } = useGlobalContext();
   const getHistory = (result: string, amount: number) => getGamesHishtory(result, amount, user.info);
   const data = user?.gameHistory?.filter(({ game }) => game == "Plinko");
 
@@ -41,25 +42,28 @@ export default function Plinko() {
     setSetting(false);
 
     try {
-      const response = await axios.post(backend_api + "/plinko", {
-        data: 1,
-      });
+      if (userExist) {
+        const response = await axios.post(backend_api + "/plinko", {
+          data: 1,
+        });
 
-      if (ballManager) {
-        ballManager.addBall(response.data.point);
-        const winOrLoss = response.data.point == multiplier ? "win" : "loss";
-        submitGame(
-          {
-            userId: user.info._id,
-            username: user.info.name,
-            game: "Plinko",
-            result: winOrLoss,
-            betAmount: betAmount,
-            multiplier: multiplier,
-            payout: betAmount * multiplier,
-          },
-          getHistory,
-        );
+        if (ballManager) {
+          ballManager.addBall(response.data.point);
+          submitGame(
+            {
+              userId: user.info._id,
+              username: user.info.name,
+              game: "Plinko",
+              result: response.data.point == multiplier ? "win" : "loss",
+              betAmount: betAmount,
+              multiplier: multiplier,
+              payout: response.data.point == multiplier ? betAmount * multiplier : 0,
+            },
+            getHistory,
+          );
+        }
+      } else {
+        setIsLogin(true);
       }
     } catch (error) {
       console.log(error);

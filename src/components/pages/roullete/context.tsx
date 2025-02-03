@@ -10,6 +10,7 @@ import anime from "./../../../../node_modules/animejs/lib/anime.es";
 import { board } from "./mock-data";
 import { generateRandomNumber } from "../../../lib/utils/generateRandomNumber";
 import gameSoundEffect from "../../../lib/utils/game-sound-effect";
+import { userExist } from "../../../lib/utils";
 
 interface gamble {
   betAmount: null | number;
@@ -35,7 +36,7 @@ interface context {
 const AppContext = createContext<context>({});
 
 const AppProvider = ({ children }) => {
-  const { user, getGamesHishtory } = useGlobalContext();
+  const { user, getGamesHishtory, setIsLogin } = useGlobalContext();
   const getHistory = (result: string, amount: number) => getGamesHishtory(result, amount, user.info);
 
   const [gamble, setGamble] = useState({
@@ -127,64 +128,69 @@ const AppProvider = ({ children }) => {
   // click to start game
   const startGame = (e: FormEvent, number: number) => {
     e.preventDefault();
-    if (gamble.outcomes.length < 1) {
-      toast.error("Please select atleast one outcome");
+    setIsSetting(false);
+    if (userExist) {
+      if (gamble.outcomes.length < 1) {
+        toast.error("Please select atleast one outcome");
+      } else {
+        setIsGameActive(true);
+        SMSoundService.coin();
+
+        const bezier = [0.165, 0.84, 0.44, 1.005];
+        var ballMinNumberOfSpins = 2;
+        var ballMaxNumberOfSpins = 4;
+        var wheelMinNumberOfSpins = 2;
+        var wheelMaxNumberOfSpins = 4;
+
+        var lastNumberRotation = getRotationFromNumber(wheel.lastNumber.toString()); //anime.get(wheel, "rotate", "deg");
+
+        // minus in front to reverse it so it spins counterclockwise
+        var endRotation = -getRandomEndRotation(ballMinNumberOfSpins, ballMaxNumberOfSpins);
+        var zeroFromEndRotation = getZeroEndRotation(endRotation);
+        var ballEndRotation =
+          getBallNumberOfRotations(wheelMinNumberOfSpins, wheelMaxNumberOfSpins) +
+          getBallEndRotation(zeroFromEndRotation, number);
+
+        // reset to the last number
+        anime.set([".layer-2", ".layer-4"], {
+          rotate: function () {
+            return lastNumberRotation;
+          },
+        });
+        // reset zero
+        anime.set(".ball-container", {
+          rotate: function () {
+            return 0;
+          },
+        });
+
+        anime({
+          targets: [".layer-2", ".layer-4"],
+          rotate: function () {
+            return endRotation; // random number
+          },
+          duration: wheel.singleSpinDuration, // random duration
+          easing: `cubicBezier(${bezier.join(",")})`,
+          complete: function (anim: any) {
+            checkIfPlayerWon(number, gamble.outcomes);
+          },
+        });
+        // aniamte ball
+        anime({
+          targets: ".ball-container",
+          translateY: [
+            { value: 0, duration: 2000 },
+            { value: 20, duration: 1000 },
+            { value: 25, duration: 900 },
+            { value: 50, duration: 1000 },
+          ],
+          rotate: [{ value: ballEndRotation, duration: wheel.singleSpinDuration }],
+          loop: 1,
+          easing: `cubicBezier(${bezier.join(",")})`,
+        });
+      }
     } else {
-      setIsSetting(false);
-      setIsGameActive(true);
-      SMSoundService.coin();
-
-      const bezier = [0.165, 0.84, 0.44, 1.005];
-      var ballMinNumberOfSpins = 2;
-      var ballMaxNumberOfSpins = 4;
-      var wheelMinNumberOfSpins = 2;
-      var wheelMaxNumberOfSpins = 4;
-
-      var lastNumberRotation = getRotationFromNumber(wheel.lastNumber.toString()); //anime.get(wheel, "rotate", "deg");
-
-      // minus in front to reverse it so it spins counterclockwise
-      var endRotation = -getRandomEndRotation(ballMinNumberOfSpins, ballMaxNumberOfSpins);
-      var zeroFromEndRotation = getZeroEndRotation(endRotation);
-      var ballEndRotation =
-        getBallNumberOfRotations(wheelMinNumberOfSpins, wheelMaxNumberOfSpins) + getBallEndRotation(zeroFromEndRotation, number);
-
-      // reset to the last number
-      anime.set([".layer-2", ".layer-4"], {
-        rotate: function () {
-          return lastNumberRotation;
-        },
-      });
-      // reset zero
-      anime.set(".ball-container", {
-        rotate: function () {
-          return 0;
-        },
-      });
-
-      anime({
-        targets: [".layer-2", ".layer-4"],
-        rotate: function () {
-          return endRotation; // random number
-        },
-        duration: wheel.singleSpinDuration, // random duration
-        easing: `cubicBezier(${bezier.join(",")})`,
-        complete: function (anim: any) {
-          checkIfPlayerWon(number, gamble.outcomes);
-        },
-      });
-      // aniamte ball
-      anime({
-        targets: ".ball-container",
-        translateY: [
-          { value: 0, duration: 2000 },
-          { value: 20, duration: 1000 },
-          { value: 25, duration: 900 },
-          { value: 50, duration: 1000 },
-        ],
-        rotate: [{ value: ballEndRotation, duration: wheel.singleSpinDuration }],
-        loop: 1,
-        easing: `cubicBezier(${bezier.join(",")})`,
-      });
+      setIsLogin(true);
     }
   };
 

@@ -5,7 +5,7 @@ import { useGlobalContext } from "../../../lib/global-context";
 
 export default function Header() {
   const pathname = useLocation().pathname;
-  const { logout } = useGlobalContext();
+  const { logout, setIsLogin } = useGlobalContext();
 
   return (
     <article className="flex h-fit w-full items-center py-7 text-primary">

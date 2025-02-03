@@ -11,7 +11,7 @@ export default function Header() {
         style={{
           background: "linear-gradient(137.48deg, #FF7642 20.9%, #A53408 79.1%)",
         }}
-        className="max-w-43l relative z-10 h-72 w-full rounded-3xl p-5 text-primary"
+        className="max-w-43l relative z-[1] h-72 w-full rounded-3xl p-5 text-primary"
       >
         <div className="sm:max-w-96">
           <div className="text-xl font-bold tracking-tighter">Exclusive Deal</div>

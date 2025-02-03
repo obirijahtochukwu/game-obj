@@ -42,4 +42,18 @@ export const Buttons = {
       {props.children}
     </button>
   ),
+  play_game: (
+    props: React.ButtonHTMLAttributes<HTMLButtonElement> & {
+      classname?: string;
+    },
+  ) => {
+    return (
+      <button
+        {...props}
+        className={`${props?.classname} flex min-h-12 w-full items-center justify-center rounded-md bg-gradient-custom text-xl font-semibold text-primary`}
+      >
+        {props.children}
+      </button>
+    );
+  },
 };
