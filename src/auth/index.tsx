@@ -19,6 +19,7 @@ export default function Authentication() {
 
   return (
     <Modal
+      isForm
       isOpen={isLogin || isSignup}
       setIsOpen={() => {
         setIsLogin(false);
@@ -26,7 +27,7 @@ export default function Authentication() {
       }}
       classname="!w-full max-w-md !min-h-96 !pt-3.5 !rounded-2xl !bg-image"
     >
-      <>{isSignup ? <Signup /> : <Login />}</>
+      <>{isSignup ? <Signup /> : isLogin ? <Login /> : null}</>
     </Modal>
   );
 }

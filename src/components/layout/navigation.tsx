@@ -68,9 +68,9 @@ export default function Navigation({ children }: { children: JSX.Element }) {
                   </button>
                   <button
                     onClick={() => setIsSignup(true)}
-                    className="flex h-full w-fit items-center justify-center gap-2 rounded-xl bg-white px-4 text-base font-semibold text-background max-md:h-11 md:text-xl"
+                    className="flex h-full w-fit items-center justify-center gap-2 rounded-md bg-white px-4 text-base font-semibold text-background max-md:h-11 md:text-xl"
                   >
-                    Register
+                    Create account
                   </button>
                 </>
               )}

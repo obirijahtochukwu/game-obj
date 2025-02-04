@@ -21,7 +21,7 @@ const initialSate = {
 };
 
 export default function Signup() {
-  const { setIsSignup, isSignup } = useGlobalContext();
+  const { setIsSignup, setRefresh, setIsLogin } = useGlobalContext();
   const [steps, setSteps] = useState(initialSate);
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
@@ -30,6 +30,7 @@ export default function Signup() {
       setSteps({ ...steps, count: 2 });
     } else if (steps.count == 2) {
       setSteps({ ...steps, count: 3 });
+      setRefresh(true);
     } else {
       axios
         .post(backend_api + "/signup", { ...steps.form }, { withCredentials: true })
@@ -49,14 +50,20 @@ export default function Signup() {
     <article className="flex flex-col gap-4 text-primary">
       <header className="flex items-center justify-between">
         <div className="text-2xl font-semibold">Webet</div>
-        <div onClick={() => setIsSignup(false)} className="cursor-pointer text-lg font-medium">
+        <div
+          onClick={() => {
+            setIsSignup(false);
+            setIsLogin(false);
+          }}
+          className="cursor-pointer text-lg font-medium"
+        >
           Exit
         </div>
       </header>
       <section className="grid grid-cols-3 gap-0.5">
         <div className="h-1 rounded-l-sm bg-gradient-custom" />
         <div className={`${steps.count > 1 ? "bg-gradient-custom" : "bg-gray"} h-1`} />
-        <div className={`${steps.count == 3 ? "bg-gradient-custom" : "bg-gray"} h-1`} />
+        <div className={`${steps.count == 3 ? "bg-pink" : "bg-gray"} h-1`} />
         {steps.count > 1 ? (
           <div
             onClick={() => setSteps({ ...steps, count: steps.count - 1 })}

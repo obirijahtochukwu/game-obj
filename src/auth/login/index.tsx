@@ -63,9 +63,9 @@ export default function Login() {
               {Icon}
             </div>
           ))}
-        </section>{" "}
-        Already have an account?{" "}
-        <span onClick={() => setIsSignup(true)} className="cursor-pointer text-purple-500">
+        </section>
+        You have not registered?
+        <span onClick={() => setIsSignup(true)} className="ml-1 cursor-pointer text-purple-500">
           Sign up
         </span>
       </div>

@@ -26,19 +26,15 @@ export const useClick = {
       targetRef,
     };
   },
-  manual: ({
-    isOpen,
-    setIsOpen,
-  }: {
-    isOpen: boolean;
-    setIsOpen: React.Dispatch<boolean>;
-  }) => {
+  manual: ({ isOpen, setIsOpen, isForm }: { isOpen: boolean; setIsOpen: React.Dispatch<boolean>; isForm?: boolean }) => {
     const targetRef = useRef<HTMLInputElement>();
     useEffect(() => {
       const close = (e: MouseEvent) => {
         const target = e.target as Node; // Type assertion to Node
-        if (targetRef.current && !targetRef.current.contains(target)) {
-          setIsOpen(false);
+        if (!isForm) {
+          if (targetRef.current && !targetRef.current.contains(target)) {
+            setIsOpen(false);
+          }
         }
       };
       document.addEventListener("mousedown", close);

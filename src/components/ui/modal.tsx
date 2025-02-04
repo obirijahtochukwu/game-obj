@@ -9,6 +9,7 @@ export default function Modal({
   side,
   classname,
   close,
+  isForm,
   children,
 }: {
   isOpen: boolean;
@@ -16,11 +17,13 @@ export default function Modal({
   side?: boolean;
   classname?: string;
   close?: boolean;
+  isForm?: boolean;
   children: JSX.Element;
 }) {
   const { targetRef } = useClick.manual({
     isOpen,
     setIsOpen,
+    isForm,
   });
 
   useEffect(() => {
