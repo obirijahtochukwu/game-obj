@@ -7,7 +7,7 @@ import NoActivity from "../../../ui/no-activity";
 export default function Table() {
   const { games } = useGlobalContext().user.info;
 
-  const no_activity = games.length < 1;
+  const no_activity = games?.length < 1;
 
   return (
     <article className="col-span-12 mt-5">
