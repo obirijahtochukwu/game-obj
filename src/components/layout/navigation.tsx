@@ -18,11 +18,15 @@ import Authentication from "../../auth";
 import IsBetLoading from "../ui/is-bet-loading";
 
 export default function Navigation({ children }: { children: JSX.Element }) {
-  const { logout, user, setIsLogin, isLogin, setIsSignup } = useGlobalContext();
+  const { logout, user, setIsLogin, isLogin, setIsSignup, setRefresh } = useGlobalContext();
   // const [isSignup, setIsSignup] = useState(false);
   // const [isLogin, setIsLogin] = useState(false);
   const { isOpen, setIsOpen, targetRef } = useClick.auto();
   const pathname = useLocation().pathname;
+
+  useEffect(() => {
+    setRefresh(true);
+  }, [pathname]);
 
   const props = {
     targetRef,

@@ -30,6 +30,21 @@ export const Buttons = {
       {props.children}
     </button>
   ),
+  error: (
+    props: React.ButtonHTMLAttributes<HTMLButtonElement> & {
+      classname?: string;
+    },
+  ) => (
+    <button
+      {...props}
+      className={
+        "flex h-10 w-full items-center justify-center rounded-md bg-gray/30 font-advance text-base font-semibold text-primary " +
+        props.classname
+      }
+    >
+      {props.children}
+    </button>
+  ),
   play_now: (
     props: React.ButtonHTMLAttributes<HTMLButtonElement> & {
       classname?: string;

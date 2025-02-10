@@ -75,6 +75,8 @@ const AppProvider = ({ children }: { children: JSX.Element }) => {
         }
       })
       .catch((err) => {
+        console.log(err);
+
         setUser({ ...user, loggedIn: "false" });
       })
       .finally(() => setRefresh(false));

@@ -69,6 +69,7 @@ export interface AdminData {
   id?: string;
   name?: string;
   email?: string;
+  terms_of_service?: string;
   token?: string;
   topGames?: topGames[];
   topPlayers?: topPlayer[];

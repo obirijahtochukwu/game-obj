@@ -1,17 +1,25 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Buttons } from "../../components/ui/buttons";
+import axios from "axios";
+import { backend_api } from "../../lib/constants";
 
 export default function Agreement({ handleSubmit }) {
+  const [terms, setTerms] = useState();
+
+  useEffect(() => {
+    axios
+      .get(backend_api + "/terms_of_service")
+      .then((res) => setTerms(res.data.terms_of_service))
+      .catch((err) => console.log(err));
+  }, []);
+
   return (
     <>
       <div className="text-xl font-bold">Terms and Conditions</div>
-      <section className="flex flex-col gap-2 rounded-lg bg-advance p-3">
+      <section className="flex flex-col gap-2 rounded-lg bg-advance p-3 pr-0">
         <div className="text-lg font-semibold">1. Webnet.com</div>
-        <div className="font-advance text-sm font-normal tracking-wider">
-          1.1 Webnet.com is owned and operated by Medium Rare, N.V. (hereinafter "Stake", "We" or "Us"), a company with head
-          office at Korporaalweg 10, Willemstad, Curaçao. Medium Rare N.V. is authorised to offer it’s services in accordance with
-          the Certificate of Operation (Application no. OGL/2024/1451/0918) issued by the Curaçao Gaming Control Board. Some
-          credit card payment processing are handled by its wholly owned subsidiary, Medium Rare Limited.
+        <div className="custom-scrollbar inline-block h-60 w-full overflow-y-auto whitespace-pre-wrap pr-3 font-advance text-sm font-normal tracking-wider">
+          {terms}
         </div>
       </section>
       <div className="flex w-fit items-center gap-2 text-sm font-normal">

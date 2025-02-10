@@ -31,10 +31,8 @@ export const useClick = {
     useEffect(() => {
       const close = (e: MouseEvent) => {
         const target = e.target as Node; // Type assertion to Node
-        if (!isForm) {
-          if (targetRef.current && !targetRef.current.contains(target)) {
-            setIsOpen(false);
-          }
+        if (!isForm && targetRef.current && !targetRef.current.contains(target)) {
+          setIsOpen(false);
         }
       };
       document.addEventListener("mousedown", close);

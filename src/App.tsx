@@ -39,24 +39,18 @@ function App() {
       {admin.loggedIn == "admin" ? (
         <RouterProvider router={admin_router} />
       ) : user.loggedIn == "false" ? (
-        // <BrowserRouter>
-        //   <>
-        //     <Routes>
-        //       <Route
-        //         path="/"
-        //         element={
-        //           <Navigation>
-        //             <Home />
-        //           </Navigation>
-        //         }
-        //       />
-        //       <Route path="/admin/login" element={<Login />} />
-        //       <Route path="/admin/signup" element={<Signup />} />
-        //     </Routes>
-        //   </>
-        // </BrowserRouter>
+        <>
+          <BrowserRouter>
+            <>
+              <Routes>
+                <Route path="/admin/login" element={<Login />} />
+                <Route path="/admin/signup" element={<Signup />} />
+              </Routes>
+            </>
+          </BrowserRouter>
 
-        <RouterProvider router={router} />
+          <RouterProvider router={router} />
+        </>
       ) : (
         <RouterProvider router={router} />
       )}

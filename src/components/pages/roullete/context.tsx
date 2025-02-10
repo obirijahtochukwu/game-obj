@@ -109,7 +109,7 @@ const AppProvider = ({ children }) => {
           result: result,
           betAmount: gamble.betAmount,
           multiplier: gamble.multiplier,
-          payout: gamble.payout,
+          payout: result == "win" ? gamble.payout : 0,
         },
         getHistory,
         refresh,
