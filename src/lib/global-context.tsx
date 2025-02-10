@@ -3,6 +3,8 @@ import React, { createContext, Dispatch, useContext, useEffect, useState } from 
 import { AdminData, userData } from "./types";
 import { backend_api } from "./constants";
 import { getStore, setStore } from "./utils/store";
+import { useLocation } from "react-router-dom";
+import { toast } from "react-toastify";
 
 interface betResult {
   loss: boolean;
@@ -25,11 +27,14 @@ interface context {
   setIsLogin?: Dispatch<boolean>;
   isSignup?: boolean;
   setIsSignup?: Dispatch<boolean>;
+  isBetLoading?: boolean;
+  setIsBetLoading?: Dispatch<boolean>;
 }
 
 const AppContext = createContext<context>({});
 
 const AppProvider = ({ children }: { children: JSX.Element }) => {
+  // const pathname = useLocation().pathname;
   const [user, setUser] = useState({
     loggedIn: "pending",
     info: {},
@@ -41,6 +46,7 @@ const AppProvider = ({ children }: { children: JSX.Element }) => {
   });
   const [isLogin, setIsLogin] = useState(false);
   const [isSignup, setIsSignup] = useState(false);
+  const [isBetLoading, setIsBetLoading] = useState(false);
 
   const [betResult, setBetResult] = useState({ loss: false, won: false, amount: 0 });
 
@@ -61,7 +67,6 @@ const AppProvider = ({ children }: { children: JSX.Element }) => {
         console.log(res.data);
         if (res.data.token == "admin") {
           setAdmin({ ...res.data, loggedIn: "admin" });
-          console.log(res.data);
         } else if (!res.data.token && res.data.email) {
           setUser({ ...user, info: res.data, loggedIn: "true" });
           getGamesHishtory(null, null, res.data);
@@ -77,9 +82,10 @@ const AppProvider = ({ children }: { children: JSX.Element }) => {
 
   // fetch game history
   const getGamesHishtory = (result?: string, amount?: number, userInfo?: userData) => {
-    console.log(amount);
-
-    if (amount) showPopup(result, amount);
+    if (amount) {
+      setIsBetLoading(false);
+      showPopup(result, amount);
+    }
     axios
       .get(backend_api + `/game-history`, {
         withCredentials: true,
@@ -128,6 +134,8 @@ const AppProvider = ({ children }: { children: JSX.Element }) => {
         setIsSignup,
         isLogin,
         setIsLogin,
+        isBetLoading,
+        setIsBetLoading,
       }}
     >
       {children}

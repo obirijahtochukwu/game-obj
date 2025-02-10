@@ -35,16 +35,18 @@ interface context {
 
 const AppContext = createContext<context>({});
 
+const initialSate = {
+  outcomes: [],
+  betAmount: null,
+  payout: null,
+  multiplier: null,
+};
+
 const AppProvider = ({ children }) => {
-  const { user, getGamesHishtory, setIsLogin } = useGlobalContext();
+  const { user, getGamesHishtory, setIsLogin, setIsBetLoading } = useGlobalContext();
   const getHistory = (result: string, amount: number) => getGamesHishtory(result, amount, user.info);
 
-  const [gamble, setGamble] = useState({
-    outcomes: [],
-    betAmount: null,
-    payout: null,
-    multiplier: null,
-  });
+  const [gamble, setGamble] = useState(initialSate);
   const [isSetting, setIsSetting] = useState(false);
   const [isGameActive, setIsGameActive] = useState(false);
   const [wheel, setWheel] = useState({
@@ -94,7 +96,11 @@ const AppProvider = ({ children }) => {
     const isEven = +number % 2 === 0;
     const isInArray = numbersArray.includes(number);
 
-    const handleSubmitGame = (result: string) =>
+    const handleSubmitGame = (result: string) => {
+      setIsBetLoading(true);
+      const refresh = () => {
+        setGamble(initialSate);
+      };
       submitGame(
         {
           userId: user.info._id,
@@ -106,7 +112,9 @@ const AppProvider = ({ children }) => {
           payout: gamble.payout,
         },
         getHistory,
+        refresh,
       );
+    };
 
     if (isInArray) {
       gameSoundEffect("win");

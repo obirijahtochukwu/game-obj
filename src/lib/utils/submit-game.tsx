@@ -3,7 +3,7 @@ import { gameHistory } from "../types";
 import { backend_api } from "../constants";
 import gameSoundEffect from "./game-sound-effect";
 
-export const submitGame = async (data: gameHistory, getHistory) => {
+export const submitGame = async (data: gameHistory, getHistory, refresh?: () => void) => {
   gameSoundEffect(data?.result);
   const amount = data?.result == "win" ? data?.payout : data?.betAmount;
   try {
@@ -15,5 +15,11 @@ export const submitGame = async (data: gameHistory, getHistory) => {
     }
   } catch (error) {
     console.log(error);
+  } finally {
+    if (refresh) {
+      console.log("yyy");
+
+      refresh();
+    }
   }
 };

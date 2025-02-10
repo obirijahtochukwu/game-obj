@@ -57,7 +57,7 @@ interface context {
 const AppContext = createContext<context>({});
 
 const AppProvider = ({ children }) => {
-  const { user, getGamesHishtory, setIsLogin } = useGlobalContext();
+  const { user, getGamesHishtory, setIsLogin, setIsBetLoading } = useGlobalContext();
   const getHistory = (result: string, amount: number) => getGamesHishtory(result, amount, user.info);
 
   const [risklevel, setRiskLevel] = useState({
@@ -124,6 +124,12 @@ const AppProvider = ({ children }) => {
   // Play win or loss sound based on game state
   useEffect(() => {
     if (gameState.label) {
+      setIsBetLoading(true);
+      const refresh = () => {
+        setSelectedCoins([]);
+        setGamble({ betAmount: 0, payout: 0 });
+        setGameState({ label: "", value: "" });
+      };
       submitGame(
         {
           userId: user.info._id,
@@ -135,6 +141,7 @@ const AppProvider = ({ children }) => {
           payout: gameState.label == "win" ? gamble.payout : 0,
         },
         getHistory,
+        refresh,
       );
     }
     gameSoundEffect(gameState.label);

@@ -22,7 +22,7 @@ export default function Plinko() {
   const [ballManager, setBallManager] = useState<BallManager>();
   const canvasRef = useRef<any>();
 
-  const { user, getGamesHishtory, setIsLogin } = useGlobalContext();
+  const { user, getGamesHishtory, setIsLogin, setIsBetLoading } = useGlobalContext();
   const getHistory = (result: string, amount: number) => getGamesHishtory(result, amount, user.info);
   const data = user?.gameHistory?.filter(({ game }) => game == "Plinko");
 

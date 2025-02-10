@@ -44,12 +44,12 @@ export default function Modal({
 
       <main
         ref={targetRef}
-        style={{ top: `${(window?.innerHeight - targetRef?.current?.clientHeight) / 2}px` }}
+        // style={{ top: `${(window?.innerHeight - targetRef?.current?.clientHeight) / 2}px` }}
         className={`${isOpen ? "scale-100 opacity-100" : "scale-0 opacity-0"} ${classname} ${
           side
             ? "right-0 top-0 h-full w-full max-w-md overflow-y-auto rounded-r-none rounded-br-none"
             : "left-1/2 h-max w-max max-w-md -translate-x-1/2"
-        } !fixed z-50 origin-top-right rounded-lg bg-advance p-5 shadow-md duration-500`}
+        } !fixed top-1/2 z-50 origin-top-right -translate-y-1/2 rounded-lg bg-advance p-5 shadow-md duration-500`}
       >
         {close && (
           <div

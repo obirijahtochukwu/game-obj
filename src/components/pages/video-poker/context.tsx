@@ -32,7 +32,7 @@ interface GameState {
 const AppContext = createContext<GameState>({});
 
 const AppProvider = ({ children }) => {
-  const { user, getGamesHishtory, setIsLogin } = useGlobalContext();
+  const { user, getGamesHishtory, setIsLogin, setIsBetLoading } = useGlobalContext();
   const getHistory = (result: string, amount: number) => getGamesHishtory(result, amount, user.info);
 
   const [balance, setBalance] = useState<any>(1000); // Player's balance

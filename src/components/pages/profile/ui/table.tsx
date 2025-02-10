@@ -54,7 +54,7 @@ export default function Table() {
             <div className="w-32 text-center">{formattedNumber(averageBetSize)}</div>
           </section>
         ))}
-        <NoActivity disabled={games.length < 1 && true} />
+        <NoActivity disabled={games?.length < 1 && true} />
       </main>
     </article>
   );

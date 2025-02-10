@@ -34,13 +34,13 @@ function Page() {
       <section className="mb-10 rounded-3xl bg-muted">
         <div className="flex gap-7 p-4">
           <Settings />
-          <main className="relative flex h-96 w-full flex-col items-center justify-center rounded-3xl bg-dark p-8 sm:h-[600px] lg:w-[calc(100%-384px)]">
+          <main className="relative flex h-max w-full flex-col items-center justify-center rounded-3xl bg-dark p-8 sm:h-[600px] lg:w-[calc(100%-384px)]">
             <Icons.setting onClick={() => setSetting(!setting)} className="absolute left-4 top-4 z-10 cursor-pointer lg:hidden" />
             <Game />
             <footer className="mt-auto grid min-w-full grid-cols-4 gap-8">
-              {selectedCoins?.map(({ coin }: any) => (
+              {selectedCoins?.map(({ coin }: any, idx: number) => (
                 <div
-                  key={coin}
+                  key={idx}
                   className={`flex h-12 items-center justify-center rounded-lg border-b-4 bg-advance text-xl font-semibold text-primary ${
                     gameState.value == coin ? "border-b-[#16a34a] bg-primary" : "border-secondary"
                   }`}

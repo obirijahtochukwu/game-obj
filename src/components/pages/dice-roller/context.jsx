@@ -8,7 +8,7 @@ import { userExist } from "../../../lib/utils";
 const AppContext = createContext();
 
 const AppProvider = ({ children }) => {
-  const { user, getGamesHishtory ,showPopup,setIsLogin} = useGlobalContext();
+  const { user, getGamesHishtory ,showPopup,setIsLogin,setIsBetLoading} = useGlobalContext();
   const getHistory = (result, amount) => getGamesHishtory(result, amount, user.info); 
 
   const [setting, setSetting] = useState(false);
@@ -43,6 +43,11 @@ const AppProvider = ({ children }) => {
         // Calculate win condition
         const winningTarget = Math.floor(6 - 6 / multiplier); // Target dice number
         const winCondition = finalResult > winningTarget ? "win" : "loss";
+         setIsBetLoading(true);
+      const refresh = () => {
+        setMultiplier(1)
+        setBetAmount(null)
+      };
         submitGame(
           {
             userId: user.info._id,
@@ -53,7 +58,7 @@ const AppProvider = ({ children }) => {
             multiplier: multiplier,
             payout: winCondition == "win" ? +profitOnWin : 0,
           },
-          getHistory
+          getHistory,refresh
         );
       }
     }, 100); // Every 100ms, the dice will change

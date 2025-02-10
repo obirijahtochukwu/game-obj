@@ -10,6 +10,7 @@ import AdminNavigation from "./components/layout/navigation";
 import { admin_router } from "./lib/admin-routes";
 import Login from "./components/admin/auth/login";
 import Signup from "./components/admin/auth/signup";
+import ExampleTable from "./components/pages/dice-roller/test";
 // import { Login } from './components/admin/auth/login';
 
 function App() {
@@ -34,26 +35,28 @@ function App() {
           user.loggedIn == "pending" && admin.loggedIn == "pending" ? "h-1/2" : "h-0"
         } fixed bottom-0 z-50 w-screen bg-background duration-500`}
       ></div>
+
       {admin.loggedIn == "admin" ? (
         <RouterProvider router={admin_router} />
       ) : user.loggedIn == "false" ? (
-        <BrowserRouter>
-          <>
-            {/* <Navigate to="/login" /> */}
-            <Routes>
-              <Route
-                path="/"
-                element={
-                  <Navigation>
-                    <Home />
-                  </Navigation>
-                }
-              />
-              <Route path="/admin/login" element={<Login />} />
-              <Route path="/admin/signup" element={<Signup />} />
-            </Routes>
-          </>
-        </BrowserRouter>
+        // <BrowserRouter>
+        //   <>
+        //     <Routes>
+        //       <Route
+        //         path="/"
+        //         element={
+        //           <Navigation>
+        //             <Home />
+        //           </Navigation>
+        //         }
+        //       />
+        //       <Route path="/admin/login" element={<Login />} />
+        //       <Route path="/admin/signup" element={<Signup />} />
+        //     </Routes>
+        //   </>
+        // </BrowserRouter>
+
+        <RouterProvider router={router} />
       ) : (
         <RouterProvider router={router} />
       )}

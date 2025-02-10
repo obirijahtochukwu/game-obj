@@ -15,6 +15,7 @@ import BetSuccess from "../ui/bet-success";
 import BetLoss from "../ui/bet-loss";
 import Logo from "../ui/logo";
 import Authentication from "../../auth";
+import IsBetLoading from "../ui/is-bet-loading";
 
 export default function Navigation({ children }: { children: JSX.Element }) {
   const { logout, user, setIsLogin, isLogin, setIsSignup } = useGlobalContext();
@@ -33,11 +34,12 @@ export default function Navigation({ children }: { children: JSX.Element }) {
   };
 
   return (
-    <article className={`welcome-anime flex p-4 backdrop-blur-2xl md:p-7`}>
+    <article className={`welcome-anime flex p-4 md:p-7`}>
       <UniverseBackground />
       <Authentication />
       <BetSuccess />
       <BetLoss />
+      <IsBetLoading />
       <Leftbar {...props} />
       <div className="w-full">
         <div className="grid grid-cols-1">
