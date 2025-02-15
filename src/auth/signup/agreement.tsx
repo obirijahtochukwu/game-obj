@@ -3,7 +3,7 @@ import { Buttons } from "../../components/ui/buttons";
 import axios from "axios";
 import { backend_api } from "../../lib/constants";
 
-export default function Agreement({ handleSubmit }) {
+export default function Agreement({ handleSubmit, isLoading }) {
   const [terms, setTerms] = useState();
 
   useEffect(() => {
@@ -30,7 +30,13 @@ export default function Agreement({ handleSubmit }) {
         </label>
       </div>
       <Buttons.primary onClick={handleSubmit} classname="mt-auto">
-        Confirm
+        {isLoading ? (
+          <div className="scale-50">
+            <div className="custom-loader"></div>
+          </div>
+        ) : (
+          "Create Account"
+        )}
       </Buttons.primary>
     </>
   );

@@ -5,16 +5,21 @@ import { changeEvent } from "../../lib/types";
 import { Buttons } from "../../components/ui/buttons";
 import { Icons } from "../../components/ui/icons";
 import axios from "axios";
-import { backend_api } from "../../lib/constants";
+import { backend_api, disableMouse, enableMouse } from "../../lib/constants";
 import { setStore } from "../../lib/utils/store";
 import { useGlobalContext } from "../../lib/global-context";
+import { toast } from "react-toastify";
 
 export default function Login() {
   const [form, setForm] = useState({ email: "", password: "" });
   const { setIsLogin, setIsSignup } = useGlobalContext();
+  const [isSuccessfull, setIsSuccessfull] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
+    setIsLoading(true);
+    disableMouse();
 
     axios
       .post(backend_api + "/login", { ...form }, { withCredentials: true })
@@ -22,10 +27,13 @@ export default function Login() {
         setStore("token", response.data.token);
         setForm({ email: "", password: "" });
         window.location.href = "/";
-        console.log(response);
+        enableMouse();
       })
       .catch((err) => {
         console.log(err);
+        toast.error("User not found. Please check your credentials or sign up.");
+        setIsLoading(false);
+        enableMouse();
       });
   };
 
@@ -50,11 +58,19 @@ export default function Login() {
         onChange={(e: changeEvent) => setForm({ ...form, password: e.target.value })}
         placeholder="Password"
       />
-      <Buttons.primary>Sign in</Buttons.primary>
+      <Buttons.primary>
+        {isLoading ? (
+          <div className="scale-50">
+            <div className="custom-loader"></div>
+          </div>
+        ) : (
+          "Sign In"
+        )}
+      </Buttons.primary>
       <section className="flex items-center gap-3 text-lg font-semibold">
-        <div className="bg-line h-px w-full" />
+        <div className="h-px w-full bg-line" />
         OR
-        <div className="bg-line h-px w-full rotate-180" />
+        <div className="h-px w-full rotate-180 bg-line" />
       </section>
       <div className="text-center text-sm font-normal">
         <section className="mb-4 flex items-center justify-center gap-4">

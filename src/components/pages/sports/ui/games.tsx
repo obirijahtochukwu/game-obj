@@ -19,7 +19,7 @@ export default function Games() {
     const leagueId = 39;
     const fetchMatches = async () => {
       try {
-        const fixturesResponse = await axios.get(`https://allsportsapi2.p.rapidapi.com/api/cricket/team/187765`, {
+        const fixturesResponse = await axios.get(`https://allsportsapi2.p.rapidapi.com/api/football/team/187765`, {
           headers: {
             "x-rapidapi-host": "allsportsapi2.p.rapidapi.com",
             "x-rapidapi-key": "63360b5a3amsh4e0bc66f94f70c0p17ceaajsn0e6df622a18c",
@@ -50,6 +50,8 @@ export default function Games() {
 
   return (
     <section className="mt-10 grid grid-cols-1 gap-6 max-sm:mx-auto max-sm:max-w-md sm:grid-cols-2 xl:grid-cols-3">
+      Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quas, cum autem, perspiciatis totam ratione porro provident quis
+      aspernatur suscipit obcaecati, eos quae maxime laboriosam distinctio. Numquam eligendi maxime tempora nisi.
       {team.state ? <TeamDetails {...props} /> : false}
       {match.odds?.map((prop, idx) => (
         <div

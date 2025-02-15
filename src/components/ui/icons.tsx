@@ -323,6 +323,7 @@ export const Icons = {
       />
     </svg>
   ),
+  // games: (props: IconProps) => (),
   pad: (props: IconProps) => (
     <svg {...props} width="32" height="23" viewBox="0 0 32 23" fill="none" xmlns="http://www.w3.org/2000/svg">
       <path

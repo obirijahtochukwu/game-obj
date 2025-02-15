@@ -47,7 +47,7 @@ export default function Navigation({ children }: { children: JSX.Element }) {
       <Leftbar {...props} />
       <div className="w-full">
         <div className="grid grid-cols-1">
-          <section className={`flex flex-col gap-7 text-primary duration-300 md:ml-7`}>
+          <section className={`flex flex-col gap-5 text-primary duration-300 md:ml-5`}>
             <nav className="flex h-14 items-center gap-7 py-0.5 max-md:justify-between">
               <Link to={"/"} className="text-lg font-semibold tracking-tighter text-primary md:mr-auto md:text-5xl">
                 <Logo />

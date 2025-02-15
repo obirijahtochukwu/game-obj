@@ -5,9 +5,11 @@ import Language from "./language";
 import CreateAccount from "./create-account";
 import Agreement from "./agreement";
 import axios from "axios";
-import { backend_api } from "../../lib/constants";
+import { backend_api, disableMouse, enableMouse } from "../../lib/constants";
 import { setStore } from "../../lib/utils/store";
 import { useGlobalContext } from "../../lib/global-context";
+import { Buttons } from "../../components/ui/buttons";
+import { toast } from "react-toastify";
 
 const initialSate = {
   count: 1,
@@ -23,6 +25,8 @@ const initialSate = {
 export default function Signup() {
   const { setIsSignup, setRefresh, setIsLogin } = useGlobalContext();
   const [steps, setSteps] = useState(initialSate);
+  const [isSuccessfull, setIsSuccessfull] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -32,51 +36,82 @@ export default function Signup() {
       setSteps({ ...steps, count: 3 });
       setRefresh(true);
     } else {
+      setIsLoading(true);
+      disableMouse();
       axios
         .post(backend_api + "/signup", { ...steps.form }, { withCredentials: true })
-        .then((response) => {
-          setSteps(initialSate);
-          setStore("token", response.data.token);
-
-          window.location.href = "/";
+        .then((res) => {
+          if (res.data?.email) {
+            setSteps(initialSate);
+            setStore("token", res.data.token);
+            setIsSuccessfull(true);
+          } else {
+            toast.error("User not found. Please check your credentials or sign up.");
+          }
+          enableMouse();
+          setIsLoading(false);
         })
-        .catch((err) => console.log(err));
+        .catch((err) => {
+          setIsSuccessfull(false);
+          enableMouse();
+          setIsLoading(false);
+        });
     }
   };
 
-  const props = { steps, setSteps, handleSubmit };
+  const props = { steps, setSteps, handleSubmit, isLoading };
 
   return (
-    <article className="flex flex-col gap-4 text-primary">
-      <header className="flex items-center justify-between">
-        <div className="text-2xl font-semibold">Webet</div>
-        <div
-          onClick={() => {
-            setIsSignup(false);
-            setIsLogin(false);
-          }}
-          className="cursor-pointer text-lg font-medium"
-        >
-          Exit
-        </div>
-      </header>
-      <section className="grid grid-cols-3 gap-0.5">
-        <div className="h-1 rounded-l-sm bg-gradient-custom" />
-        <div className={`${steps.count > 1 ? "bg-gradient-custom" : "bg-gray"} h-1`} />
-        <div className={`${steps.count == 3 ? "bg-pink" : "bg-gray"} h-1`} />
-        {steps.count > 1 ? (
-          <div
-            onClick={() => setSteps({ ...steps, count: steps.count - 1 })}
-            className="col-span-1 cursor-pointer text-sm font-normal"
-          >
-            Back
+    <>
+      {isSuccessfull ? (
+        <article className="mt-12 flex h-full flex-col items-center justify-center text-primary">
+          <div className="mx-auto flex h-24 w-24 items-center justify-center rounded-full bg-dark text-[50px]">
+            <div className="relative -right-1 -top-1">🎉</div>
           </div>
-        ) : (
-          <div />
-        )}
-        <div className="col-span-2 text-right text-sm font-normal">Step {steps.count}/3</div>
-      </section>
-      {steps.count == 1 ? <Language {...props} /> : steps.count == 2 ? <CreateAccount {...props} /> : <Agreement {...props} />}
-    </article>
+          <div className="text-center text-3xl">Token approved successfully</div>
+          <Buttons.primary onClick={() => (window.location.href = "/")} classname="mt-24">
+            Continue
+          </Buttons.primary>
+        </article>
+      ) : (
+        <article className="flex flex-col gap-4 text-primary">
+          <header className="flex items-center justify-between">
+            <div className="text-2xl font-semibold">Webet</div>
+            <div
+              onClick={() => {
+                setIsSignup(false);
+                setIsLogin(false);
+              }}
+              className="cursor-pointer text-lg font-medium"
+            >
+              Exit
+            </div>
+          </header>
+          <section className="grid grid-cols-3 gap-0.5">
+            <div className="h-1 rounded-l-sm bg-gradient-custom" />
+            <div className={`${steps.count > 1 ? "bg-gradient-custom" : "bg-gray"} h-1`} />
+            <div className={`${steps.count == 3 ? "bg-pink" : "bg-gray"} h-1`} />
+            {steps.count > 1 ? (
+              <div
+                onClick={() => setSteps({ ...steps, count: steps.count - 1 })}
+                className="col-span-1 cursor-pointer text-sm font-normal"
+              >
+                Back
+              </div>
+            ) : (
+              <div />
+            )}
+            <div className="col-span-2 text-right text-sm font-normal">Step {steps.count}/3</div>
+          </section>
+          {steps.count == 1 ? (
+            <Language {...props} />
+          ) : steps.count == 2 ? (
+            <CreateAccount {...props} />
+          ) : (
+            <Agreement {...props} />
+          )}
+        </article>
+      )}
+    </>
   );
 }

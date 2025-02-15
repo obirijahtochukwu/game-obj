@@ -1,13 +1,15 @@
 import axios from "axios";
 import React, { useState } from "react";
 import { backend_api } from "../../../lib/constants";
+import { Buttons } from "../../ui/buttons";
+import { useAuth0 } from "@auth0/auth0-react";
 
 export default function Login() {
   const [form, setForm] = useState({
     data: {},
     list: ["name", "email", "password"],
   });
-
+  const { isLoading, isAuthenticated, error, user, loginWithRedirect, logout } = useAuth0();
   const register = () => {
     axios
       .post(backend_api + "/signup/", { ...form.data })
@@ -19,6 +21,18 @@ export default function Login() {
 
   return (
     <div className="flex h-screen flex-col items-center justify-center gap-5">
+      {/* <Buttons.primary onClick={()=>logout()}>log</Buttons.primary> */}
+      <Buttons.primary
+        onClick={() =>
+          loginWithRedirect({
+            authorizationParams: {
+              connection: "google-oauth2",
+            },
+          })
+        }
+      >
+        hjgthrz
+      </Buttons.primary>
       {form.list.map((name) => (
         <div className="">
           <input
@@ -36,7 +50,7 @@ export default function Login() {
         </div>
       ))}
       <button onClick={register} className="rounded-md bg-primary p-2 text-dark">
-        submit
+        submith
       </button>
     </div>
   );

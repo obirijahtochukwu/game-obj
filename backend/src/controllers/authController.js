@@ -10,8 +10,9 @@ const signup = async (req, res) => {
     const { name, email, password, language, date_of_birth } = req.body;
 
     const existingUser = await User.findOne({ email });
+
     if (existingUser) {
-      return res.send({ message: "User already exists", user: existingUser });
+      return res.send({ message: "User already exists" });
     }
 
     const hashedPassword = bcrypt.hashSync(password, 10);
