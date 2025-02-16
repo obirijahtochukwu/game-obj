@@ -49,6 +49,11 @@ export default function Plinko() {
 
         if (ballManager) {
           ballManager.addBall(response.data.point);
+          setIsBetLoading(true);
+          const refresh = () => {
+            setBetAmount(null);
+            setMultiplier(1);
+          };
           submitGame(
             {
               userId: user.info._id,
@@ -60,6 +65,7 @@ export default function Plinko() {
               payout: response.data.point == multiplier ? betAmount * multiplier : 0,
             },
             getHistory,
+            refresh,
           );
         }
       } else {

@@ -127,6 +127,7 @@ export interface User {
   date_of_birth: string;
   language: string;
   createdAt: string;
-  totalPlays?: number;
+  totalPlays: number;
   profileImage: string;
+  balance: string;
 }

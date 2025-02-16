@@ -315,6 +315,24 @@ export const Icons = {
       />
     </svg>
   ),
+  pagination: (props: IconProps) => (
+    <svg
+      {...props}
+      xmlns="http://www.w3.org/2000/svg"
+      shape-rendering="geometricPrecision"
+      text-rendering="geometricPrecision"
+      image-rendering="optimizeQuality"
+      fill-rule="evenodd"
+      clip-rule="evenodd"
+      viewBox="0 0 244 512.89"
+    >
+      <path
+        fill-rule="nonzero"
+        d="M0 138.67 120.95 0 244 140.72l-23.95 20.94-83.14-95.08.41 446.31h-31.8l-.41-446.32-81.16 93.05z"
+        fill="white"
+      />
+    </svg>
+  ),
   arrow: (props: IconProps) => (
     <svg {...props} width="13" height="23" viewBox="0 0 13 23" fill="none" xmlns="http://www.w3.org/2000/svg">
       <path
@@ -323,7 +341,18 @@ export const Icons = {
       />
     </svg>
   ),
-  // games: (props: IconProps) => (),
+  distribute: (props: IconProps) => (
+    <svg {...props} id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 101.94 122.88">
+      <defs>
+        <style></style>
+      </defs>
+      <title>{props.title}</title>
+      <path
+        d="M93.34,7.49a3.11,3.11,0,0,1,2,.38,3.06,3.06,0,0,1,1.82,2.78l.2,28.16,0,0,0,0h0l0,0,0,0h0l0,0,0,0h0l0,0,0,0h0l0,0,0,0h-.09l0,0h0l0,0h-.09l0,0h0l0,0h-.05l0,0h0l-.05,0h0l0,0h-.05l0,0H95.8l0,0H91.82l0,0h-.09l-.09,0h0l-.09,0h-.09l0,0h0l0,0-.16-22.52-19,12V70.08a45.77,45.77,0,0,1-4.91,3l-1.21-1.82V28.7L41.4,25.57l-.91,26.52-9.83-6.71-9.84,5.56,2-27.74L6.12,21.07V77.91l39.5,4.39-1.19,6L2.91,83.71A3.06,3.06,0,0,1,0,80.65v-63a3.08,3.08,0,0,1,1.83-2.86L34.79.25A3.07,3.07,0,0,1,36.42,0L93.34,7.49ZM48.7,114.27l8.19-41.61,8.3,12.51C83.07,78,93.11,66.16,94.6,47.94c14.69,25.68,5.77,48.7-12.84,62.18l8.47,12.76L48.7,114.27ZM64.61,9.88l-18,10.21,21.82,2.78L84.85,12.53,64.61,9.88ZM27.68,17.67,45.14,7.32,36.48,6.19,14.25,16l13.43,1.71Z"
+        fill="currentColor"
+      />
+    </svg>
+  ),
   pad: (props: IconProps) => (
     <svg {...props} width="32" height="23" viewBox="0 0 32 23" fill="none" xmlns="http://www.w3.org/2000/svg">
       <path
@@ -477,15 +506,15 @@ export const Icons = {
     <svg {...props} width="14" height="13" viewBox="0 0 14 13" fill="none" xmlns="http://www.w3.org/2000/svg">
       <path
         d="M11.1486 11.4359C11.1134 11.9611 10.6771 12.369 10.1508 12.369H3.84188C3.31558 12.369 2.87936 11.9611 2.84412 11.436L2.27759 2.99451H11.7144L11.1486 11.4359Z"
-        fill="#AEB9E1"
-        stroke="#AEB9E1"
+        fill="currentColor"
+        stroke="currentColor"
         stroke-linecap="round"
         stroke-linejoin="round"
       />
-      <path d="M1 2.99548H13" stroke="#AEB9E1" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" />
+      <path d="M1 2.99548H13" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" />
       <path
         d="M8.52789 0.818604H5.46852C5.19806 0.818604 4.93867 0.933208 4.74742 1.13721C4.55617 1.3412 4.44873 1.61788 4.44873 1.90638V2.99416H9.54768V1.90638C9.54768 1.61788 9.44024 1.3412 9.24899 1.13721C9.05775 0.933208 8.79836 0.818604 8.52789 0.818604Z"
-        stroke="#AEB9E1"
+        stroke="currentColor"
         stroke-width="1.2"
         stroke-linecap="round"
         stroke-linejoin="round"

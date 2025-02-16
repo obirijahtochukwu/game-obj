@@ -21,9 +21,9 @@ export default function Games() {
             <div className="mt-auto px-2">
               <button
                 onClick={() => navigate(url)}
-                className="relative h-9 w-full -skew-x-[20deg] cursor-pointer bg-gradient-custom"
+                className="group relative h-9 w-full -skew-x-[20deg] cursor-pointer bg-gradient-custom duration-300 hover:skew-x-0"
               >
-                <div className="absolute top-0 flex h-full w-full skew-x-[20deg] items-center justify-center text-base font-semibold">
+                <div className="absolute top-0 flex h-full w-full skew-x-[20deg] items-center justify-center text-base font-semibold duration-300 group-hover:skew-x-0">
                   Play Game
                 </div>
               </button>

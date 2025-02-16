@@ -3,19 +3,11 @@ import { Icons } from "../../../ui/icons";
 import Select from "../../../ui/select";
 import { useBlackJackContext } from "../context";
 import SettingModal from "../../../ui/setting-modal";
+import BetAmount from "../../../ui/bet-amount";
 
 export default function Settings() {
-  const {
-    betAmount,
-    setBetAmount,
-    isSetting,
-    setIsSetting,
-    newGame,
-    resetGame,
-    playerStand,
-    gameOver,
-    dealCardToPlayer,
-  } = useBlackJackContext();
+  const { betAmount, setBetAmount, isSetting, setIsSetting, newGame, resetGame, playerStand, gameOver, dealCardToPlayer } =
+    useBlackJackContext();
 
   const [chain, setChain] = useState("");
 
@@ -29,7 +21,7 @@ export default function Settings() {
           e.preventDefault();
           setIsSetting(false);
         }}
-        className=" h-full flex-col flex gap-6"
+        className="flex h-full flex-col gap-6"
       >
         <Select
           label={chain || ""}
@@ -37,56 +29,29 @@ export default function Settings() {
           data={["btc", "sol", "ton", "eth"]}
           handleClick={(name) => setChain(name)}
         />
+        <BetAmount value={betAmount} onChange={(e: number) => setBetAmount(e)} />
         <section>
-          <div className=" text-base font-medium text-primary/80">
-            Bet Amount
-          </div>
-          <input
-            type="number"
-            placeholder="0.0000005"
-            required
-            autoFocus
-            value={betAmount}
-            onChange={(e) => setBetAmount(parseFloat(e.target.value))}
-            className="h-14 w-full bg-muted border border-gray rounded-lg font-semibold text-base text-primary px-3 py-1.5 mt-2 gap-3 focus:outline-none"
-          />
-        </section>
-        <section>
-          <div className=" text-base font-medium text-primary/80">
-            Profit on Win
-          </div>
-          <article className="h-14 w-full bg-muted border border-gray rounded-lg flex items-center justify-between font-semibold text-base text-primary px-3 py-1.5 mt-2 gap-3">
-            <input
-              disabled
-              value={""}
-              className=" w-full h-full bg-transparent focus:outline-none"
-            />
+          <div className="text-base font-medium text-primary/80">Profit on Win</div>
+          <article className="mt-2 flex h-14 w-full items-center justify-between gap-3 rounded-lg border border-gray bg-muted px-3 py-1.5 text-base font-semibold text-primary">
+            <input disabled value={""} className="h-full w-full bg-transparent focus:outline-none" />
           </article>
         </section>
 
         {!newGame ? (
-          <footer className=" mt-auto grid grid-cols-2 gap-3">
+          <footer className="mt-auto grid grid-cols-2 gap-3">
             <button
-              className={buttonClass(
-                `${gameOver && "cursor-not-allowed"} bg-muted`
-              )}
+              className={buttonClass(`${gameOver && "cursor-not-allowed"} bg-muted`)}
               onClick={dealCardToPlayer}
               disabled={gameOver}
             >
               Hit
             </button>
-            <button
-              className={buttonClass(" bg-gradient-custom")}
-              onClick={playerStand}
-            >
+            <button className={buttonClass("bg-gradient-custom")} onClick={playerStand}>
               Stand
             </button>
           </footer>
         ) : (
-          <div
-            className={buttonClass(" bg-green-500 cursor-pointer")}
-            onClick={resetGame}
-          >
+          <div className={buttonClass("cursor-pointer bg-green-500")} onClick={resetGame}>
             Start Play
           </div>
         )}

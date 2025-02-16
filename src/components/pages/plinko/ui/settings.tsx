@@ -3,6 +3,7 @@ import { Icons } from "../../../ui/icons";
 import Select from "../../../ui/select";
 import axios from "axios";
 import SettingModal from "../../../ui/setting-modal";
+import BetAmount from "../../../ui/bet-amount";
 
 export default function Settings({
   multiplier,
@@ -28,19 +29,16 @@ export default function Settings({
 
   return (
     <SettingModal isOpen={setting} setIsOpen={setSetting}>
-      <form onSubmit={startGame} className=" h-full flex-col flex gap-6 mb-10">
-        <Icons.close
-          onClick={() => setSetting(false)}
-          className="lg:hidden absolute top-3 right-3 w-4 cursor-pointer"
-        />
-        <section className=" min-h-14 rounded-full grid grid-cols-2 bg-muted p-1">
+      <form onSubmit={startGame} className="mb-10 flex h-full flex-col gap-6">
+        <Icons.close onClick={() => setSetting(false)} className="absolute right-3 top-3 w-4 cursor-pointer lg:hidden" />
+        <section className="grid min-h-14 grid-cols-2 rounded-full bg-muted p-1">
           {["Manual", "Auto"].map((name) => (
             <div
               key={name}
               onClick={() => setPlay(name)}
               className={`${
                 play == name ? "bg-advance" : ""
-              } flex items-center justify-center rounded-full text-primary text-lg font-bold cursor-pointer duration-300`}
+              } flex cursor-pointer items-center justify-center rounded-full text-lg font-bold text-primary duration-300`}
             >
               {name}
             </div>
@@ -52,34 +50,7 @@ export default function Settings({
           data={["btc", "sol", "ton", "eth"]}
           handleClick={(name) => setChain(name)}
         />
-        <section>
-          <div className=" text-base font-medium text-primary/80">
-            Bet Amount
-          </div>
-          <article className="h-14 w-full bg-muted border border-gray rounded-lg flex items-center justify-between font-semibold text-base text-primary px-3 py-1.5 mt-2 gap-3">
-            <input
-              type="number"
-              required
-              autoFocus
-              value={betAmount}
-              onChange={(e: any) => setBetAmount(e.target.value)}
-              placeholder="0.0000005"
-              className=" w-full h-full bg-transparent focus:outline-none"
-            />
-            <div className=" h-full max-w-24 bg-advance border-gray border w-full rounded-md grid grid-cols-2 py-2">
-              {["1/2", "2x"].map((label, idx) => (
-                <div
-                  key={idx}
-                  className={`${
-                    idx == 1 && " border-l"
-                  } flex items-center justify-center cursor-pointer text-primary font-semibold text-xs`}
-                >
-                  {label}
-                </div>
-              ))}
-            </div>
-          </article>
-        </section>
+        <BetAmount value={betAmount} onChange={(e: number) => setBetAmount(e)} />
         <Select
           label={level || ""}
           title="Difficulty Level"
@@ -94,7 +65,7 @@ export default function Settings({
         />
         <button
           type="submit"
-          className=" w-full mt-auto flex items-center justify-center bg-gradient-custom min-h-12 rounded-xl text-primary font-semibold text-xl"
+          className="mt-auto flex min-h-12 w-full items-center justify-center rounded-xl bg-gradient-custom text-xl font-semibold text-primary"
         >
           Bet
         </button>

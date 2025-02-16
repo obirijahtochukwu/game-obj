@@ -1,4 +1,4 @@
-import React, { createContext, Dispatch, useContext, useEffect, useState } from "react";
+import React, { createContext, Dispatch, FormEvent, useContext, useEffect, useState } from "react";
 import { submitGame } from "../../../lib/utils/submit-game";
 import { useGlobalContext } from "../../../lib/global-context";
 import { gamble, video_poker_deck } from "../../../lib/types";
@@ -19,7 +19,7 @@ interface GameState {
   toggleHold?: (index: number) => void;
   deal?: () => void;
   redraw?: () => void;
-  draw?: () => void;
+  draw?: (e: FormEvent) => void;
   deck?: video_poker_deck[];
   setDeck?: Dispatch<video_poker_deck[]>;
   hand?: video_poker_deck[];
@@ -37,17 +37,19 @@ const AppProvider = ({ children }) => {
 
   const [balance, setBalance] = useState<any>(1000); // Player's balance
 
+  const initialSate = {
+    outcomes: [],
+    betAmount: null,
+    payout: null,
+    multiplier: null,
+  };
+
   const [isSetting, setIsSetting] = useState(false);
   const [deck, setDeck] = useState(initializeDeck());
   const [hand, setHand] = useState([]);
   const [message, setMessage] = useState("");
   const [heldCards, setHeldCards] = useState([]);
-  const [gamble, setGamble] = useState<any>({
-    outcomes: [],
-    betAmount: null,
-    payout: null,
-    multiplier: null,
-  });
+  const [gamble, setGamble] = useState<any>(initialSate);
 
   const toggleHold = (index: number) => {
     gameSoundEffect("active");
@@ -55,6 +57,7 @@ const AppProvider = ({ children }) => {
   };
 
   const deal = () => {
+    setIsSetting(false);
     gameSoundEffect("start");
     const newDeck = shuffle(deck.length < 5 ? initializeDeck() : deck);
     setDeck(newDeck.slice(5));
@@ -74,11 +77,18 @@ const AppProvider = ({ children }) => {
     console.log(newHand);
   };
 
-  const draw = () => {
+  const draw = (e: FormEvent) => {
+    e.preventDefault();
     // @ts-ignore
     const { result, multiplier } = evaluateHand(hand, gamble, setGamble);
     setIsSetting(false);
     if (userExist) {
+      setIsBetLoading(true);
+      const refresh = () => {
+        setHeldCards([]);
+        setHand([]);
+        setGamble({ ...gamble, betMount: 0 });
+      };
       submitGame(
         {
           userId: user.info._id,
@@ -90,6 +100,7 @@ const AppProvider = ({ children }) => {
           payout: result ? multiplier * gamble.betAmount : 0,
         },
         getHistory,
+        refresh,
       );
     } else {
       setIsLogin(true);

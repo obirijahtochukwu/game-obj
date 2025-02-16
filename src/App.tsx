@@ -15,6 +15,8 @@ import ExampleTable from "./components/pages/dice-roller/test";
 
 function App() {
   const { user, admin, setIsLogin } = useGlobalContext();
+  console.log(admin.loggedIn);
+  console.log("jhyts5");
 
   return (
     <article className="font-primary">
@@ -51,9 +53,7 @@ function App() {
 
           <RouterProvider router={router} />
         </>
-      ) : (
-        <RouterProvider router={router} />
-      )}
+      ) : null}
     </article>
   );
 }

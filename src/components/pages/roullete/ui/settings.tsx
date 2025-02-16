@@ -4,10 +4,10 @@ import Select from "../../../ui/select";
 import { useRoulleteContext } from "../context";
 import SettingModal from "../../../ui/setting-modal";
 import { generateRandomNumber } from "../../../../lib/utils/generateRandomNumber";
+import BetAmount from "../../../ui/bet-amount";
 
 export default function Settings() {
-  const { gamble, setGamble, isSetting, setIsSetting, startGame } =
-    useRoulleteContext();
+  const { gamble, setGamble, isSetting, setIsSetting, startGame } = useRoulleteContext();
 
   const [chain, setChain] = useState("");
 
@@ -16,11 +16,7 @@ export default function Settings() {
 
   useEffect(() => {
     if (gamble.betAmount && gamble.outcomes.length > 0) {
-      if (
-        gamble.outcomes.length == 1 ||
-        gamble.outcomes.toString() == "Odd" ||
-        gamble.outcomes.toString() == "Even"
-      ) {
+      if (gamble.outcomes.length == 1 || gamble.outcomes.toString() == "Odd" || gamble.outcomes.toString() == "Even") {
         setGamble({ ...gamble, multiplier: 3.0, payout: 3 * gamble.betAmount });
       } else if (gamble.outcomes.length == 2) {
         setGamble({
@@ -45,7 +41,7 @@ export default function Settings() {
         onSubmit={(e) => {
           startGame(e, generateRandomNumber());
         }}
-        className=" h-full flex-col flex gap-6"
+        className="flex h-full flex-col gap-6"
       >
         <Select
           label={chain || ""}
@@ -53,55 +49,28 @@ export default function Settings() {
           data={["btc", "sol", "ton", "eth"]}
           handleClick={(name) => setChain(name)}
         />
+        <BetAmount value={gamble.betAmount} onChange={(e: number) => setGamble({ ...gamble, betAmount: e })} />
         <section>
-          <div className=" text-base font-medium text-primary/80">
-            Bet Amount
-          </div>
-          <input
-            type="number"
-            placeholder="0.0000005"
-            required
-            autoFocus
-            value={gamble.betAmount}
-            onChange={(e) =>
-              setGamble({ ...gamble, betAmount: parseFloat(e.target.value) })
-            }
-            className="h-14 w-full bg-muted border border-gray rounded-lg font-semibold text-base text-primary px-3 py-1.5 mt-2 gap-3 focus:outline-none"
-          />
-        </section>
-        <section>
-          <div className=" text-base font-medium text-primary/80">
-            Profit on Win
-          </div>
-          <article className="h-14 w-full bg-muted border border-gray rounded-lg flex items-center justify-between font-semibold text-base text-primary px-3 py-1.5 mt-2 gap-3">
-            <input
-              disabled
-              value={gamble.payout}
-              className=" w-full h-full bg-transparent focus:outline-none"
-            />
+          <div className="text-base font-medium text-primary/80">Profit on Win</div>
+          <article className="mt-2 flex h-14 w-full items-center justify-between gap-3 rounded-lg border border-gray bg-muted px-3 py-1.5 text-base font-semibold text-primary">
+            <input disabled value={gamble.payout} className="h-full w-full bg-transparent focus:outline-none" />
           </article>
         </section>
 
         <section>
-          <div className=" text-base font-medium text-primary/80">
-            Multiplier
-          </div>
-          <article className="h-14 w-full bg-muted border border-gray rounded-lg flex items-center justify-between font-semibold text-base text-primary px-3 py-1.5 mt-2 gap-3">
+          <div className="text-base font-medium text-primary/80">Multiplier</div>
+          <article className="mt-2 flex h-14 w-full items-center justify-between gap-3 rounded-lg border border-gray bg-muted px-3 py-1.5 text-base font-semibold text-primary">
             <input
               disabled
               value={gamble.multiplier && `${gamble.multiplier}x`}
-              className=" w-full h-full bg-transparent focus:outline-none"
+              className="h-full w-full bg-transparent focus:outline-none"
             />
           </article>
         </section>
 
         <button
           // disabled={gamble.outcomes.length < 1}
-          className={buttonClass(
-            `${
-              gamble.outcomes.length < 1 && "cursor-not-allowed opacity-70"
-            } bg-gradient-custom`
-          )}
+          className={buttonClass(`${gamble.outcomes.length < 1 && "cursor-not-allowed opacity-70"} bg-gradient-custom`)}
         >
           Start Play
         </button>

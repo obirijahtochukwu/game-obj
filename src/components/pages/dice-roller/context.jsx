@@ -43,10 +43,10 @@ const AppProvider = ({ children }) => {
         // Calculate win condition
         const winningTarget = Math.floor(6 - 6 / multiplier); // Target dice number
         const winCondition = finalResult > winningTarget ? "win" : "loss";
-         setIsBetLoading(true);
+        setIsBetLoading(true);
       const refresh = () => {
         setMultiplier(1)
-        setBetAmount(null)
+        setBetAmount(0)
       };
         submitGame(
           {

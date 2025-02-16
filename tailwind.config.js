@@ -16,6 +16,7 @@ module.exports = {
         dark: "#0A1330",
         primary: "#FFFFFF",
         secondary: "#EB5E28",
+        danger: "#b91c1c",
         muted: "#0B1739",
         grey: "#AEB9E1",
         gray: "#343B4F",

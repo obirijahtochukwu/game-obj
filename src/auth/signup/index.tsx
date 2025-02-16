@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Modal from "../../components/ui/modal";
 import { Icons } from "../../components/ui/icons";
 import Language from "./language";
@@ -10,6 +10,7 @@ import { setStore } from "../../lib/utils/store";
 import { useGlobalContext } from "../../lib/global-context";
 import { Buttons } from "../../components/ui/buttons";
 import { toast } from "react-toastify";
+import { profileImage } from "./mock-data";
 
 const initialSate = {
   count: 1,
@@ -39,7 +40,7 @@ export default function Signup() {
       setIsLoading(true);
       disableMouse();
       axios
-        .post(backend_api + "/signup", { ...steps.form }, { withCredentials: true })
+        .post(backend_api + "/signup", { ...steps.form, profileImage }, { withCredentials: true })
         .then((res) => {
           if (res.data?.email) {
             setSteps(initialSate);
@@ -68,15 +69,16 @@ export default function Signup() {
           <div className="mx-auto flex h-24 w-24 items-center justify-center rounded-full bg-dark text-[50px]">
             <div className="relative -right-1 -top-1">🎉</div>
           </div>
-          <div className="text-center text-3xl">Token approved successfully</div>
+          <div className="text-center text-3xl">You have successfully created your account</div>
           <Buttons.primary onClick={() => (window.location.href = "/")} classname="mt-24">
-            Continue
+            Start Playing!
           </Buttons.primary>
         </article>
       ) : (
         <article className="flex flex-col gap-4 text-primary">
           <header className="flex items-center justify-between">
             <div className="text-2xl font-semibold">Webet</div>
+            {/* <input type="file" name="" onChange={handleFileChange} id="" /> */}
             <div
               onClick={() => {
                 setIsSignup(false);

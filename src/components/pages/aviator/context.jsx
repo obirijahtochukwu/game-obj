@@ -7,7 +7,7 @@ import { userExist } from "../../../lib/utils";
 const AppContext = createContext();
 
 const AppProvider = ({ children }) => {
-  const { user, getGamesHishtory ,setIsLogin} = useGlobalContext();
+  const { user, getGamesHishtory ,setIsLogin,setIsBetLoading} = useGlobalContext();
   const getHistory = (result: string, amount: number) => getGamesHishtory(result, amount, user.info);
 
   const [balance, setBalance] = useState(1000);
@@ -96,7 +96,14 @@ const AppProvider = ({ children }) => {
   }, [isRunning, isCrashed, userCashout, cashOutAt]);
 
   useEffect(() => {
+      const refresh = () => {
+        setBetAmount(0)
+        setMultiplier(1.0)
+        setIsCrashed(false)
+        setUserCashout(null)
+      };
     if (isCrashed && userCashout === null) {
+       setIsBetLoading(true);
       submitGame(
         {
           userId: user.info._id,
@@ -107,9 +114,10 @@ const AppProvider = ({ children }) => {
           multiplier: multiplier,
           payout: 0,
         },
-        getHistory
+        getHistory,refresh
       );
     } else if (userCashout) {
+       setIsBetLoading(true);
       submitGame(
         {
           userId: user.info._id,
@@ -120,7 +128,7 @@ const AppProvider = ({ children }) => {
           multiplier: multiplier,
           payout: betAmount * cashOutAt,
         },
-        getHistory
+        getHistory,refresh
       );
     }
   }, [isCrashed]);

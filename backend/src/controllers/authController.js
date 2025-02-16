@@ -7,7 +7,7 @@ const secret = "secret123";
 
 const signup = async (req, res) => {
   try {
-    const { name, email, password, language, date_of_birth } = req.body;
+    const { name, email, password, language, date_of_birth, profileImage } = req.body;
 
     const existingUser = await User.findOne({ email });
 
@@ -22,6 +22,7 @@ const signup = async (req, res) => {
       name,
       language,
       date_of_birth,
+      profileImage,
     });
     const savedUser = await newUser.save();
 

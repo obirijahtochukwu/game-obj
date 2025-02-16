@@ -4,6 +4,7 @@ import Select from "../../../ui/select";
 import { useDiceRollerContext } from "../context";
 import SettingModal from "../../../ui/setting-modal";
 import { Buttons } from "../../../ui/buttons";
+import BetAmount from "../../../ui/bet-amount";
 
 export default function Settings() {
   const { betAmount, setBetAmount, isRolling, profitOnWin, rollDice, setting, setSetting } = useDiceRollerContext();
@@ -21,18 +22,7 @@ export default function Settings() {
           data={["btc", "sol", "ton", "eth"]}
           handleClick={(name) => setChain(name)}
         />
-        <section>
-          <div className="text-base font-medium text-primary/80">Bet Amount</div>
-          <input
-            type="number"
-            placeholder="0.0000005"
-            required
-            autoFocus
-            value={betAmount}
-            onChange={(e) => setBetAmount(parseFloat(e.target.value))}
-            className="mt-2 h-14 w-full gap-3 rounded-lg border border-gray bg-muted px-3 py-1.5 text-base font-semibold text-primary focus:outline-none"
-          />
-        </section>
+        <BetAmount value={betAmount} onChange={(e: number) => setBetAmount(e)} />
         <section>
           <div className="text-base font-medium text-primary/80">Profit on Win</div>
           <article className="mt-2 flex h-14 w-full items-center justify-between gap-3 rounded-lg border border-gray bg-muted px-3 py-1.5 text-base font-semibold text-primary">
