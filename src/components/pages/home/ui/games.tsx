@@ -18,16 +18,17 @@ export default function Games() {
             <img src={image} className="h-32 w-full rounded-md bg-background" />
             <div className="mt-2 text-lg font-bold uppercase">{label}</div>
             <div className="text-sm text-grey">Active players: {idx + 3 * 7}</div>
-            <div className="mt-auto px-2">
-              <button
-                onClick={() => navigate(url)}
-                className="group relative h-9 w-full -skew-x-[20deg] cursor-pointer bg-gradient-custom duration-300 hover:skew-x-0"
-              >
-                <div className="absolute top-0 flex h-full w-full skew-x-[20deg] items-center justify-center text-base font-semibold duration-300 group-hover:skew-x-0">
-                  Play Game
-                </div>
-              </button>
-            </div>
+            <button
+              onClick={() => navigate(url)}
+              className="group relative mt-auto h-9 w-full cursor-pointer items-center justify-center overflow-x-hidden rounded-sm bg-gradient-custom text-base font-semibold duration-300"
+            >
+              <div className="absolute right-full top-0 z-10 flex h-full w-full items-center justify-center bg-image duration-300 group-hover:right-0">
+                Click here!
+              </div>
+              <div className="absolute left-0 top-0 z-10 flex h-full w-full items-center justify-center bg-pink duration-300 group-hover:left-full">
+                Play Game
+              </div>
+            </button>
             {/* <Buttons.primary classname="trapezium-button -skew-x-12 mt-auto !rounded-none"></Buttons.primary> */}
           </div>
         ))}
