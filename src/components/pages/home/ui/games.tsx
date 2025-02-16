@@ -13,7 +13,7 @@ export default function Games() {
           <div
             key={idx}
             // style={{ background: "linear-gradient(180deg, rgba(255, 255, 255, 0.084) 0%, rgba(217, 217, 217, 0.042) 100%)" }}
-            className="flex h-72 flex-col rounded-md border border-gray bg-sm p-3"
+            className="hi flex h-72 flex-col rounded-md border border-gray bg-sm p-3"
           >
             <img src={image} className="h-32 w-full rounded-md bg-background" />
             <div className="mt-2 text-lg font-bold uppercase">{label}</div>
