@@ -37,6 +37,9 @@ module.exports = {
         xl: "0px -0.5px 5px #ffffff20",
         lg: "1px 1px 2px #ffffff60",
       },
+      zIndex: {
+        1: "1",
+      },
     },
   },
   plugins: [],

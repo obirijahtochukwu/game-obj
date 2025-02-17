@@ -378,6 +378,18 @@ input:not(:placeholder-shown) + label {
   font-size: 12px;
 }
 
+textarea:focus + label {
+  transform: translateY(-20px);
+  position: absolute;
+  font-size: 12px;
+}
+
+textarea:not(:placeholder-shown) + label {
+  transform: translateY(-20px);
+  position: absolute;
+  font-size: 12px;
+}
+
 .logo {
   font-size: 4rem;
   font-weight: bold;

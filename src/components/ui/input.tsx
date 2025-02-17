@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { TextareaHTMLAttributes, useEffect, useState } from "react";
 import { useClick } from "../../lib/hooks/useclick";
 import { inputEvent } from "../../lib/types";
 
@@ -107,6 +107,16 @@ export const FormInput = {
         />
 
         <label htmlFor="input-anime-date" className={formInputClass}>
+          {props?.placeholder}
+        </label>
+      </div>
+    );
+  },
+  textarea: (props?: TextareaHTMLAttributes<HTMLTextAreaElement>) => {
+    return (
+      <div className="relative z-10 h-fit rounded-md bg-dark">
+        <textarea {...props} id="input-anime" placeholder="" className={formInputStyle + " custom-scrollbar !h-20"} />
+        <label htmlFor="input-anime" className={"absolute bottom-14 left-1 -z-10 px-2 py-0.5 text-grey duration-300"}>
           {props?.placeholder}
         </label>
       </div>

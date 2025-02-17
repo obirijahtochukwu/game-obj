@@ -9,12 +9,12 @@ export const Buttons = {
     <button
       {...props}
       className={
-        "group relative z-[1] flex h-10 w-full items-center justify-center overflow-hidden rounded-md bg-gradient-custom text-base font-semibold text-primary duration-300 hover:shadow-lg " +
+        "z-1 group relative flex h-10 w-full items-center justify-center overflow-hidden rounded-md bg-gradient-custom text-base font-semibold text-primary duration-300 hover:shadow-lg " +
         props.classname
       }
     >
       {props.children}
-      <div className="absolute top-0 -z-[1] h-0 w-full bg-sm duration-300 group-hover:h-full" />
+      <div className="-z-1 absolute top-0 h-0 w-full bg-sm duration-300 group-hover:h-full" />
     </button>
   ),
   secondary: (

@@ -1,0 +1,102 @@
+import React, { FormEvent, useEffect, useState } from "react";
+import Modal from "./modal";
+import { FormInput } from "./input";
+import { Icons } from "./icons";
+import { useDiasbleMouse } from "../../lib/hooks/useDisableMouse";
+import axios from "axios";
+import { backend_api } from "../../lib/constants";
+import { toast } from "react-toastify";
+
+export default function CreateAd({ IsCreateAd, setIsCreateAd }: { IsCreateAd: boolean; setIsCreateAd: React.Dispatch<boolean> }) {
+  const { isMouseDisable, disableMouse, enableMouse } = useDiasbleMouse();
+  const [form, setForm] = useState<{ image?: any; title?: string; description?: string }>({});
+
+  const handleFileChange = (event: any) => {
+    const file = event.target.files[0];
+
+    if (file) {
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = () => setForm({ ...form, image: { file: `${reader.result}`, name: file.name } });
+      reader.onerror = (error) => console.error("Error converting file to base64:", error);
+    }
+  };
+
+  const createAd = (e: FormEvent) => {
+    e.preventDefault();
+    disableMouse();
+    console.log("ghfx");
+    console.log({ ...form, image: form.image?.file });
+
+    axios
+      .post(backend_api + "/create-ad", { ...form, image: form.image?.file })
+      .then((res) => {
+        console.log(res);
+
+        enableMouse();
+        setIsCreateAd(false);
+        toast.success("🎉 Ad successfully created!");
+        setForm({ image: {}, title: "", description: "" });
+        console.log(res);
+      })
+      .catch((err) => {
+        enableMouse();
+        console.log(err);
+      })
+      .finally(() => enableMouse());
+  };
+
+  // useEffect(() => {
+  //   axios
+  //     .get(backend_api + "/get-ads")
+  //     .then((res) => console.log(res.data))
+  //     .catch((res) => console.log(res));
+  //   console.log("gjhrgz");
+  // }, []);
+
+  return (
+    <Modal isForm isOpen={IsCreateAd} setIsOpen={setIsCreateAd} classname="!py-4 !bg-image">
+      <form onSubmit={createAd} className="flex flex-col gap-4 font-advance">
+        <div className="text-lg font-semibold">Create Ad </div>
+        <label htmlFor="image_ad" className="">
+          <div
+            className={`bg flex h-11 w-96 items-center gap-3 truncate rounded-sm bg-dark px-3 text-sm ${form.image?.name || "text-grey"} ${form.description && !form.image?.name && "border border-danger"}`}
+          >
+            <Icons.image_upload className="w-6 text-grey" />
+            <div className="h-full border-l border-gray" />
+            {form.image?.name || " Upload image"}
+          </div>
+          {form.description && !form.image?.file && <div className="text-xs italic text-error">please upload image</div>}
+        </label>
+        <input required type="file" id="image_ad" className="hidden" accept=".png, .jpeg, .jpg" onChange={handleFileChange} />
+
+        <FormInput.text
+          required
+          placeholder="Title"
+          value={form.title}
+          onChange={(e) => setForm({ ...form, title: e.target.value })}
+        />
+        <FormInput.textarea
+          required
+          placeholder="Description"
+          value={form.description}
+          onChange={(e) => setForm({ ...form, description: e.target.value })}
+        />
+        <footer className="mt-8 flex items-center justify-end gap-3">
+          <button type="button" onClick={() => setIsCreateAd(false)} className="h-10 px-5 text-base font-medium text-grey">
+            Cancel
+          </button>
+          <button type="submit" className="flex h-10 items-center rounded-sm bg-gradient-custom px-5 text-base font-medium">
+            {isMouseDisable ? (
+              <div className="!ml-0 scale-50">
+                <div className="spinner"></div>
+              </div>
+            ) : (
+              "Done"
+            )}
+          </button>
+        </footer>
+      </form>
+    </Modal>
+  );
+}

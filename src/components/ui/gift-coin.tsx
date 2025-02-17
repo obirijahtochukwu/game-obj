@@ -22,7 +22,7 @@ export default function GiftCoin({
 }) {
   const { isMouseDisable, disableMouse, enableMouse } = useDiasbleMouse();
   const [amount, setAmount] = useState(null);
-  const { setRefresh, admin, setAdmin } = useGlobalContext();
+  const { admin, setAdmin } = useGlobalContext();
   const { handleInputChange } = useInputNum(setAmount);
   // console.log(admin.players.filter((j) => j.totalPlays > 0));
 
