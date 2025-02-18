@@ -16,7 +16,6 @@ import ExampleTable from "./components/pages/dice-roller/test";
 function App() {
   const { user, admin, setIsLogin } = useGlobalContext();
   console.log(admin.loggedIn);
-  console.log("jhyts5");
 
   return (
     <article className="font-primary">
@@ -40,7 +39,7 @@ function App() {
 
       {admin.loggedIn == "admin" ? (
         <RouterProvider router={admin_router} />
-      ) : user.loggedIn == "false" ? (
+      ) : user.loggedIn == "false" || user.loggedIn == "true" ? (
         <>
           <BrowserRouter>
             <>

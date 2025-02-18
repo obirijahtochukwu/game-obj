@@ -4,52 +4,62 @@ import { Icons } from "../../../ui/icons";
 import { FormInput } from "../../../ui/input";
 import { changeEvent } from "../../../../lib/types";
 import { useDropzone } from "react-dropzone";
-import { URL } from "url";
+// import { URL } from "url";
 import { useGlobalContext } from "../../../../lib/global-context";
 import axios from "axios";
 import { backend_api } from "../../../../lib/constants";
+import { profileImage } from "./../../../../auth/signup/mock-data";
+import { getImagePath } from "../../../../lib/utils";
+import { useDiasbleMouse } from "../../../../lib/hooks/useDisableMouse";
+
+const initailState = {
+  name: "",
+  email: "",
+  date_of_birth: "",
+  profileImage: "",
+};
 
 export default function EditProfile() {
-  const { setRefresh, user, setIsLogin } = useGlobalContext();
+  const { setRefresh, user } = useGlobalContext();
+  const { isMouseDisable, disableMouse, enableMouse } = useDiasbleMouse();
   const [isOpen, setIsOpen] = useState(false);
   const [isUpdated, setIsUpdated] = useState(false);
-  const [form, setForm] = useState<any>({
-    userId: user.info._id,
-    name: "",
-    email: "",
-    date_of_birth: "",
-    profileImage: "",
-  });
-  // console.log(user.info.profileImage);
+  const [form, setForm] = useState<any>(initailState);
 
   const handleChange = (e: changeEvent, key: string) => {
     setForm({ ...form, [key]: e.target.value });
   };
 
-  const imageSrc = form.profileImage || user.info?.profileImage || "./media/home/user.png";
-
-  const handleFileChange = (event: any) => {
-    const file = event.target.files[0];
-
-    if (file) {
-      const reader = new FileReader();
-      reader.readAsDataURL(file);
-      reader.onload = () => setForm({ ...form, profileImage: reader.result });
-      reader.onerror = (error) => console.error("Error converting file to base64:", error);
-    }
-  };
+  const imageSrc = form.profileImage ? URL.createObjectURL(form.profileImage) : getImagePath(user.info?.profileImage);
 
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
+    disableMouse();
+    const image = form.profileImage || user.info?.profileImage;
+    const formData = new FormData();
+    formData.append("profileImage", image);
+    formData.append("userId", user.info._id);
+    formData.append("name", form.name);
+    formData.append("email", form.email);
+    formData.append("date_of_birth", form.date_of_birth);
+
     axios
-      .put(backend_api + "/edit", {
-        ...form,
+      .put(backend_api + "/edit", formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
       })
       .then(() => {
         setRefresh(true);
         setIsUpdated(true);
+        setForm(initailState);
+        enableMouse();
       })
-      .catch((err) => {});
+      .catch((err) => {
+        console.log(err);
+
+        enableMouse();
+      });
   };
 
   useEffect(() => {
@@ -80,12 +90,12 @@ export default function EditProfile() {
               <div className="relative mx-auto h-fit w-fit">
                 <img src={imageSrc} alt="" className="h-16 w-16 rounded-xl" />
                 <input
-                  required
+                  // required
                   type="file"
                   id="profile"
                   className="hidden"
                   accept=".png, .jpeg, .jpg"
-                  onChange={handleFileChange}
+                  onChange={(e: any) => setForm({ ...form, profileImage: e.target.files[0] })}
                 />
                 <label
                   htmlFor="profile"
@@ -115,7 +125,13 @@ export default function EditProfile() {
               type="submit"
               className="ml-auto mt-5 flex h-10 w-full items-center justify-center gap-2 rounded-md bg-gradient-custom px-3 font-advance text-base font-semibold"
             >
-              Edit profile
+              {isMouseDisable ? (
+                <div className="scale-50">
+                  <div className="custom-loader"></div>
+                </div>
+              ) : (
+                "Edit profile"
+              )}
             </button>
           </form>
         )}

@@ -6,32 +6,35 @@ import { useDiasbleMouse } from "../../lib/hooks/useDisableMouse";
 import axios from "axios";
 import { backend_api } from "../../lib/constants";
 import { toast } from "react-toastify";
+import { getImagePath } from "../../lib/utils";
 
 export default function CreateAd({ IsCreateAd, setIsCreateAd }: { IsCreateAd: boolean; setIsCreateAd: React.Dispatch<boolean> }) {
   const { isMouseDisable, disableMouse, enableMouse } = useDiasbleMouse();
   const [form, setForm] = useState<{ image?: any; title?: string; description?: string }>({});
+  const [file, setFile] = useState("");
 
   const handleFileChange = (event: any) => {
     const file = event.target.files[0];
 
-    if (file) {
-      const reader = new FileReader();
-      reader.readAsDataURL(file);
-      reader.onload = () => setForm({ ...form, image: { file: `${reader.result}`, name: file.name } });
-      reader.onerror = (error) => console.error("Error converting file to base64:", error);
-    }
+    setForm({ ...form, image: file });
   };
 
   const createAd = (e: FormEvent) => {
     e.preventDefault();
     disableMouse();
-    console.log("ghfx");
-    console.log({ ...form, image: form.image?.file });
+    const formData = new FormData();
+    formData.append("image", form.image);
+    formData.append("title", form.title);
+    formData.append("description", form.description);
 
     axios
-      .post(backend_api + "/create-ad", { ...form, image: form.image?.file })
+      .post(backend_api + "/create-ad", formData, {
+        headers: {
+          "Content-Type": "multipart/form-data", // Important for file uploads
+        },
+      })
       .then((res) => {
-        console.log(res);
+        console.log(res.data);
 
         enableMouse();
         setIsCreateAd(false);
@@ -46,13 +49,15 @@ export default function CreateAd({ IsCreateAd, setIsCreateAd }: { IsCreateAd: bo
       .finally(() => enableMouse());
   };
 
-  // useEffect(() => {
-  //   axios
-  //     .get(backend_api + "/get-ads")
-  //     .then((res) => console.log(res.data))
-  //     .catch((res) => console.log(res));
-  //   console.log("gjhrgz");
-  // }, []);
+  useEffect(() => {
+    axios
+      .get(backend_api + "/get-ads")
+      .then((res) => {
+        setFile(res.data[0].image);
+        console.log(res.data);
+      })
+      .catch((res) => console.log(res));
+  }, []);
 
   return (
     <Modal isForm isOpen={IsCreateAd} setIsOpen={setIsCreateAd} classname="!py-4 !bg-image">
@@ -66,7 +71,7 @@ export default function CreateAd({ IsCreateAd, setIsCreateAd }: { IsCreateAd: bo
             <div className="h-full border-l border-gray" />
             {form.image?.name || " Upload image"}
           </div>
-          {form.description && !form.image?.file && <div className="text-xs italic text-error">please upload image</div>}
+          {form.description && !form.image?.name && <div className="text-xs italic text-error">please upload image</div>}
         </label>
         <input required type="file" id="image_ad" className="hidden" accept=".png, .jpeg, .jpg" onChange={handleFileChange} />
 

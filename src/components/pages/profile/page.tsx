@@ -4,6 +4,7 @@ import Table from "./ui/table";
 import { useGlobalContext } from "../../../lib/global-context";
 import { Icons } from "../../ui/icons";
 import EditProfile from "./ui/edit-profile";
+import { getImagePath } from "../../../lib/utils";
 
 export default function Profile() {
   const { name, email, profileImage } = useGlobalContext().user.info;
@@ -14,10 +15,10 @@ export default function Profile() {
         style={{
           backgroundImage: `linear-gradient(to bottom, rgba(0, 0, 0, 0.1), rgba(0, 0, 0, .5)), url("./media/Background.png")`,
         }}
-        className="bg-sm col-span-12 flex h-24 items-center rounded-xl px-4"
+        className="col-span-12 flex h-24 items-center rounded-xl bg-sm px-4"
       >
         <div className="flex items-center">
-          <img src={profileImage || "./media/home/user.png"} alt="" className="mr-2 h-12 w-12 rounded-md" />
+          <img src={getImagePath(profileImage)} alt="" className="mr-2 h-12 w-12 rounded-md" />
           <div>
             <div className="font-secondary text-lg capitalize leading-none">{name}</div>
             <div className="font-advance text-xs text-grey">{email}</div>

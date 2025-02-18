@@ -64,7 +64,7 @@ const AppProvider = ({ children }: { children: JSX.Element }) => {
         withCredentials: true,
       })
       .then((res) => {
-        // console.log(res.data);
+        console.log(res.data);
         if (res.data.token == "admin") {
           setAdmin({ ...res.data, loggedIn: "admin" });
         } else if (!res.data.token && res.data.email) {
