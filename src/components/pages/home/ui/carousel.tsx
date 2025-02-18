@@ -1,12 +1,24 @@
 import React, { useEffect, useRef, useState } from "react";
 import { Buttons } from "../../../ui/buttons";
 import { Icons } from "../../../ui/icons";
+import axios from "axios";
+import { backend_api } from "../../../../lib/constants";
+import { Ad } from "../../../../lib/types";
+import { getImagePath } from "./../../../../lib/utils";
 
 const Carousel = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const targetRef = useRef(null);
   const [visibleCards, setVisibleCards] = useState(1);
-  const [containerWidth, setContainerWidth] = useState(0); // Store container width
+  const [containerWidth, setContainerWidth] = useState(0);
+  const [ads, setAds] = useState<Ad[]>([]);
+
+  useEffect(() => {
+    axios
+      .get(backend_api + "/get-ads")
+      .then((res) => setAds(res.data))
+      .catch((res) => console.log(res));
+  }, []);
 
   const cards = [
     {
@@ -62,7 +74,7 @@ const Carousel = () => {
   const handleNext = () => {
     setCurrentIndex((prevIndex) => {
       const nextIndex = prevIndex + 1;
-      const maxIndex = cards.length - visibleCards;
+      const maxIndex = ads.length - visibleCards;
       return Math.min(nextIndex, maxIndex);
     });
   };
@@ -87,19 +99,17 @@ const Carousel = () => {
           transform: `translateX(-${currentIndex * (400 + 16)}px)`, // Use pixel value for translation
         }}
       >
-        {cards.map((card, index) => (
+        {ads?.map((card, index) => (
           <div
-            key={card.id}
+            key={card._id}
             style={{ width: 400, marginRight: 16 }} // Fixed width, margin for gap
-            className={`bg-md grid h-60 flex-shrink-0 grid-cols-12 gap-3 rounded-lg p-3 font-advance text-white`}
+            className={`grid h-60 flex-shrink-0 grid-cols-12 gap-3 rounded-lg bg-md p-3 font-advance text-white`}
           >
-            <div className="col-span-5 h-full bg-muted"></div>
-            <div className="col-span-7 flex flex-col">
-              <div className="mb-1 w-max rounded-sm border border-pink px-2 text-xs italic tracking-wider">Exclusive Deal</div>
-              <div className="font-secondary text-lg font-semibold">Big Bass Boom Enhanced RTP</div>
-              <div className="text-sm font-medium tracking-wider text-grey">
-                Try Pragmatic's newest Enhanced RTP creation, Big Bass..
-              </div>
+            <img src={getImagePath(card.image)} className="col-span-7 h-full object-contain" />
+            <div className="col-span-5 flex flex-col">
+              <div className="mb-2 w-max rounded-sm border border-pink px-2 text-xs italic tracking-wider">Exclusive Deal</div>
+              <div className="font-poppins text-xl font-semibold first-letter:uppercase">{card.title}</div>
+              <div className="text-sm font-medium tracking-wider text-grey first-letter:uppercase">{card.description}</div>
               <Buttons.primary classname="mt-auto">Play Now</Buttons.primary>
             </div>
           </div>

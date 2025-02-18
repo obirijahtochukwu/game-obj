@@ -40,7 +40,7 @@ export default function Signup() {
       setIsLoading(true);
       disableMouse();
       axios
-        .post(backend_api + "/signup", { ...steps.form, profileImage }, { withCredentials: true })
+        .post(backend_api + "/signup", { ...steps.form }, { withCredentials: true })
         .then((res) => {
           if (res.data?.email) {
             setSteps(initialSate);

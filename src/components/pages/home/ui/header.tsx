@@ -1,8 +1,4 @@
 import React from "react";
-import { games } from "../mock-data";
-import { Link } from "react-router-dom";
-import { Buttons } from "../../../ui/buttons";
-import { backgroundImage } from "../../../../lib/utils";
 import Carousel from "./carousel";
 
 export default function Header() {

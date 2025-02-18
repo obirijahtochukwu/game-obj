@@ -31,7 +31,7 @@ export default function BetAmount({ value, onChange }) {
       <div className="flex items-center gap-2 text-base font-medium">
         Bet Amount{" "}
         <div className="rounded-sm bg-success px-1 font-advance text-xs font-bold text-background">
-          ${formattedNumber(balance - value)}
+          ${balance && formattedNumber(balance - value)}
         </div>
       </div>
       <article

@@ -131,3 +131,10 @@ export interface User {
   profileImage: string;
   balance: string;
 }
+
+export interface Ad {
+  _id?: string;
+  image?: string;
+  title?: string;
+  description?: string;
+}
