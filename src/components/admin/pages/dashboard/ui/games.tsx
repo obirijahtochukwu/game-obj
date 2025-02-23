@@ -11,7 +11,7 @@ export default function Games() {
   const { options, series } = betting_activity_chart(totalPlays, topGames);
 
   return (
-    <article className="col-span-5 h-full rounded-md border border-gray bg-advance p-5">
+    <article className="-z-10 col-span-5 h-full rounded-md border border-gray bg-advance p-5">
       <div className="text-base font-medium">Most Popular Games/Sports</div>
       <div className="">
         <ReactApexChart

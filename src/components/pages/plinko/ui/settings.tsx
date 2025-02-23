@@ -4,6 +4,8 @@ import Select from "../../../ui/select";
 import axios from "axios";
 import SettingModal from "../../../ui/setting-modal";
 import BetAmount from "../../../ui/bet-amount";
+import { usePlinkoContext } from "../context";
+import Walkthrough from "../../../ui/walkthrough";
 
 export default function Settings({
   multiplier,
@@ -22,10 +24,14 @@ export default function Settings({
   betAmount: number;
   setBetAmount: React.Dispatch<number>;
 }) {
+  const { introTip, setIntroTip } = usePlinkoContext();
+
   const [play, setPlay] = useState("Manual");
   const [level, setLevel] = useState("Basic");
   const [chain, setChain] = useState("");
   const multipliers = [0.5, 1.0, 1.1, 1.2, 1.4, 2, 9, 16];
+
+  const props = { introTip, setIntroTip };
 
   return (
     <SettingModal isOpen={setting} setIsOpen={setSetting}>
@@ -50,25 +56,47 @@ export default function Settings({
           data={["btc", "sol", "ton", "eth"]}
           handleClick={(name) => setChain(name)}
         />
-        <BetAmount value={betAmount} onChange={(e: number) => setBetAmount(e)} />
-        <Select
-          label={level || ""}
-          title="Difficulty Level"
-          data={["basic", "medium", "Hard"]}
-          handleClick={(name) => setLevel(name)}
-        />{" "}
-        <Select
-          label={multiplier.toString() || ""}
-          title="Multiplier"
-          data={multipliers}
-          handleClick={(name) => setMultiplier(+name)}
-        />
-        <button
-          type="submit"
-          className="mt-auto flex min-h-12 w-full items-center justify-center rounded-xl bg-gradient-custom text-xl font-semibold text-primary"
+        <BetAmount {...props} id={1} value={betAmount} onChange={(e: number) => setBetAmount(e)} />
+        <Walkthrough
+          {...props}
+          id={2}
+          title="Select Your Level"
+          content={`Choose your desired level to adjust the difficulty or stakes of the game.`}
         >
-          Bet
-        </button>
+          <Select
+            label={level || ""}
+            title="Difficulty Level"
+            data={["basic", "medium", "Hard"]}
+            handleClick={(name) => setLevel(name)}
+          />
+        </Walkthrough>
+        <Walkthrough
+          {...props}
+          id={3}
+          title="Choose Your Outcome"
+          content={`Select the outcome you want to bet on from the available options.`}
+        >
+          <Select
+            label={multiplier.toString() || ""}
+            title="Multiplier"
+            data={multipliers}
+            handleClick={(name) => setMultiplier(+name)}
+          />
+        </Walkthrough>
+        <Walkthrough
+          {...props}
+          id={4}
+          title="Start the Game"
+          content="Click the 'Start Game' button to begin your betting session"
+          containerStyle="mt-auto"
+        >
+          <button
+            type="submit"
+            className="mt-auto flex min-h-12 w-full items-center justify-center rounded-xl bg-gradient-custom text-xl font-semibold text-primary"
+          >
+            Start Game
+          </button>
+        </Walkthrough>
       </form>
     </SettingModal>
   );

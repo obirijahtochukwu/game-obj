@@ -17,7 +17,6 @@ export default function Table() {
     data: players,
     itemsPerPage,
   });
-  // const visisbleData = players.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage);
 
   return (
     <article className="mt-7 rounded-lg border border-gray bg-advance text-primary">

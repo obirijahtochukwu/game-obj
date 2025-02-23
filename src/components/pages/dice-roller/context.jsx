@@ -11,6 +11,7 @@ const AppProvider = ({ children }) => {
   const { user, getGamesHishtory ,showPopup,setIsLogin,setIsBetLoading} = useGlobalContext();
   const getHistory = (result, amount) => getGamesHishtory(result, amount, user.info); 
 
+  const [introTip, setIntroTip] = useState(1);
   const [setting, setSetting] = useState(false);
   const [diceResult, setDiceResult] = useState(null);
   const [betAmount, setBetAmount] = useState(null); // Bet amount in USD
@@ -84,7 +85,7 @@ const AppProvider = ({ children }) => {
         setResultMessage,
         winChance,
         profitOnWin,
-        rollDice,
+        rollDice,introTip, setIntroTip
       }}
     >
       {children}

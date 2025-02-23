@@ -8,9 +8,10 @@ import { useGlobalContext } from "../../../../lib/global-context";
 import { Buttons } from "../../../ui/buttons";
 import { formattedNumber } from "../../../../lib/utils/formattedNumber";
 import BetAmount from "../../../ui/bet-amount";
+import Walkthrough from "../../../ui/walkthrough";
 
 export default function Settings() {
-  const { startGame, setting, setSetting, risklevel, setRiskLevel, gamble, setGamble } = useSlotContext();
+  const { startGame, setting, setSetting, risklevel, setRiskLevel, gamble, setGamble, introTip, setIntroTip } = useSlotContext();
   const { balance } = useGlobalContext().user.info;
 
   const [level, setLevel] = useState("Basic");
@@ -34,6 +35,8 @@ export default function Settings() {
     }
   }, [level, gamble.betAmount]);
 
+  const props = { introTip, setIntroTip };
+
   return (
     <SettingModal isOpen={setting} setIsOpen={setSetting}>
       <form onSubmit={startGame} className="flex h-full flex-col gap-6">
@@ -44,14 +47,29 @@ export default function Settings() {
           data={["btc", "sol", "ton", "eth"]}
           handleClick={(name) => setChain(name)}
         />
-        <BetAmount value={gamble.betAmount} onChange={(e: number) => setBetAmount(e)} />
+        <BetAmount id={1} {...props} value={gamble.betAmount} onChange={(e: number) => setBetAmount(e)} />
+        <Walkthrough
+          {...props}
+          id={2}
+          title="Select Your Level"
+          content={`Choose your desired level to adjust the difficulty or stakes of the game.`}
+        >
+          <Select label={level || ""} title="Risk" data={["Basic", "Medium", "Hard"]} handleClick={(name) => setLevel(name)} />
+        </Walkthrough>
 
-        <Select label={level || ""} title="Risk" data={["Basic", "Medium", "Hard"]} handleClick={(name) => setLevel(name)} />
-        <div className="">
+        <section>
           <div className="text-base font-medium">Payout</div>
           <FormInput.setting disabled value={gamble.payout} />
-        </div>
-        <Buttons.play_game classname="mt-auto">Bet</Buttons.play_game>
+        </section>
+        <Walkthrough
+          {...props}
+          id={4}
+          title="Start the Game"
+          content="Click the 'Start Game' button to begin your betting session"
+          containerStyle="mt-auto"
+        >
+          <Buttons.play_game classname="mt-auto">Bet</Buttons.play_game>
+        </Walkthrough>
       </form>
     </SettingModal>
   );

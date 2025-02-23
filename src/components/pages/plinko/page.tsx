@@ -12,8 +12,17 @@ import Table from "../../ui/table";
 import { submitGame } from "../../../lib/utils/submit-game";
 import { backend_api } from "../../../lib/constants";
 import { userExist } from "../../../lib/utils";
+import { AppProvider, usePlinkoContext } from "./context";
 
 export default function Plinko() {
+  return (
+    <AppProvider>
+      <App />
+    </AppProvider>
+  );
+}
+
+function App() {
   const [setting, setSetting] = useState(false);
   const [filterLabels, setFilterLabels] = useState(["all bets"]);
   const [rows, setRows] = useState(16);

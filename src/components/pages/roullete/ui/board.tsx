@@ -34,44 +34,40 @@ export default function Board() {
   };
 
   return (
-    <div className="grid grid-cols-12 min-w-full rounded-lg overflow-hidden font-secondary">
-      <div
-        className={` h-full flex items-center justify-center shadow-smError text-primary font-semibold text-xl bg-red-700`}
-      >
+    <div className="grid min-w-full grid-cols-12 overflow-hidden rounded-lg font-secondary">
+      <div className={`flex h-full items-center justify-center bg-red-700 text-xl font-semibold text-primary shadow-smError`}>
         0
       </div>
-      <div className=" col-span-10">
-        <section className=" grid grid-cols-11 min-w-full">
+      <div className="col-span-10">
+        <section className="grid min-w-full grid-cols-11">
           {board.map(
             ({ num }, idx) =>
               idx > 0 &&
               idx < 34 && (
                 <div onClick={() => select(num)} className={className(num)}>
-                  <div className=" -rotate-90">{num}</div>
+                  <div className="-rotate-90">{num}</div>
                 </div>
-              )
+              ),
           )}
         </section>
       </div>
-      <section className=" col-span-1 flex flex-col">
+      <section className="col-span-1 flex flex-col">
         {board.map(
           ({ num }, idx) =>
             idx > 33 && (
               <div onClick={() => select(num)} className={className(num)}>
                 {num}
               </div>
-            )
+            ),
         )}
       </section>
-      <section className=" col-span-12 flex">
+      <section className="col-span-12 flex">
         {["Even", "Odd"].map((name, idx) => (
           <div
             onClick={() => select(name)}
             className={`${
-              gamble.outcomes.includes(name)
-                ? " border-2 border-advance border-t-2"
-                : ""
-            } h-14 w-1/2 flex items-center justify-center  text-primary font-semibold text-xl even:bg-red-700 even:shadow-smError bg-secondary shadow-smDark border-t border-primary cursor-pointer`}
+              gamble.outcomes.includes(name) ? "border-2 border-t-2 border-advance" : ""
+            } flex h-14 w-1/2 cursor-pointer items-center justify-center border-t border-primary bg-secondary text-xl font-semibold text-primary shadow-smDark even:bg-red-700 even:shadow-smError`}
           >
             {name}
           </div>

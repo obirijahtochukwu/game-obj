@@ -25,7 +25,6 @@ export default function Intro() {
       >
         <div className="text-3xl font-bold">Welcome back</div>
         <div className="font-advance text-base">
-          {" "}
           Nice to see you, <span className="capitalize">{name}</span>
         </div>
         <div

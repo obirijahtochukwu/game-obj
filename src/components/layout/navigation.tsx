@@ -16,12 +16,12 @@ import BetLoss from "../ui/bet-loss";
 import Logo from "../ui/logo";
 import Authentication from "../../auth";
 import IsBetLoading from "../ui/is-bet-loading";
+import Logout from "../ui/logout";
 
 export default function Navigation({ children }: { children: JSX.Element }) {
-  const { logout, user, setIsLogin, isLogin, setIsSignup, setRefresh } = useGlobalContext();
-  // const [isSignup, setIsSignup] = useState(false);
-  // const [isLogin, setIsLogin] = useState(false);
+  const { user, setIsLogin, isLogin, setIsSignup, setRefresh } = useGlobalContext();
   const { isOpen, setIsOpen, targetRef } = useClick.auto();
+  const [isLogout, setIsLogout] = useState(false);
   const pathname = useLocation().pathname;
 
   useEffect(() => {
@@ -35,6 +35,8 @@ export default function Navigation({ children }: { children: JSX.Element }) {
     pathname,
     isLogin,
     setIsLogin,
+    isLogout,
+    setIsLogout,
   };
 
   return (
@@ -61,9 +63,7 @@ export default function Navigation({ children }: { children: JSX.Element }) {
                 />
               </div>
               {user.loggedIn == "true" ? (
-                <aside onClick={logout} className="flex cursor-pointer items-center gap-3">
-                  <Icons.signout className="h-5 w-fit text-primary" /> Sign out
-                </aside>
+                <Logout {...props} />
               ) : (
                 <>
                   <button

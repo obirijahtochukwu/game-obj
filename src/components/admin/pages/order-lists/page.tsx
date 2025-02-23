@@ -5,7 +5,7 @@ import Table from "./ui/table";
 export default function OrderList() {
   return (
     <>
-      <Header />
+      {/* <Header /> */}
       <Table />
     </>
   );

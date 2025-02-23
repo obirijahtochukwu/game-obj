@@ -1,78 +1,71 @@
 import React from "react";
-import { games } from "../mock-data";
-import { generateRandomNumber } from "../../../../../lib/utils/generateRandomNumber";
 import { generateRandomColor } from "../../../../../lib/utils/generate-random-color";
 import { useGlobalContext } from "../../../../../lib/global-context";
 import { formattedNumber } from "../../../../../lib/utils/formattedNumber";
+import usePagination from "../../../../../lib/hooks/usePagination";
 
 export default function Table() {
   const { game_and_sport_stats } = useGlobalContext().admin;
 
+  const isTableEmpty = game_and_sport_stats?.length < 1;
+  const itemsPerPage = 6;
+  const totalPages = isTableEmpty ? 0 : Math.ceil(game_and_sport_stats?.length / itemsPerPage);
+
+  const { PaginationWithDots, visisbleData } = usePagination({
+    totalPages,
+    data: isTableEmpty ? [] : game_and_sport_stats,
+    itemsPerPage,
+  });
+
   return (
-    <section className="w-full overflow-x-auto custom-scrollbar bg-advance mt-3 rounded-md border border-gray">
-      <div className="w-fit min-w-full flex gap-14 items-center justify-between text-grey text-sm font-normal pr-7 h-11 font-advance capitalize">
-        <div className="flex gap-14 items-center justify-between rounded-lg bg-Red sticky left-0 top-0 w-fit pl-6 pr-5 bg-advance">
-          <div className="w-32">Game/Sport Name</div>
-          <div className="w-28">active players</div>
-        </div>
-        <div className="w-28 text-center">Players Win Rate</div>
-        <div className="w-32 text-center">Players Loss Rate</div>
-        <div className="w-28 text-center">Total Payout ($)</div>
-        <div className="w-32 text-center">Average Bet Siz ($)</div>
-        <div className="w-20 text-center">Session</div>
+    <>
+      <div className="mt-7 flex items-center justify-between font-advance text-xl font-semibold">
+        Available Games/Sports
+        <PaginationWithDots />
       </div>
-      {game_and_sport_stats.map(
-        (
-          {
-            game,
-            activePlayers,
-            winRate,
-            lossRate,
-            totalPayout,
-            averageBetSize,
-            totalPlays,
-          },
-          idx
-        ) => (
+      <section className="custom-scrollbar mt-3 min-h-80 w-full overflow-x-auto rounded-md border border-gray bg-advance">
+        <div className="flex h-11 w-fit min-w-full items-center justify-between gap-14 pr-7 font-advance text-sm font-normal capitalize text-grey">
+          <div className="bg-Red sticky left-0 top-0 flex w-fit items-center justify-between gap-14 rounded-lg bg-advance pl-6 pr-5">
+            <div className="w-32">Game/Sport Name</div>
+            <div className="w-28">active players</div>
+          </div>
+          <div className="w-28 text-center">Players Win Rate</div>
+          <div className="w-32 text-center">Players Loss Rate</div>
+          <div className="w-28 text-center">Total Payout ($)</div>
+          <div className="w-32 text-center">Average Bet Siz ($)</div>
+          <div className="w-20 text-center">Session</div>
+        </div>
+        {visisbleData.map(({ game, activePlayers, winRate, lossRate, totalPayout, averageBetSize, session }, idx) => (
           <section
             key={idx}
-            className="w-fit min-w-full flex gap-14 items-center justify-between text-base font-normal pr-7 h-11 font-advance capitalize even:bg-dark"
+            className="flex h-11 w-fit min-w-full items-center justify-between gap-14 pr-7 font-advance text-base font-normal capitalize even:bg-dark"
           >
             <div
-              className={`flex gap-14 h-full items-center justify-between rounded-lg bg-Red sticky left-0 top-0 w-fit pl-6 pr-5 bg-advance ${
-                idx % 2 == 0 && " bg-dark"
+              className={`bg-Red sticky left-0 top-0 flex h-full w-fit items-center justify-between gap-14 rounded-lg bg-advance pl-6 pr-5 ${
+                idx % 2 == 0 && "bg-dark"
               }`}
             >
-              <div
-                style={{ color: generateRandomColor() }}
-                className="w-32 text-shadow-sm font-semibold whitespace-nowrap"
-              >
+              <div style={{ color: generateRandomColor() }} className="text-shadow-sm w-32 whitespace-nowrap font-semibold">
                 {game}
               </div>
-              <div className="w-28 text-center">
-                {Math.round(activePlayers)}
+              <div className="w-28 text-center">{Math.round(activePlayers)}</div>
+            </div>
+            <div className="w-28 text-center">
+              <div className="mx-auto flex w-12 justify-center rounded-sm bg-success/20 px-2 py-0.5 text-success">
+                +{Math.round(winRate)}%
               </div>
             </div>
-            <div className="w-28 text-center">
-              <div className="flex w-12 rounded-sm justify-center mx-auto bg-success/20 text-success py-0.5 px-2">
-                +{Math.round(winRate)}%
-              </div>{" "}
-            </div>
             <div className="w-32 text-center">
-              <div className="flex w-12 rounded-sm justify-center mx-auto bg-error/20 text-error py-0.5 px-2">
+              <div className="mx-auto flex w-12 justify-center rounded-sm bg-error/20 px-2 py-0.5 text-error">
                 -{Math.round(lossRate)}%
-              </div>{" "}
+              </div>
             </div>
-            <div className="w-28 text-center">
-              {formattedNumber(totalPayout)}
-            </div>
-            <div className="w-32 text-center">
-              {formattedNumber(averageBetSize)}
-            </div>
-            <div className="w-20 text-center">{generateRandomNumber()}k</div>
+            <div className="w-28 text-center">{formattedNumber(totalPayout)}</div>
+            <div className="w-32 text-center">{formattedNumber(averageBetSize)}</div>
+            <div className="w-20 text-center">{session}</div>
           </section>
-        )
-      )}
-    </section>
+        ))}
+      </section>
+    </>
   );
 }

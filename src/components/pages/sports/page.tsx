@@ -21,7 +21,6 @@ export default function Sports() {
                 tab == name ? "bg-primary/30" : "cursor-pointer"
               } flex items-center gap-3 rounded-full border-2 border-primary/10 px-6 py-2.5 text-xl font-medium text-primary duration-300`}
             >
-              {" "}
               <Icons.sport_tab />
               {name}
             </div>

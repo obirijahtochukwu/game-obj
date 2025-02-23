@@ -31,6 +31,8 @@ interface context {
     num: number;
     color: string;
   }[];
+  introTip?: number;
+  setIntroTip?: Dispatch<number>;
 }
 
 const AppContext = createContext<context>({});
@@ -46,6 +48,7 @@ const AppProvider = ({ children }) => {
   const { user, getGamesHishtory, setIsLogin, setIsBetLoading } = useGlobalContext();
   const getHistory = (result: string, amount: number) => getGamesHishtory(result, amount, user.info);
 
+  const [introTip, setIntroTip] = useState(1);
   const [gamble, setGamble] = useState(initialSate);
   const [isSetting, setIsSetting] = useState(false);
   const [isGameActive, setIsGameActive] = useState(false);
@@ -213,6 +216,8 @@ const AppProvider = ({ children }) => {
         gamble,
         setGamble,
         board,
+        introTip,
+        setIntroTip,
       }}
     >
       {children}

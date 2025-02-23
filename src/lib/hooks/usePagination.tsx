@@ -18,7 +18,7 @@ const usePagination = ({ totalPages, data, itemsPerPage }) => {
     setCurrentPage((prev) => Math.max(prev - 1, 1));
   };
 
-  const visisbleData = data.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage);
+  const visisbleData = data?.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage) || [];
 
   const props = { currentPage, goToPage, goToNextPage, goToPreviousPage, totalPages };
 
@@ -28,16 +28,14 @@ const usePagination = ({ totalPages, data, itemsPerPage }) => {
     goToNextPage,
     goToPreviousPage,
     visisbleData,
-    PaginationWithDots: () => <PaginationWithDots {...props} />,
+    PaginationWithDots: () => (visisbleData.length > 0 ? <PaginationWithDots {...props} /> : <></>),
   };
 };
 
 const PaginationWithDots = ({ currentPage, goToPage, goToNextPage, goToPreviousPage, totalPages }) => {
-  // const { currentPage, goToPage, goToNextPage, goToPreviousPage } = usePagination(totalPages);
-
   const renderPagination = () => {
     const pages = [];
-    const visiblePages = 5; // Number of visible pages (including dots)
+    const visiblePages = 5;
 
     if (totalPages <= visiblePages) {
       for (let i = 1; i <= totalPages; i++) {

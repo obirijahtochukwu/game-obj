@@ -52,6 +52,8 @@ interface context {
       multiplier: number;
     }[];
   }>;
+  introTip?: number;
+  setIntroTip?: Dispatch<number>;
 }
 
 const AppContext = createContext<context>({});
@@ -60,6 +62,7 @@ const AppProvider = ({ children }) => {
   const { user, getGamesHishtory, setIsLogin, setIsBetLoading } = useGlobalContext();
   const getHistory = (result: string, amount: number) => getGamesHishtory(result, amount, user.info);
 
+  const [introTip, setIntroTip] = useState(1);
   const [risklevel, setRiskLevel] = useState({
     current: { tag: 2, label: "Basic", multiplier: 2.5 },
     list: [
@@ -162,6 +165,8 @@ const AppProvider = ({ children }) => {
         setRiskLevel,
         gamble,
         setGamble,
+        introTip,
+        setIntroTip,
       }}
     >
       {children}

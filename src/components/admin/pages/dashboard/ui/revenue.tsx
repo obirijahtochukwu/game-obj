@@ -12,7 +12,7 @@ export default function Revenue() {
   const { series, options } = revenue_chart(monthly_profit);
 
   return (
-    <article className="col-span-7 rounded-md border border-gray bg-advance py-5 pl-2 pr-3 font-advance">
+    <article className="-z-20 col-span-7 rounded-md border border-gray bg-advance py-5 pl-2 pr-3 font-advance">
       <div className="pl-3 pr-6">
         <div className="text-base font-medium opacity-80">Total revenue</div>
         <section className="mb-11 flex gap-7">

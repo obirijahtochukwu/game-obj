@@ -43,18 +43,18 @@ export default function Table() {
             <div className="w-28 text-center">
               <div className="mx-auto flex w-12 justify-center rounded-sm bg-success/20 px-2 py-0.5 text-success">
                 +{Math.round(winRate)}%
-              </div>{" "}
+              </div>
             </div>
             <div className="w-32 text-center">
               <div className="mx-auto flex w-12 justify-center rounded-sm bg-error/20 px-2 py-0.5 text-error">
                 -{Math.round(lossRate)}%
-              </div>{" "}
+              </div>
             </div>
             <div className="w-28 text-center">{formattedNumber(profit)}</div>
             <div className="w-32 text-center">{formattedNumber(averageBetSize)}</div>
           </section>
         ))}
-        <NoActivity disabled={games?.length < 1 && true} />
+        {games?.length < 1 && <NoActivity />}
       </main>
     </article>
   );

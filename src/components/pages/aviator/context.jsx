@@ -10,6 +10,7 @@ const AppProvider = ({ children }) => {
   const { user, getGamesHishtory ,setIsLogin,setIsBetLoading} = useGlobalContext();
   const getHistory = (result: string, amount: number) => getGamesHishtory(result, amount, user.info);
 
+  const [introTip, setIntroTip] = useState(1);
   const [balance, setBalance] = useState(1000);
   const [betAmount, setBetAmount] = useState(null);
   const [cashOutAt, setCashOutAt] = useState(2.5);
@@ -149,7 +150,7 @@ const AppProvider = ({ children }) => {
         isCrashed,
         userCashout,
         setting,
-        setSetting,
+        setSetting,introTip, setIntroTip
       }}
     >
       {children}

@@ -6,9 +6,6 @@ export default function GamesSports() {
   return (
     <article className="text-primary">
       <Header />
-      <div className="mt-7 text-xl font-semibold font-advance">
-        Available Games/Sports
-      </div>
       <Table />
     </article>
   );

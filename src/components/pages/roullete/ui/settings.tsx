@@ -5,9 +5,11 @@ import { useRoulleteContext } from "../context";
 import SettingModal from "../../../ui/setting-modal";
 import { generateRandomNumber } from "../../../../lib/utils/generateRandomNumber";
 import BetAmount from "../../../ui/bet-amount";
+import Walkthrough from "../../../ui/walkthrough";
+// import Walkthrough from './../../../ui/walkthrough copy';
 
 export default function Settings() {
-  const { gamble, setGamble, isSetting, setIsSetting, startGame } = useRoulleteContext();
+  const { gamble, setGamble, isSetting, setIsSetting, startGame, introTip, setIntroTip } = useRoulleteContext();
 
   const [chain, setChain] = useState("");
 
@@ -35,13 +37,18 @@ export default function Settings() {
     }
   }, [gamble.betAmount, gamble.outcomes]);
 
+  const props = {
+    introTip,
+    setIntroTip,
+  };
+
   return (
     <SettingModal isOpen={isSetting} setIsOpen={setIsSetting}>
       <form
         onSubmit={(e) => {
           startGame(e, generateRandomNumber());
         }}
-        className="flex h-full flex-col gap-6"
+        className="z-50 flex h-full flex-col gap-6"
       >
         <Select
           label={chain || ""}
@@ -49,11 +56,12 @@ export default function Settings() {
           data={["btc", "sol", "ton", "eth"]}
           handleClick={(name) => setChain(name)}
         />
-        <BetAmount value={gamble.betAmount} onChange={(e: number) => setGamble({ ...gamble, betAmount: e })} />
+
+        <BetAmount {...props} id={1} value={gamble.betAmount} onChange={(e: number) => setGamble({ ...gamble, betAmount: e })} />
         <section>
           <div className="text-base font-medium text-primary/80">Profit on Win</div>
           <article className="mt-2 flex h-14 w-full items-center justify-between gap-3 rounded-lg border border-gray bg-muted px-3 py-1.5 text-base font-semibold text-primary">
-            <input disabled value={gamble.payout} className="h-full w-full bg-transparent focus:outline-none" />
+            <input value={gamble.payout} className="h-full w-full bg-transparent focus:outline-none" />
           </article>
         </section>
 
@@ -68,12 +76,19 @@ export default function Settings() {
           </article>
         </section>
 
-        <button
-          // disabled={gamble.outcomes.length < 1}
-          className={buttonClass(`${gamble.outcomes.length < 1 && "cursor-not-allowed opacity-70"} bg-gradient-custom`)}
+        <Walkthrough
+          {...props}
+          id={3}
+          title="Start the Game"
+          content="Click the 'Start Game' button to begin your betting session"
         >
-          Start Play
-        </button>
+          <button
+            // disabled={gamble.outcomes.length < 1}
+            className={buttonClass(`${gamble.outcomes.length < 1 && "cursor-not-allowed opacity-70"} bg-gradient-custom`)}
+          >
+            Start Play
+          </button>
+        </Walkthrough>
       </form>
     </SettingModal>
   );

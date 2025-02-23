@@ -11,7 +11,6 @@ import { getImagePath } from "../../lib/utils";
 export default function CreateAd({ IsCreateAd, setIsCreateAd }: { IsCreateAd: boolean; setIsCreateAd: React.Dispatch<boolean> }) {
   const { isMouseDisable, disableMouse, enableMouse } = useDiasbleMouse();
   const [form, setForm] = useState<{ image?: any; title?: string; description?: string }>({});
-  const [file, setFile] = useState("");
 
   const handleFileChange = (event: any) => {
     const file = event.target.files[0];
@@ -26,6 +25,7 @@ export default function CreateAd({ IsCreateAd, setIsCreateAd }: { IsCreateAd: bo
     formData.append("image", form.image);
     formData.append("title", form.title);
     formData.append("description", form.description);
+    console.log(form);
 
     axios
       .post(backend_api + "/create-ad", formData, {
@@ -48,16 +48,6 @@ export default function CreateAd({ IsCreateAd, setIsCreateAd }: { IsCreateAd: bo
       })
       .finally(() => enableMouse());
   };
-
-  useEffect(() => {
-    axios
-      .get(backend_api + "/get-ads")
-      .then((res) => {
-        setFile(res.data[0].image);
-        console.log(res.data);
-      })
-      .catch((res) => console.log(res));
-  }, []);
 
   return (
     <Modal isForm isOpen={IsCreateAd} setIsOpen={setIsCreateAd} classname="!py-4 !bg-image">

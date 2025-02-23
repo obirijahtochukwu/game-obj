@@ -23,8 +23,7 @@ export default function Agreement({ handleSubmit, isLoading }) {
         </div>
       </section>
       <div className="flex w-fit items-center gap-2 text-sm font-normal">
-        {" "}
-        <input type="checkbox" name="" id="create-account" />{" "}
+        <input type="checkbox" name="" id="create-account" />
         <label className="!static !translate-y-0 cursor-pointer" htmlFor="create-account">
           I have read and agree to the terms and conditions
         </label>

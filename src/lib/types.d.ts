@@ -110,7 +110,7 @@ export interface userGrowth {
 }
 
 export interface GameStatistics {
-  totalPlays: number;
+  session: number;
   totalPayout: number;
   averageBetSize: number;
   game: string;

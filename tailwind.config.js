@@ -13,6 +13,7 @@ module.exports = {
       colors: {
         error: "#F07B7B",
         pink: "#CB3CFF",
+        shinnyBlue: "#7F25FB",
         dark: "#0A1330",
         primary: "#FFFFFF",
         secondary: "#EB5E28",

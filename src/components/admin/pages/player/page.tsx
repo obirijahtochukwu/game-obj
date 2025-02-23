@@ -35,7 +35,7 @@ export default function Player() {
 
   return (
     <article className="text-primary">
-      <PageLoader isLoading={isLoading} />
+      {/* <PageLoader isLoading={isLoading} /> */}
       <Header {...props} />
       <section className="mt-7 grid grid-cols-12 gap-7 text-primary">
         <Profit {...props} />

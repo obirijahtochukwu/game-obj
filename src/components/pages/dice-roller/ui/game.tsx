@@ -2,22 +2,11 @@ import React from "react";
 import { useDiceRollerContext } from "../context";
 import Select from "../../../ui/select";
 import { Input } from "../../../ui/input";
+import Walkthrough from "../../../ui/walkthrough";
 
 export default function Game() {
-  const {
-    diceResult,
-    betAmount,
-    setBetAmount,
-    multiplier,
-    setMultiplier,
-    isRolling,
-    resultMessage,
-    winChance,
-    profitOnWin,
-    rollDice,
-    setting,
-    setSetting,
-  } = useDiceRollerContext();
+  const { diceResult, betAmount, setBetAmount, multiplier, setMultiplier, isRolling, setIntroTip, winChance, introTip } =
+    useDiceRollerContext();
 
   const multipliers = [1.0, 1.1, 1.9, 2.3, 2.7, 3.1, 3.5];
 
@@ -32,36 +21,38 @@ export default function Game() {
     };
 
     return (
-      <div className="grid grid-cols-3 gap-2 w-24 h-24 scale-150 sm:scale-[3.4] bg-white rounded-sm shadow-lg p-3 mb-5 absolute top-20 left-16 sm:top-44 sm:left-36">
+      <div className="absolute left-16 top-20 mb-5 grid h-24 w-24 scale-150 grid-cols-3 gap-2 rounded-sm bg-white p-3 shadow-lg sm:left-36 sm:top-44 sm:scale-[3.4]">
         {dots[number]?.map((active: boolean, index: number) => (
-          <div
-            key={index}
-            className={`w-4 h-4 rounded-full ${
-              active ? "bg-dark rolling" : "bg-transparent"
-            }`}
-          ></div>
+          <div key={index} className={`h-4 w-4 rounded-full ${active ? "rolling bg-dark" : "bg-transparent"}`}></div>
         ))}
       </div>
     );
   };
 
   return (
-    <div className="flex flex-col items-center justify-center w-full bg-gray-100">
-      <div className="w-60 h-60 sm:h-[420px] sm:w-96 relative">
+    <div className="bg-gray-100 flex w-full flex-col items-center justify-center">
+      <div className="relative h-60 w-60 sm:h-[420px] sm:w-96">
         {diceResult !== null ? renderDiceFace(diceResult) : renderDiceFace(6)}
       </div>
-      <div className="w-full p-8 rounded-3xl bg-advance text-primary grid grid-cols-1 sm:grid-cols-2 gap-4">
-        <Select
-          bottom={true}
-          label={`${multiplier?.toFixed(1)}x` || ""}
-          title="Cashout At"
-          data={multipliers}
-          handleClick={(name) => setMultiplier(parseFloat(name))}
-        />
+      <div className="grid w-full grid-cols-1 gap-4 rounded-3xl bg-advance p-8 text-primary sm:grid-cols-2">
+        <Walkthrough
+          introTip={introTip}
+          setIntroTip={setIntroTip}
+          id={2}
+          title="Choose Your Outcome"
+          content={`Select the outcome you want to bet on from the available options.`}
+          position="left"
+        >
+          <Select
+            bottom={true}
+            label={`${multiplier?.toFixed(1)}x` || ""}
+            title="Cashout At"
+            data={multipliers}
+            handleClick={(name) => setMultiplier(parseFloat(name))}
+          />
+        </Walkthrough>
         <section className="">
-          <div className=" font-primary text-base font-medium">
-            Win Chance (%)
-          </div>
+          <div className="font-primary text-base font-medium">Win Chance (%)</div>
           <Input.number value={winChance} />
         </section>
       </div>

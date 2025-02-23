@@ -1,10 +1,11 @@
-import React from "react";
 import { formattedNumber } from "../../lib/utils/formattedNumber";
 import { useGlobalContext } from "../../lib/global-context";
 import { useClick } from "../../lib/hooks/useclick";
+import Walkthrough from "./walkthrough";
 
-export default function BetAmount({ value, onChange }) {
-  const { balance } = useGlobalContext().user.info;
+export default function BetAmount(props) {
+  const { value, onChange } = props;
+  const { balance } = useGlobalContext().user?.info;
   const { isOpen, setIsOpen, targetRef } = useClick.auto();
 
   const handleInputChange = (event) => {
@@ -27,13 +28,13 @@ export default function BetAmount({ value, onChange }) {
   };
 
   return (
-    <section>
-      <div className="flex items-center gap-2 text-base font-medium">
-        Bet Amount{" "}
-        <div className="rounded-sm bg-success px-1 font-advance text-xs font-bold text-background">
-          ${balance && formattedNumber(balance - value)}
-        </div>
-      </div>
+    <Walkthrough
+      {...props}
+      title="Enter Your Bet Amount"
+      content="Type or select the amount you want to bet in the input field."
+      containerStyle=""
+    >
+      <div className="flex items-center gap-2 text-base font-medium">Bet Amount</div>
       <article
         ref={targetRef}
         className="relative mt-2 flex h-14 w-full items-center justify-between gap-3 rounded-lg border border-gray bg-muted px-3 py-1.5 text-base font-semibold text-primary"
@@ -61,25 +62,23 @@ export default function BetAmount({ value, onChange }) {
             </button>
           ))}
         </div>
-        <section
-          className={`${isOpen ? "visible h-52 py-1 opacity-100" : "invisible h-0 opacity-0"} absolute left-0 top-full z-10 mt-2 flex w-full flex-col rounded-md bg-sm px-1 font-advance text-base shadow-md duration-300`}
-        >
-          {[2, 4, 7, 5, 12].map((val) => {
-            const number = Math.round(100 / val);
-            return (
-              <div
-                onClick={() => {
-                  onChange(number);
-                  setIsOpen(false);
-                }}
-                className="cursor-pointer rounded-md p-2 hover:bg-background/80"
-              >
-                ${number}
-              </div>
-            );
-          })}
-        </section>
       </article>
-    </section>
+      <section className={`mt-3 flex flex-wrap gap-3 gap-y-1`}>
+        {[50, 25, 14, 20, 8, 150].map((number) => {
+          return (
+            <div
+              key={number}
+              onClick={() => {
+                onChange(number);
+                setIsOpen(false);
+              }}
+              className="cursor-pointer rounded-full border border-gray bg-image px-4 py-1 text-sm"
+            >
+              ${number}
+            </div>
+          );
+        })}
+      </section>
+    </Walkthrough>
   );
 }

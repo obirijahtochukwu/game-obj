@@ -27,6 +27,8 @@ interface GameState {
   heldCards?: number[];
   setHeldCards?: Dispatch<number[]>;
   balance?: any;
+  introTip?: number;
+  setIntroTip?: Dispatch<number>;
 }
 
 const AppContext = createContext<GameState>({});
@@ -35,6 +37,7 @@ const AppProvider = ({ children }) => {
   const { user, getGamesHishtory, setIsLogin, setIsBetLoading } = useGlobalContext();
   const getHistory = (result: string, amount: number) => getGamesHishtory(result, amount, user.info);
 
+  const [introTip, setIntroTip] = useState(1);
   const [balance, setBalance] = useState<any>(1000); // Player's balance
 
   const initialSate = {
@@ -125,6 +128,8 @@ const AppProvider = ({ children }) => {
         setHeldCards,
         balance,
         draw,
+        introTip,
+        setIntroTip,
       }}
     >
       {children}

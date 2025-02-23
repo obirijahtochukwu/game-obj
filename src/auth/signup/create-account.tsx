@@ -47,8 +47,8 @@ export default function CreateAccount({ steps, setSteps, handleSubmit }) {
           {[<Icons.facebook />, <Icons.google />, <Icons.telegram />].map((Icon, idx) => (
             <div className="rounded-full bg-muted p-4">{Icon}</div>
           ))}
-        </section>{" "} */}
-        Already have an account?{" "}
+        </section> */}
+        Already have an account?
         <span onClick={() => setIsSignup(false)} className="cursor-pointer text-purple-500">
           Sign in
         </span>

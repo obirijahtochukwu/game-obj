@@ -3,7 +3,7 @@ import { formattedNumber } from "../../../../../lib/utils/formattedNumber";
 import { useFormattedDate } from "../../../../../lib/hooks/useFormattedDate";
 import CoinApproval from "../../../../ui/coin-approval";
 
-export default function User({ idx, _id, name, amount, email, createdAt, status, getOrders, userId }) {
+export default function Order({ idx, _id, name, amount, email, createdAt, status, getOrders, userId }) {
   const [isOpen, setIsOpen] = useState(false);
   const { formattedDate } = useFormattedDate();
   const props = { isOpen, setIsOpen };
