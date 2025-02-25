@@ -5,6 +5,8 @@ import formatDateToTime from "../../lib/utils/formatDateToTime";
 import { gameHistory, userData } from "../../lib/types";
 import filterTableLabelsByCondition from "../../lib/utils/filter-table-labels-by-condition ";
 import { formattedNumber } from "../../lib/utils/formattedNumber";
+import usePagination from "../../lib/hooks/usePagination";
+import NoActivity from "./no-activity";
 
 export default function Table({
   title,
@@ -19,12 +21,17 @@ export default function Table({
 }) {
   const [count, setCount] = useState(6);
   const { user }: any = useGlobalContext();
-  const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 5;
-  const totalPage = Math.ceil(data.length / itemsPerPage);
+  // const [currentPage, setCurrentPage] = useState(1);
+
+  const itemsPerPage = 6;
+  const { PaginationWithDots, visisbleData, setCurrentPage } = usePagination({
+    totalPages: Math.ceil(data.length / itemsPerPage),
+    data,
+    itemsPerPage,
+  });
 
   const reversedData = data.reverse();
-  const currentData = reversedData.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage);
+  // const currentData = reversedData.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage);
 
   const handleFilterChange = (name: string) => {
     const isExistingLabel = filterLabels.includes(name);
@@ -52,7 +59,7 @@ export default function Table({
   return (
     <article className="overflow-x-hidden rounded-lg bg-advance pt-6">
       <div className="flex items-center justify-between px-4 text-4xl font-semibold text-primary">{title}</div>
-      <section className="hide-scrollbar w-full overflow-x-auto px-4">
+      <section className="flex w-full items-center justify-between px-4">
         <div className="mt-5 flex w-fit items-center gap-4">
           {[
             { value: "all bets", label: "all bets" },
@@ -72,27 +79,11 @@ export default function Table({
               {label}
             </div>
           ))}
-          <div className="flex h-12 items-center gap-3 rounded-lg border border-primary/60 px-4 text-base font-semibold text-primary/80">
-            {currentPage}/{totalPage}
-            <div className={totalPage == 1 && "hidden"}>
-              <Icons.arrow
-                onClick={() => setCurrentPage(currentPage + 1)}
-                color="#ffffff90"
-                className={
-                  data.length / itemsPerPage > currentPage ? "h-4 -rotate-90 cursor-pointer" : "invisible h-4 -rotate-90"
-                }
-              />
-              <Icons.arrow
-                onClick={() => setCurrentPage(currentPage - 1)}
-                color="#ffffff90"
-                className={currentPage == 1 ? "invisible h-4 -rotate-90" : "h-4 rotate-90 cursor-pointer"}
-              />
-            </div>
-          </div>
         </div>
+        <PaginationWithDots />
       </section>
-      <main className="custom-scrollbar mt-9 h-[340px] w-full overflow-x-auto rounded-lg">
-        {currentData.length > 0 ? (
+      <main className="custom-scrollbar mt-9 min-h-fit w-full overflow-x-auto rounded-lg">
+        {visisbleData.length > 0 ? (
           <>
             <div className="bg-Red flex h-14 w-fit min-w-full items-center justify-between gap-14 border-b border-gray pr-7 font-medium text-white">
               <div className="bg-Red sticky left-0 top-0 flex w-fit items-center justify-between gap-14 rounded-lg bg-advance pl-7">
@@ -104,7 +95,7 @@ export default function Table({
               <div className="w-20">Multiplier</div>
               <div className="w-20 text-right">Payout</div>
             </div>
-            {currentData?.map(({ betAmount, createdAt, game, multiplier, payout, result, username }, id) => (
+            {visisbleData?.map(({ betAmount, createdAt, game, multiplier, payout, result, username }, id) => (
               <div
                 key={id}
                 className="flex h-14 w-fit min-w-full items-center justify-between gap-14 pr-7 font-advance text-base font-medium text-primary/80 odd:bg-dark"
@@ -120,14 +111,12 @@ export default function Table({
                 <div className="w-20 text-center">{formatDateToTime(createdAt)}</div>
                 <div className="w-20 text-center">${formattedNumber(betAmount)}</div>
                 <div className="w-20 text-center">{multiplier?.toFixed(1)} x</div>
-                <div className="w-20 text-right">${payout}</div>
+                <div className="w-20 text-right">${formattedNumber(payout)}</div>
               </div>
             ))}
           </>
         ) : (
-          <section className="-mt-10 flex h-full items-center justify-center text-xl font-semibold text-secondary">
-            Opps! No game found
-          </section>
+          <NoActivity />
         )}
       </main>
     </article>

@@ -34,19 +34,15 @@ export default function CreateAd({ IsCreateAd, setIsCreateAd }: { IsCreateAd: bo
         },
       })
       .then((res) => {
-        console.log(res.data);
-
         enableMouse();
         setIsCreateAd(false);
         toast.success("🎉 Ad successfully created!");
         setForm({ image: {}, title: "", description: "" });
-        console.log(res);
       })
       .catch((err) => {
         enableMouse();
-        console.log(err);
-      })
-      .finally(() => enableMouse());
+        toast.success("❌ Ad creation failed, please try again.");
+      });
   };
 
   return (

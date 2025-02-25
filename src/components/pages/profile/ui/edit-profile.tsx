@@ -30,7 +30,7 @@ export default function EditProfile() {
     setForm({ ...form, [key]: e.target.value });
   };
 
-  const imageSrc = form.profileImage ? URL.createObjectURL(form.profileImage) : getImagePath(user.info?.profileImage);
+  const imageSrc = form.profileImage ? URL.createObjectURL(form.profileImage) : user.info?.profileImage;
 
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();

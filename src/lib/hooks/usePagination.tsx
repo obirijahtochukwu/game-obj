@@ -28,6 +28,7 @@ const usePagination = ({ totalPages, data, itemsPerPage }) => {
     goToNextPage,
     goToPreviousPage,
     visisbleData,
+    setCurrentPage,
     PaginationWithDots: () => (visisbleData.length > 0 ? <PaginationWithDots {...props} /> : <></>),
   };
 };
@@ -75,7 +76,7 @@ const PaginationWithDots = ({ currentPage, goToPage, goToNextPage, goToPreviousP
       onClick={() => goToPage(page)}
       className={`flex h-8 w-8 items-center justify-center rounded-full transition-colors ${
         currentPage === page
-          ? "bg-blue-500 text-sm text-white" // Active page
+          ? "bg-gradient-custom text-sm text-white" // Active page
           : "hover:bg-gray-400 bg-gray-200 font-advance text-xs text-grey" // Inactive page
       }`}
       aria-label={`Go to page ${page}`}

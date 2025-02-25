@@ -27,7 +27,7 @@ export default function User({ idx, _id, name, email, createdAt, profileImage, b
           <div className="flex w-52 items-center">
             <input type="checkbox" name="" className="mr-5" id="" />
             <div className="mt-auto flex items-center gap-2 rounded-xl">
-              <img src={getImagePath(profileImage)} alt="" className="h-7 w-7 rounded-full" />
+              <img src={profileImage} alt="" className="h-7 w-7 rounded-full" />
               <div className="w-full">
                 <Link to={`/user/${_id}`} className="text-base font-medium leading-none hover:underline">
                   {name}

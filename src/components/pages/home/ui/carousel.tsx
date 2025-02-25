@@ -17,7 +17,7 @@ const Carousel = () => {
     axios
       .get(backend_api + "/get-ads")
       .then((res) => {
-        setAds(res.data);
+        setAds(res.data.reverse());
       })
       .catch((res) => console.log(res));
   }, []);
@@ -75,7 +75,7 @@ const Carousel = () => {
               style={{ width: 400, marginRight: 16 }} // Fixed width, margin for gap
               className={`grid h-60 flex-shrink-0 grid-cols-12 gap-3 rounded-lg bg-md p-3 font-advance text-white`}
             >
-              <img src={getImagePath(card.image)} className="col-span-7 h-full object-contain" />
+              <img src={card.image} className="col-span-7 h-full object-contain" />
               <div className="col-span-5 flex flex-col">
                 <div className="mb-2 w-max rounded-sm border border-pink px-2 text-xs italic tracking-wider">Exclusive Deal</div>
                 <div className="font-poppins text-xl font-semibold first-letter:uppercase">{card.title}</div>

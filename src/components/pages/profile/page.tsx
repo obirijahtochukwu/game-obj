@@ -18,7 +18,7 @@ export default function Profile() {
         className="col-span-12 flex h-24 items-center rounded-xl bg-sm px-4"
       >
         <div className="flex items-center">
-          <img src={getImagePath(profileImage)} alt="" className="mr-2 h-12 w-12 rounded-md" />
+          <img src={profileImage} alt="" className="mr-2 h-12 w-12 rounded-md" />
           <div>
             <div className="font-secondary text-lg capitalize leading-none">{name}</div>
             <div className="font-advance text-xs text-grey">{email}</div>
