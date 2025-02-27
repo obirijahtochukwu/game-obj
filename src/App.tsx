@@ -11,6 +11,7 @@ import { admin_router } from "./lib/admin-routes";
 import Login from "./components/admin/auth/login";
 import Signup from "./components/admin/auth/signup";
 import ExampleTable from "./components/pages/dice-roller/test";
+import Documentation from "./components/docs/page";
 // import { Login } from './components/admin/auth/login';
 
 function App() {

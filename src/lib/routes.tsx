@@ -12,6 +12,8 @@ import Roullete from "../components/pages/roullete/page";
 import VideoPoker from "../components/pages/video-poker/page";
 import AdminNavigation from "../components/layout/navigation";
 import Profile from "../components/pages/profile/page";
+import Documentation from "../components/docs/page";
+import BackendDocumentation from "../components/docs/backend/page";
 
 export const router = createBrowserRouter([
   {
@@ -128,5 +130,13 @@ export const router = createBrowserRouter([
         </AdminNavigation>
       </>
     ),
+  },
+  {
+    path: "/docs",
+    element: <Documentation />,
+  },
+  {
+    path: "/backend",
+    element: <BackendDocumentation />,
   },
 ]);

@@ -15,6 +15,7 @@ body {
   overflow-x: hidden;
   margin: 0px;
   box-sizing: border-box;
+  scroll-behavior: smooth;
 }
 
 .hide-scrollbar::-webkit-scrollbar {
