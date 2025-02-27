@@ -1,5 +1,5 @@
 import React from "react";
-import Header from "../ui/header";
+import Header from "./ui/header";
 import GettingStarted from "./ui/getting-started";
 import ProjectStructure from "./ui/project-structure";
 import EnvironmentVariables from "./ui/environment-variables";

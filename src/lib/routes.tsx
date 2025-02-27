@@ -132,11 +132,11 @@ export const router = createBrowserRouter([
     ),
   },
   {
-    path: "/docs",
+    path: "/docs/frontend",
     element: <Documentation />,
   },
   {
-    path: "/backend",
+    path: "/docs/backend",
     element: <BackendDocumentation />,
   },
 ]);

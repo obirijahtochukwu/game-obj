@@ -11,7 +11,7 @@ export default function ApiEndpoints() {
       {routeEndpoints.map(({ name, data }) => (
         <>
           <Text text={name + " API"} classname=" font-bold capitalize" />
-          <main className="custom-scrollbar w-full overflow-x-auto">
+          <main className="custom-scrollbar mb-8 w-full overflow-x-auto">
             <div className="w-[700px]">
               <div className="mt-4 grid grid-cols-3 gap-8 border-y-[1px] border-grey py-3">
                 {["Method", "Endpoint", "Description"].map((name) => (
@@ -29,7 +29,7 @@ export default function ApiEndpoints() {
           </main>
         </>
       ))}
-      <div id="Running the Server" className="mb-8" />
+      <div id="Running the Server" className="" />
     </div>
   );
 }
