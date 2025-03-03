@@ -6,6 +6,7 @@ import SettingModal from "../../../ui/setting-modal";
 import BetAmount from "../../../ui/bet-amount";
 import { usePlinkoContext } from "../context";
 import Walkthrough from "../../../ui/walkthrough";
+import Balance from "../../../ui/balance";
 
 export default function Settings({
   multiplier,
@@ -37,25 +38,7 @@ export default function Settings({
     <SettingModal isOpen={setting} setIsOpen={setSetting}>
       <form onSubmit={startGame} className="mb-10 flex h-full flex-col gap-6">
         <Icons.close onClick={() => setSetting(false)} className="absolute right-3 top-3 w-4 cursor-pointer lg:hidden" />
-        <section className="grid min-h-14 grid-cols-2 rounded-full bg-muted p-1">
-          {["Manual", "Auto"].map((name) => (
-            <div
-              key={name}
-              onClick={() => setPlay(name)}
-              className={`${
-                play == name ? "bg-advance" : ""
-              } flex cursor-pointer items-center justify-center rounded-full text-lg font-bold text-primary duration-300`}
-            >
-              {name}
-            </div>
-          ))}
-        </section>
-        <Select
-          label={chain || ""}
-          title="Crypto Chain"
-          data={["btc", "sol", "ton", "eth"]}
-          handleClick={(name) => setChain(name)}
-        />
+        <Balance />
         <BetAmount {...props} id={1} value={betAmount} onChange={(e: number) => setBetAmount(e)} />
         <Walkthrough
           {...props}

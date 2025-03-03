@@ -12,6 +12,7 @@ export default function Walkthrough({
   introTip,
   setIntroTip,
   position,
+  disableIntro,
   children,
 }: {
   id: number;
@@ -21,6 +22,7 @@ export default function Walkthrough({
   introTip: number;
   setIntroTip: React.Dispatch<number>;
   position?: string;
+  disableIntro?: boolean;
   children: JSX.Element;
 }) {
   const { email } = useGlobalContext().user?.info;
@@ -70,16 +72,18 @@ export default function Walkthrough({
 
   return (
     <>
-      {introTip == id && oldUser != "true" && email && (
-        <section className={`visible fixed left-0 top-0 z-20 h-screen w-screen bg-dark/50 opacity-100 duration-300`}></section>
+      {introTip == id && oldUser != "true" && email && !currentPage.includes("sports") && (
+        <section
+          className={`visible fixed left-0 top-0 z-20 h-screen w-screen bg-dark/50 opacity-100 duration-300 max-lg:hidden`}
+        ></section>
       )}
 
       <article className={`${containerStyle} relative w-full`}>
         <header className={introTip == id && oldUser != "true" && email ? "relative z-30" : null}>{children}</header>
-        {introTip == id && oldUser != "true" && email && (
+        {introTip == id && oldUser != "true" && email && !disableIntro && (
           <section
             ref={targetRef}
-            className={`max-xlg:!hidden absolute z-40 h-fit w-80 flex-col gap-1 rounded-lg bg-gradient-custom p-3 font-advance ${position == "top" ? "bottom-full mb-4" : position == "left" ? "right-full top-1/2 mr-6 -translate-y-1/2" : "left-full top-1/2 -translate-y-1/2"}`}
+            className={`absolute z-40 h-fit w-80 flex-col gap-1 rounded-lg bg-gradient-custom p-3 font-advance max-lg:!hidden ${position == "top" ? "bottom-full mb-4" : position == "left" ? "right-full top-1/2 mr-6 -translate-y-1/2" : "left-full top-1/2 -translate-y-1/2"}`}
           >
             <div className={`${content && "mb-0.5 max-w-52"} text-sm font-bold tracking-wider text-white`}>
               {title} - {useLocation().pathname.slice(1, 20)}

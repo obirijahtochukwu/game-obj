@@ -7,49 +7,51 @@ export default function Select({
   bottom,
   label,
   data,
+  odd,
   handleClick,
 }: {
   bottom?: boolean;
   title: string;
   label: string;
-  data: string[] | number[];
+  odd?: boolean;
+  data: string[] | number[] | any;
   handleClick: (name: string) => void;
 }) {
   const { isOpen, setIsOpen, targetRef } = useClick.auto();
   return (
     <section>
-      <div className=" text-base font-medium text-primary">{title}</div>
+      <div className="text-base font-medium text-primary">{title}</div>
       <article
         onClick={() => setIsOpen(!isOpen)}
         ref={targetRef}
-        className="h-14 w-full bg-muted border-gray border rounded-lg flex items-center justify-between font-semibold text-base text-primary px-3 mt-2 cursor-pointer relative capitalize"
+        className="relative mt-2 flex h-14 w-full cursor-pointer items-center justify-between rounded-lg border border-gray bg-muted px-3 text-base font-semibold capitalize text-primary"
       >
         {label || "Select"}
-        <Icons.arrow
-          color="#ffffff"
-          className=" rotate-90 w-4 h-4 group-hover:-rotate-90 duration-300"
-        />
+        <Icons.arrow color="#ffffff" className="h-4 w-4 rotate-90 duration-300 group-hover:-rotate-90" />
         <section
-          className={`${
-            isOpen
-              ? "visible opacity-100 scale-100"
-              : "scale-0 opacity-0 invisible "
-          } ${
-            bottom
-              ? " bottom-full mb-1 origin-bottom-right"
-              : "top-full mt-3 origin-top-right"
-          } absolute left-0 w-full z-10 bg-advance border-gray border rounded-xl py-2 cursor-auto shadow-2xl  duration-200`}
+          className={`${isOpen ? "visible scale-100 opacity-100" : "invisible scale-0 opacity-0"} ${
+            bottom ? "bottom-full mb-1 origin-bottom-right" : "top-full mt-1 origin-top-right"
+          } absolute left-0 z-50 w-full cursor-auto rounded-md border border-gray bg-advance py-2 shadow-md duration-200`}
         >
-          <div className="overflow-y-auto max-h-60 custom-scrollbar">
-            {data?.map((name, idx) => (
-              <div
-                key={idx}
-                onClick={() => handleClick(name)}
-                className=" text-lg font-normal p-3 pb-1.5 hover:bg-dark/50 capitalize cursor-pointer"
-              >
-                {name}
-              </div>
-            ))}
+          <div className="custom-scrollbar max-h-60 overflow-y-auto">
+            {data?.map((label: any, idx: number) => {
+              const { name, value } = label;
+              return (
+                <div
+                  key={idx}
+                  onClick={() => handleClick(label)}
+                  className="flex cursor-pointer items-center justify-between p-3 pb-1.5 text-base font-normal capitalize hover:bg-dark/50"
+                >
+                  {odd ? (
+                    <>
+                      {name} <div className="text-sm text-grey">{value}</div>
+                    </>
+                  ) : (
+                    <>{label}</>
+                  )}
+                </div>
+              );
+            })}
           </div>
         </section>
       </article>

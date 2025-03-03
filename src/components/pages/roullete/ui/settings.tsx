@@ -6,6 +6,7 @@ import SettingModal from "../../../ui/setting-modal";
 import { generateRandomNumber } from "../../../../lib/utils/generateRandomNumber";
 import BetAmount from "../../../ui/bet-amount";
 import Walkthrough from "../../../ui/walkthrough";
+import Balance from "../../../ui/balance";
 // import Walkthrough from './../../../ui/walkthrough copy';
 
 export default function Settings() {
@@ -50,13 +51,7 @@ export default function Settings() {
         }}
         className="z-50 flex h-full flex-col gap-6"
       >
-        <Select
-          label={chain || ""}
-          title="Crypto Chain"
-          data={["btc", "sol", "ton", "eth"]}
-          handleClick={(name) => setChain(name)}
-        />
-
+        <Balance />
         <BetAmount {...props} id={1} value={gamble.betAmount} onChange={(e: number) => setGamble({ ...gamble, betAmount: e })} />
         <section>
           <div className="text-base font-medium text-primary/80">Profit on Win</div>

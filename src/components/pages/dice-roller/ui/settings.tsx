@@ -6,6 +6,7 @@ import SettingModal from "../../../ui/setting-modal";
 import { Buttons } from "../../../ui/buttons";
 import BetAmount from "../../../ui/bet-amount";
 import Walkthrough from "../../../ui/walkthrough";
+import Balance from "../../../ui/balance";
 
 export default function Settings() {
   const { betAmount, setBetAmount, isRolling, profitOnWin, rollDice, setting, setSetting, introTip, setIntroTip } =
@@ -19,13 +20,7 @@ export default function Settings() {
     <SettingModal isOpen={setting} setIsOpen={setSetting}>
       <form onSubmit={rollDice} className="flex h-full flex-col gap-6">
         <Icons.close onClick={() => setSetting(false)} className="absolute right-3 top-3 w-4 cursor-pointer lg:hidden" />
-
-        <Select
-          label={chain || ""}
-          title="Crypto Chain"
-          data={["btc", "sol", "ton", "eth"]}
-          handleClick={(name) => setChain(name)}
-        />
+        <Balance />
         <BetAmount {...props} id={1} value={betAmount} onChange={(e: number) => setBetAmount(e)} />
         <section>
           <div className="text-base font-medium text-primary/80">Profit on Win</div>

@@ -4,7 +4,7 @@ import { useClick } from "../../lib/hooks/useclick";
 import Walkthrough from "./walkthrough";
 
 export default function BetAmount(props) {
-  const { value, onChange } = props;
+  const { value, onChange, disableIntro } = props;
   const { balance } = useGlobalContext().user?.info;
   const { isOpen, setIsOpen, targetRef } = useClick.auto();
 

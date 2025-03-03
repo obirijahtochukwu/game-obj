@@ -9,6 +9,7 @@ import { Buttons } from "../../../ui/buttons";
 import { formattedNumber } from "../../../../lib/utils/formattedNumber";
 import BetAmount from "../../../ui/bet-amount";
 import Walkthrough from "../../../ui/walkthrough";
+import Balance from "../../../ui/balance";
 
 export default function Settings() {
   const { startGame, setting, setSetting, risklevel, setRiskLevel, gamble, setGamble, introTip, setIntroTip } = useSlotContext();
@@ -41,12 +42,8 @@ export default function Settings() {
     <SettingModal isOpen={setting} setIsOpen={setSetting}>
       <form onSubmit={startGame} className="flex h-full flex-col gap-6">
         <Icons.close onClick={() => setSetting(false)} className="absolute right-3 top-3 w-4 cursor-pointer lg:hidden" />
-        <Select
-          label={chain || ""}
-          title="Crypto Chain"
-          data={["btc", "sol", "ton", "eth"]}
-          handleClick={(name) => setChain(name)}
-        />
+        <Balance />
+
         <BetAmount id={1} {...props} value={gamble.betAmount} onChange={(e: number) => setBetAmount(e)} />
         <Walkthrough
           {...props}

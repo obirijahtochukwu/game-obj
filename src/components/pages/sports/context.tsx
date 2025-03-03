@@ -3,80 +3,186 @@ import React, { createContext, useContext, useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import { api } from "../../../lib/constants";
 
-interface context {
-  match?: any;
-  fixtues?: any[];
-  odds?: any[];
+// Define types for better type safety
+interface Fixture {
+  fixture: {
+    id: number;
+    referee: string | null;
+    timezone: string;
+    date: string;
+    timestamp: number;
+    periods: {
+      first: number | null;
+      second: number | null;
+    };
+    venue: {
+      id: number;
+      name: string;
+      city: string;
+    };
+    status: {
+      long: string;
+      short: string;
+      elapsed: number | null;
+      extra: any;
+    };
+  };
+  league: {
+    id: number;
+    name: string;
+    country: string;
+    logo: string;
+    flag: string;
+    season: number;
+    round: string;
+    standings: boolean;
+  };
+  teams: {
+    home: {
+      id: number;
+      name: string;
+      logo: string;
+      winner: boolean | null;
+    };
+    away: {
+      id: number;
+      name: string;
+      logo: string;
+      winner: boolean | null;
+    };
+  };
+  goals: {
+    home: number | null;
+    away: number | null;
+  };
+  score: {
+    halftime: {
+      home: number | null;
+      away: number | null;
+    };
+    fulltime: {
+      home: number | null;
+      away: number | null;
+    };
+    extratime: {
+      home: number | null;
+      away: number | null;
+    };
+    penalty: {
+      home: number | null;
+      away: number | null;
+    };
+  };
 }
 
-const AppContext = createContext<context>({});
+interface Odd {
+  id: number;
+  name: string;
+  values: {
+    value: string;
+    odd: string | number;
+  }[];
+}
 
-const AppProvider = ({ children }) => {
-  const [match, setMatch] = useState({ fixtues: [], odds: [] });
+interface MergedData {
+  fixture: Fixture["fixture"];
+  league: Fixture["league"];
+  teams: Fixture["teams"];
+  goals: Fixture["goals"];
+  score: Fixture["score"];
+  odd: Odd | null;
+}
 
-  function League(league: string, country: string) {
-    const item = (name: string, nation: string) =>
-      league.toLowerCase() == name.toLowerCase() && country.toLowerCase() == nation.toLowerCase() ? true : false;
+interface Context {
+  matches: MergedData[];
+  isLoadng?: boolean;
+  setIsLoadng?: React.Dispatch<boolean>;
+}
 
-    const top_league =
-      item("Premier League", "england") ||
-      item("La Liga", "spain") ||
-      item("Bundesliga ", "germany") ||
-      item("Serie A", "italy") ||
-      item("Ligue 1", "france") ||
-      item("Primeira Liga", "portugal");
+const AppContext = createContext<Context>({ matches: [] });
 
-    return top_league;
-  }
+// Utility function to check if a league is a top league
+const isTopLeague = (league: string, country: string): boolean => {
+  const topLeagues = [
+    { name: "Premier League", country: "england" },
+    { name: "La Liga", country: "spain" },
+    { name: "Bundesliga", country: "germany" },
+    { name: "Serie A", country: "italy" },
+    { name: "Ligue 1", country: "france" },
+    { name: "Primeira Liga", country: "portugal" },
+  ];
+
+  return topLeagues.some(
+    (top) => top.name.toLowerCase() === league.toLowerCase() && top.country.toLowerCase() === country.toLowerCase(),
+  );
+};
+
+const AppProvider = ({ children }: { children: React.ReactNode }) => {
+  const [matches, setMatches] = useState<MergedData[]>([]);
+  const [isLoadng, setIsLoadng] = useState(false);
 
   useEffect(() => {
-    // Premier League
-    const leagueId = 39;
+    setIsLoadng(true);
     const fetchMatches = async () => {
       try {
+        // Fetch fixtures for today
         const fixturesResponse = await axios.get(`${api.football_url}fixtures?date=${new Date().toISOString().slice(0, 10)}`, {
           headers: api.football_headers,
         });
 
-        setMatch({
-          ...match,
-          fixtues: fixturesResponse.data.response.filter((item) => League(item.league.name, item.league.country)),
-        });
+        // Filter fixtures to include only top leagues
+        const filteredFixtures = fixturesResponse.data.response.filter((item: Fixture) =>
+          isTopLeague(item.league.name, item.league.country),
+        );
+
+        // Fetch odds for the filtered fixtures and merge data
+        const mergedData = await Promise.all(
+          filteredFixtures.map(async (fixture: Fixture) => {
+            try {
+              const oddsResponse = await axios.get(`${api.football_url}odds?fixture=${fixture.fixture.id}`, {
+                headers: api.football_headers,
+              });
+
+              // Extract the first bet (e.g., "Match Winner")
+              const odd = oddsResponse.data.response[0]?.bookmakers[0]?.bets[0] || null;
+
+              return {
+                fixture: fixture.fixture,
+                league: fixture.league,
+                teams: fixture.teams,
+                goals: fixture.goals,
+                score: fixture.score,
+                odd,
+              };
+            } catch (error) {
+              console.error(`Error fetching odds for fixture ${fixture.fixture.id}:`, error);
+              toast.error(`Failed to fetch odds for fixture ${fixture.fixture.id}`);
+              return {
+                fixture: fixture.fixture,
+                league: fixture.league,
+                teams: fixture.teams,
+                goals: fixture.goals,
+                score: fixture.score,
+                odd: null, // Set odd to null if fetching fails
+              };
+            }
+          }),
+        );
+
+        // Update state with merged data
+        setMatches(mergedData);
+        setIsLoadng(false);
       } catch (error) {
-        console.error("Error fetching data:", error);
+        setIsLoadng(false);
+        console.error("Error fetching fixtures:", error);
+        toast.error("Failed to fetch fixtures");
       }
     };
 
     fetchMatches();
   }, []);
 
-  useEffect(() => {
-    // const oddh = axios.get(
-    //   `${api.football_url}odds?date=${new Date().toISOString().slice(0, 10)}`,
-    //   { headers: api.football_headers }
-    // );
-    // console.log(oddh);
-    const matchesWithOdds = async () => {
-      const odds = await Promise.all(
-        match.fixtues
-          .filter((item, index) => index < 100)
-          .map(async (props, idx) => {
-            const odd = await axios.get(`${api.football_url}odds?fixture=${props.fixture.id}`, { headers: api.football_headers });
-            return {
-              ...props,
-              odd: odd.data.response[0]?.bookmakers[0].bets[0],
-            };
-          }),
-      );
-      return odds;
-    };
-
-    if (match.fixtues.length > 1) {
-      matchesWithOdds().then((odds) => setMatch({ fixtues: [], odds: odds.filter(({ odd }) => odd?.id) }));
-    }
-  }, [match.fixtues.length]);
-
-  return <AppContext.Provider value={{ match }}>{children}</AppContext.Provider>;
+  return <AppContext.Provider value={{ matches, isLoadng, setIsLoadng }}>{children}</AppContext.Provider>;
 };
 
 // Custom hook for context

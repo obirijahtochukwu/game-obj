@@ -7,6 +7,7 @@ import { generateRandomNumber } from "../../../../lib/utils/generateRandomNumber
 import { Buttons } from "../../../ui/buttons";
 import BetAmount from "../../../ui/bet-amount";
 import Walkthrough from "../../../ui/walkthrough";
+import Balance from "../../../ui/balance";
 
 export default function Settings() {
   const { isSetting, setIsSetting, gamble, setGamble, heldCards, redraw, draw, deal, introTip, setIntroTip } =
@@ -22,12 +23,7 @@ export default function Settings() {
   return (
     <SettingModal isOpen={isSetting} setIsOpen={setIsSetting}>
       <form onSubmit={draw} className="flex h-full flex-col gap-6">
-        <Select
-          label={chain || ""}
-          title="Crypto Chain"
-          data={["btc", "sol", "ton", "eth"]}
-          handleClick={(name) => setChain(name)}
-        />
+        <Balance />
         <BetAmount {...props} id={1} value={gamble.betAmount} onChange={(e: number) => setGamble({ ...gamble, betAmount: e })} />
 
         <Walkthrough
