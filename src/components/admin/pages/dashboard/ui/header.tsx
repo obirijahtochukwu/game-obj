@@ -10,7 +10,7 @@ export default function Header() {
     <article className="text-primary">
       <div className="font-advance text-3xl font-semibold">Welcome back, John</div>
       <article className="-z-10 text-sm font-normal opacity-70">Measure your advertising ROI and report website traffic.</article>
-      <section className="mt-6 grid grid-cols-4 gap-7">
+      <section className="mt-6 grid grid-cols-2 gap-7 lg:grid-cols-4">
         {dashboard_intro(page_views, monthly_users, new_signups, total_payouts).map(({ title, value, percentage, Icon }: any) => (
           <div className="rounded-md border border-gray bg-advance p-5 py-4">
             <div className="flex items-center gap-1 text-sm font-normal text-primary/80">

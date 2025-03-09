@@ -9,7 +9,7 @@ export default function Dashboard() {
   return (
     <div>
       <Header />
-      <section className="mt-7 grid grid-cols-12 gap-7 text-primary">
+      <section className="mt-7 grid grid-cols-1 gap-7 text-primary lg:grid-cols-12">
         <Games />
         <Revenue />
         <TopPlayers />

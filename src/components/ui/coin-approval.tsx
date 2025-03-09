@@ -34,7 +34,7 @@ export default function CoinApproval({
 
   return (
     <Modal close isOpen={isOpen} setIsOpen={setIsOpen} classname="!p-4">
-      <article className="w-96 font-advance text-primary">
+      <article className="w-full font-advance text-primary">
         {isSuccessfull ? (
           <article className="py-5">
             <div className="mx-auto flex h-24 w-24 items-center justify-center rounded-full bg-dark text-[50px]">

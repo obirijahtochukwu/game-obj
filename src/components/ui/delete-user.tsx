@@ -34,7 +34,7 @@ export default function DeleteUser({ _id, isOpen, setIsOpen }: { _id: string; is
 
   return (
     <Modal isOpen={isOpen} setIsOpen={setIsOpen} classname="!p-4">
-      <article className="w-full max-w-96 font-advance text-primary">
+      <article className="w-full font-advance text-primary">
         <div className="font-secondary text-xl font-semibold">Are you sure you want to delete user?</div>
         <div className="mt-1 text-sm text-grey"> Deleting user is permanent and your account will automatically be deleted.</div>
 

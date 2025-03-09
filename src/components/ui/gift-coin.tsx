@@ -55,7 +55,7 @@ export default function GiftCoin({
 
   return (
     <Modal isOpen={isGift} setIsOpen={setIsGift} classname="!p-4 ge">
-      <form onSubmit={giftToken} className="w-96 font-advance text-primary">
+      <form onSubmit={giftToken} className="w-full font-advance text-primary">
         <div className="mb-3 text-lg font-semibold">Give free coins to "{name}"</div>
         <FormInput.number required value={amount} onChange={handleInputChange} placeholder="Amount" />
         <div className="mt-12 flex justify-end gap-3">
