@@ -20,6 +20,7 @@ export default function Login() {
     e.preventDefault();
     setIsLoading(true);
     disableMouse();
+    console.log(backend_api + "/login");
 
     axios
       .post(backend_api + "/login", { ...form }, { withCredentials: true })

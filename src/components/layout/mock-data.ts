@@ -34,14 +34,15 @@ export const tabs = (userId?: string) => [
     label: "Sports",
     Icon: Icons.globe,
     pages: [
-      { label: "cricket", Icon: Icons.cricket, url: "/#cricket", image: "./media/home/cricket.jpg" },
-      { label: "baseball", Icon: Icons.baseball, url: "/#baseball", image: "./media/home/baseball.jpg" },
       {
         label: "football",
         Icon: Icons.football,
         url: userExist ? "/football" : "/#football",
         image: "./media/home/football.jpg",
       },
+      { label: "cricket", Icon: Icons.cricket, url: "/#cricket", image: "./media/home/cricket.jpg" },
+      { label: "baseball", Icon: Icons.baseball, url: "/#baseball", image: "./media/home/baseball.jpg" },
+
       {
         label: "basketball",
         Icon: Icons.basketball,
