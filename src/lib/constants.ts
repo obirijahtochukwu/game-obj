@@ -16,7 +16,7 @@ export const api = {
 
 export const toPercentage = (decimal: number) => `${(decimal * 10).toFixed(0)}%`;
 
-export const backend_api = "http://localhost:5000";
+export const backend_api = process.env.REACT_APP_BACKEND_API;
 
 const disableMouse = () => (document.body.style.pointerEvents = "none");
 
