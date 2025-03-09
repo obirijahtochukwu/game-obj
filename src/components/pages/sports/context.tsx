@@ -110,6 +110,8 @@ const isTopLeague = (league: string, country: string): boolean => {
     { name: "Serie A", country: "italy" },
     { name: "Ligue 1", country: "france" },
     { name: "Primeira Liga", country: "portugal" },
+    { name: "UEFA Champions League", country: "World" },
+    { name: "UEFA Europa League", country: "World" },
   ];
 
   return topLeagues.some(
@@ -129,6 +131,9 @@ const AppProvider = ({ children }: { children: React.ReactNode }) => {
         const fixturesResponse = await axios.get(`${api.football_url}fixtures?date=${new Date().toISOString().slice(0, 10)}`, {
           headers: api.football_headers,
         });
+
+        console.log(fixturesResponse.data.response.filter((item: Fixture) => item.league.name.includes("UEFA")));
+        console.log("hi");
 
         // Filter fixtures to include only top leagues
         const filteredFixtures = fixturesResponse.data.response.filter((item: Fixture) =>

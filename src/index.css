@@ -22,6 +22,27 @@ body {
   display: none;
 }
 
+.dark-scrollbar::-webkit-scrollbar {
+  width: 6px;
+  height: 4px;
+}
+
+
+
+/* Track */
+.dark-scrollbar::-webkit-scrollbar-track {
+  background: #343b4f;
+  border-radius: 100px;
+  width: 6px;
+}
+
+/* Handle */
+.dark-scrollbar::-webkit-scrollbar-thumb {
+  background: #bbb;
+  border-radius: 100px;
+  transition: all 0.2 ease-in;
+}
+
 .custom-scrollbar::-webkit-scrollbar {
   width: 6px;
   height: 4px;

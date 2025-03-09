@@ -7,21 +7,27 @@ export default function Logout({
   admin,
   isLogout,
   setIsLogout,
+  mobile,
 }: {
   admin?: boolean;
   isLogout: boolean;
   setIsLogout: React.Dispatch<boolean>;
+  mobile?: boolean;
 }) {
   const { logout } = useGlobalContext();
   return (
     <>
       <aside
         onClick={() => setIsLogout(true)}
-        className={`flex cursor-pointer items-center gap-3 ${admin && "mt-auto h-12 rounded-lg bg-muted pl-4 text-base font-medium"}`}
+        className={`flex cursor-pointer items-center gap-3 ${(admin && "mt-auto h-12 rounded-lg bg-muted pl-4 text-base font-medium") || (mobile && "mx-auto mt-auto h-12 w-full max-w-40 rounded-lg bg-gradient-custom pl-4 text-base font-medium")}`}
       >
         <Icons.signout className="h-5 w-fit text-primary" /> Sign out
       </aside>
-      <Modal isOpen={isLogout} setIsOpen={setIsLogout} classname="!bg-image text-primary font-advance text-center font-semibold">
+      <Modal
+        isOpen={isLogout}
+        setIsOpen={setIsLogout}
+        classname="!bg-image text-primary font-advance text-center !w-5/6 !max-w-96 font-semibold"
+      >
         <article>
           <div className="text-xl">Logout Confirmation</div>
           <div className="text-base text-grey">Are you sure you want to log out? Any unsaved changes may be lost</div>

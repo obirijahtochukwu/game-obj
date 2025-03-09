@@ -26,6 +26,7 @@ export interface gameHistory {
   username?: "tuyrsdufuk";
   __v?: number;
   _id?: string;
+  fixtureId?: string;
 }
 export interface userData {
   loggedIn: string;
@@ -137,4 +138,104 @@ export interface Ad {
   image?: string;
   title?: string;
   description?: string;
+}
+
+export interface footballFixture {
+  fixture: {
+    id: number;
+    referee: string | null;
+    timezone: string;
+    date: string;
+    timestamp: number;
+    periods: {
+      first: number | null;
+      second: number | null;
+    };
+    venue: {
+      id: number;
+      name: string;
+      city: string;
+    };
+    status: {
+      long: string;
+      short: string;
+      elapsed: number | null;
+      extra: any;
+    };
+  };
+  league: {
+    id: number;
+    name: string;
+    country: string;
+    logo: string;
+    flag: string;
+    season: number;
+    round: string;
+    standings: boolean;
+  };
+  teams: {
+    home: {
+      id: number;
+      name: string;
+      logo: string;
+      winner: boolean | null;
+    };
+    away: {
+      id: number;
+      name: string;
+      logo: string;
+      winner: boolean | null;
+    };
+  };
+  goals: {
+    home: number | null;
+    away: number | null;
+  };
+  score: {
+    halftime: {
+      home: number | null;
+      away: number | null;
+    };
+    fulltime: {
+      home: number | null;
+      away: number | null;
+    };
+    extratime: {
+      home: number | null;
+      away: number | null;
+    };
+    penalty: {
+      home: number | null;
+      away: number | null;
+    };
+  };
+}
+
+export interface footballOdd {
+  id: number;
+  name: string;
+  values: {
+    value: string;
+    odd: string | number;
+  }[];
+}
+
+export interface footballMergedData {
+  fixture: Fixture["fixture"];
+  league: Fixture["league"];
+  teams: Fixture["teams"];
+  goals: Fixture["goals"];
+  score: Fixture["score"];
+  odd: Odd | null;
+}
+
+export interface footballSelectedLeagues {
+  name: string;
+  country: string;
+}
+
+export interface isBetPlaced {
+  state: boolean;
+  title: string;
+  data: { name: string; value: string }[];
 }

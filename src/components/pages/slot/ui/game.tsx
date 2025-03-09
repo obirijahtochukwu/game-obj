@@ -19,7 +19,7 @@ export default function Game() {
   }, []);
 
   return (
-    <div className="my-auto max-sm:scale-75">
+    <div className="my-auto max-sm:scale-50">
       <Walkthrough
         setIntroTip={setIntroTip}
         introTip={introTip}

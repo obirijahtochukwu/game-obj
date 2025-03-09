@@ -60,22 +60,24 @@ function App() {
           ballManager.addBall(response.data.point);
           setIsBetLoading(true);
           const refresh = () => {
-            setBetAmount(null);
+            setBetAmount(0);
             setMultiplier(1);
           };
-          submitGame(
-            {
-              userId: user.info._id,
-              username: user.info.name,
-              game: "Plinko",
-              result: response.data.point == multiplier ? "win" : "loss",
-              betAmount: betAmount,
-              multiplier: multiplier,
-              payout: response.data.point == multiplier ? betAmount * multiplier : 0,
-            },
-            getHistory,
-            refresh,
-          );
+          setTimeout(() => {
+            submitGame(
+              {
+                userId: user.info._id,
+                username: user.info.name,
+                game: "Plinko",
+                result: response.data.point == multiplier ? "win" : "loss",
+                betAmount: betAmount,
+                multiplier: multiplier,
+                payout: response.data.point == multiplier ? betAmount * multiplier : 0,
+              },
+              getHistory,
+              refresh,
+            );
+          }, 7000);
         }
       } else {
         setIsLogin(true);

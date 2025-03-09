@@ -57,68 +57,72 @@ export default function Table({
   }, [filterLabels]);
 
   return (
-    <article className="overflow-x-hidden rounded-lg bg-advance pt-6">
-      <div className="flex items-center justify-between px-4 text-4xl font-semibold text-primary">{title}</div>
-      <section className="flex w-full items-center justify-between px-4">
-        <div className="mt-5 flex w-fit items-center gap-4">
-          {[
-            { value: "all bets", label: "all bets" },
-            { value: `${user.info._id}`, label: "my bets" },
-            { value: "win", label: "win" },
-            { value: "loss", label: "loss" },
-          ].map(({ label, value }) => (
-            <div
-              key={label}
-              onClick={() => {
-                handleFilterChange(value);
-              }}
-              className={`${
-                filterLabels.find((e) => e == value) ? "bg-primary/80 text-dark" : "border-primary/60 text-primary/80"
-              } flex h-12 cursor-pointer items-center truncate rounded-lg border px-4 text-base font-semibold capitalize duration-300`}
-            >
-              {label}
-            </div>
-          ))}
-        </div>
-        <PaginationWithDots />
-      </section>
-      <main className="custom-scrollbar mt-9 min-h-fit w-full overflow-x-auto rounded-lg">
-        {visisbleData.length > 0 ? (
-          <>
-            <div className="bg-Red flex h-14 w-fit min-w-full items-center justify-between gap-14 border-b border-gray pr-7 font-medium text-white">
-              <div className="bg-Red sticky left-0 top-0 flex w-fit items-center justify-between gap-14 rounded-lg bg-advance pl-7">
-                <div className="w-36">Game</div>
-                <div className="w-36">User Name</div>
-              </div>
-              <div className="w-20 text-center">Time</div>
-              <div className="w-20 whitespace-nowrap text-center">Bet Amount</div>
-              <div className="w-20">Multiplier</div>
-              <div className="w-20 text-right">Payout</div>
-            </div>
-            {visisbleData?.map(({ betAmount, createdAt, game, multiplier, payout, result, username }, id) => (
+    <>
+      <article className="overflow-x-hidden rounded-lg bg-advance pt-6">
+        <div className="flex items-center justify-between px-4 text-2xl font-semibold text-primary md:text-4xl">{title}</div>
+        <section className="flex w-full items-center justify-between px-4">
+          <div className="mt-5 flex w-fit items-center gap-2 sm:gap-4">
+            {[
+              { value: "all bets", label: "all bets" },
+              { value: `${user.info._id}`, label: "my bets" },
+              { value: "win", label: "win" },
+              { value: "loss", label: "loss" },
+            ].map(({ label, value }) => (
               <div
-                key={id}
-                className="flex h-14 w-fit min-w-full items-center justify-between gap-14 pr-7 font-advance text-base font-medium text-primary/80 odd:bg-dark"
+                key={label}
+                onClick={() => {
+                  handleFilterChange(value);
+                }}
+                className={`${
+                  filterLabels.find((e) => e == value) ? "bg-primary/80 text-dark" : "border-primary/60 text-primary/80"
+                } flex h-9 cursor-pointer items-center truncate rounded-md border px-2 font-advance text-sm font-semibold capitalize duration-300 sm:h-12 sm:px-4 sm:text-base`}
               >
-                <div
-                  className={`sticky left-0 top-0 flex h-full w-fit items-center justify-between gap-14 bg-advance pl-7 ${
-                    id % 2 != 0 && "bg-dark"
-                  }`}
-                >
-                  <div className="w-36">{game}</div>
-                  <div className="w-36">{username}</div>
-                </div>
-                <div className="w-20 text-center">{formatDateToTime(createdAt)}</div>
-                <div className="w-20 text-center">${formattedNumber(betAmount)}</div>
-                <div className="w-20 text-center">{multiplier?.toFixed(1)} x</div>
-                <div className="w-20 text-right">${formattedNumber(payout)}</div>
+                {label}
               </div>
             ))}
-          </>
-        ) : (
-          <NoActivity />
-        )}
-      </main>
-    </article>
+          </div>
+        </section>
+        <main className="custom-scrollbar mt-9 min-h-fit w-full overflow-x-auto rounded-lg">
+          {visisbleData.length > 0 ? (
+            <>
+              <div className="bg-Red flex h-14 w-fit min-w-full items-center justify-between gap-14 border-b border-gray pr-7 font-medium text-white">
+                <div className="bg-Red sticky left-0 top-0 flex w-fit items-center justify-between gap-14 rounded-lg bg-advance pl-7">
+                  <div className="w-36">Game</div>
+                  <div className="w-36">User Name</div>
+                </div>
+                <div className="w-20 text-center">Time</div>
+                <div className="w-20 whitespace-nowrap text-center">Bet Amount</div>
+                <div className="w-20">Multiplier</div>
+                <div className="w-20 text-right">Payout</div>
+              </div>
+              {visisbleData?.map(({ betAmount, createdAt, game, multiplier, payout, result, username }, id) => (
+                <div
+                  key={id}
+                  className="flex h-14 w-fit min-w-full items-center justify-between gap-14 pr-7 font-advance text-base font-medium text-primary/80 odd:bg-dark"
+                >
+                  <div
+                    className={`sticky left-0 top-0 flex h-full w-fit items-center justify-between gap-14 bg-advance pl-7 ${
+                      id % 2 != 0 && "bg-dark"
+                    }`}
+                  >
+                    <div className="w-36">{game}</div>
+                    <div className="w-36">{username}</div>
+                  </div>
+                  <div className="w-20 text-center">{formatDateToTime(createdAt)}</div>
+                  <div className="w-20 text-center">${formattedNumber(betAmount)}</div>
+                  <div className="w-20 text-center">{multiplier?.toFixed(1)} x</div>
+                  <div className="w-20 text-right">${formattedNumber(payout)}</div>
+                </div>
+              ))}
+            </>
+          ) : (
+            <NoActivity />
+          )}
+        </main>
+      </article>
+      <div className="my-4 flex justify-end">
+        <PaginationWithDots />
+      </div>
+    </>
   );
 }

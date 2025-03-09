@@ -12,7 +12,7 @@ export default function Sidebar() {
   return (
     <article
       style={{ backgroundImage: backgroundImage }}
-      className="max-lg:hdden sticky left-0 top-0 flex h-screen min-w-72 flex-col border-r border-advance p-7 text-primary"
+      className="max-lg:hdden sticky left-0 top-0 z-10 flex h-screen min-w-72 flex-col border-r border-advance p-7 text-primary"
     >
       <div className="text-xl font-semibold">Webnet X</div>
       <section className="mb-7 mt-11 flex h-10 w-full items-center gap-2 rounded-md border border-gray bg-advance px-3">

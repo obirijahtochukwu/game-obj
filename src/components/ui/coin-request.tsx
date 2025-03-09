@@ -34,7 +34,7 @@ export default function CoinRequest({ isOpen, setIsOpen }: { isOpen: boolean; se
 
   return (
     <Modal isOpen={isOpen} setIsOpen={setIsOpen} classname="!p-4">
-      <form onSubmit={request_token} className="w-96 font-advance">
+      <form onSubmit={request_token} className="w-full font-advance">
         {isSuccessfull ? (
           <article className="py-5">
             <div className="mx-auto flex h-24 w-24 items-center justify-center rounded-full bg-dark text-[50px]">
@@ -44,8 +44,8 @@ export default function CoinRequest({ isOpen, setIsOpen }: { isOpen: boolean; se
           </article>
         ) : (
           <>
-            <div className="font-secondary text-xl font-semibold"> Level Up Your Game</div>
-            <div className="text-base text-grey"> Claim your free coins and boost your game</div>
+            <div className="font-secondary text-lg font-semibold sm:text-xl"> Level Up Your Game</div>
+            <div className="text-sm text-grey sm:text-base"> Claim your free coins and boost your game</div>
             <div className="mt-5 font-semibold">Amout ($)</div>
             <input
               required

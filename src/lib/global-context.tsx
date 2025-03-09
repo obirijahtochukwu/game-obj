@@ -1,6 +1,6 @@
 import axios from "axios";
 import React, { createContext, Dispatch, useContext, useEffect, useState } from "react";
-import { AdminData, userData } from "./types";
+import { AdminData, isBetPlaced, userData } from "./types";
 import { backend_api } from "./constants";
 import { getStore, setStore } from "./utils/store";
 import { useLocation } from "react-router-dom";
@@ -29,6 +29,8 @@ interface context {
   setIsSignup?: Dispatch<boolean>;
   isBetLoading?: boolean;
   setIsBetLoading?: Dispatch<boolean>;
+  isBetPlaced?: isBetPlaced;
+  setIsBetPlaced?: Dispatch<isBetPlaced>;
 }
 
 const AppContext = createContext<context>({});
@@ -47,7 +49,7 @@ const AppProvider = ({ children }: { children: JSX.Element }) => {
   const [isLogin, setIsLogin] = useState(false);
   const [isSignup, setIsSignup] = useState(false);
   const [isBetLoading, setIsBetLoading] = useState(false);
-
+  const [isBetPlaced, setIsBetPlaced] = useState({ state: false, title: "", data: [] });
   const [betResult, setBetResult] = useState({ loss: false, won: false, amount: 0 });
 
   const logout = () => {
@@ -64,7 +66,6 @@ const AppProvider = ({ children }: { children: JSX.Element }) => {
         withCredentials: true,
       })
       .then((res) => {
-        console.log(res.data);
         if (res.data.token == "admin") {
           setAdmin({ ...res.data, loggedIn: "admin" });
         } else if (!res.data.token && res.data.email) {
@@ -75,8 +76,6 @@ const AppProvider = ({ children }: { children: JSX.Element }) => {
         }
       })
       .catch((err) => {
-        console.log(err);
-
         setUser({ ...user, loggedIn: "false" });
       })
       .finally(() => setRefresh(false));
@@ -109,14 +108,7 @@ const AppProvider = ({ children }: { children: JSX.Element }) => {
 
   // count page viewers
   useEffect(() => {
-    axios
-      .put(backend_api + "/add_page_view")
-      .then((res) => {
-        console.log(res);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    axios.put(backend_api + "/add_page_view").catch((err) => {});
   }, []);
 
   return (
@@ -138,6 +130,8 @@ const AppProvider = ({ children }: { children: JSX.Element }) => {
         setIsLogin,
         isBetLoading,
         setIsBetLoading,
+        isBetPlaced,
+        setIsBetPlaced,
       }}
     >
       {children}

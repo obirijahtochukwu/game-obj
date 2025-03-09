@@ -25,7 +25,7 @@ export default function Authentication() {
         setIsLogin(false);
         setIsLogin(false);
       }}
-      classname="!w-full max-w-md !min-h-96 !pt-3.5 !rounded-2xl !bg-image"
+      classname="md:!w-full md:max-w-md !min-h-96 !pt-3.5 !rounded-2xl !bg-image"
     >
       <>{isSignup ? <Signup /> : isLogin ? <Login /> : null}</>
     </Modal>

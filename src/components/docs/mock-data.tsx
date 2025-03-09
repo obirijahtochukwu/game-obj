@@ -1,7 +1,7 @@
 export const table_of_contents = [
   { label: "Getting Started", list: ["Prerequisites", "Installation"] },
   { label: "Project Structure" },
-  // { label: "Environment Variables" },
+  { label: "Environment Variables" },
   { label: "Running the Application" },
   // { label: "Testing" },
   { label: "Deployment" },
@@ -136,6 +136,12 @@ export const backend_project_structure = [
   { folder: "package.json ", desc: "Project metadata and dependencies" },
 ];
 
+export const frontend_environment_variables = [
+  { name: "REACT_APP_FOOTBALL_API", desc: "rapidapi api-football url", value: "your_api" },
+  { name: "REACT_APP_FOOTBALL_API_KEY", desc: "rapidapi api-football key", value: "your_key" },
+  { name: "REACT_APP_FOOTBALL_API_HOST", desc: "rapidapi api-football host", value: "your_host" },
+];
+
 export const backend_environment_variables = [
   { name: "PORT", desc: "Port for the server to run on", value: "5000" },
   { name: "DATABASE_URL", desc: "MongoDB connection string", value: "mongodb://localhost:27017" },
@@ -143,6 +149,8 @@ export const backend_environment_variables = [
   { name: "CLOUDINARY_CLOUD_NAME", desc: "Cloudinary cloud name", value: "your_cloud_name" },
   { name: "CLOUDINARY_API_KEY", desc: "Cloudinary API key", value: "your_api_key" },
   { name: "CLOUDINARY_API_SECRET", desc: "Cloudinary API secret", value: "your_api_secret" },
+  { name: "ADMIN_EMAIL", desc: "Admin email for login", value: "your_email" },
+  { name: "ADMIN_PASSWORD", desc: "Admin password for login", value: "passwordpassword" },
 ];
 
 export const routeEndpoints = [

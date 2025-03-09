@@ -58,7 +58,7 @@ export default function ProjectStructure() {
           ))}
         </>
       </Code>
-      <Line id="Running the Application" />
+      <Line id="Environment Variables" />
     </div>
   );
 }

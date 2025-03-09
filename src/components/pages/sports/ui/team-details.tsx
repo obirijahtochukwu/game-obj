@@ -7,10 +7,8 @@ import { Buttons } from "../../../ui/buttons";
 
 export default function TeamDetails(props) {
   const { formattedDate } = useFormattedDate();
-  const { team } = props;
+  const { team, placeBet, isLoading, disabled } = props;
   const [isBetOpen, setIsBetOpen] = useState(false);
-
-  console.log(team);
 
   return (
     <>
@@ -25,6 +23,8 @@ export default function TeamDetails(props) {
         }}
         isBetOpen={isBetOpen}
         setIsBetOpen={setIsBetOpen}
+        placeBet={placeBet}
+        isLoading={isLoading}
       />
       {isBetOpen || (
         <Modal {...props} side={true} classname="!px-3">
@@ -109,7 +109,9 @@ export default function TeamDetails(props) {
                 ))}
               </div>
             </section>
-            <Buttons.primary onClick={() => setIsBetOpen(true)}>Place bet</Buttons.primary>
+            <Buttons.primary disabled={disabled} onClick={() => setIsBetOpen(true)} classname="mt-4">
+              Place bet
+            </Buttons.primary>
           </article>
         </Modal>
       )}

@@ -1,12 +1,17 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Icons } from "../ui/icons";
-import { pages } from "./mock-data";
+import { pages, tabs } from "./mock-data";
 import { useClick } from "../../lib/hooks/useclick";
 import { useGlobalContext } from "../../lib/global-context";
+import Line from "../docs/ui/line";
+import Logout from "../ui/logout";
+import { useState } from "react";
 
 export const Sidebar = ({ pathname }: { pathname: string }) => {
   const { isOpen, setIsOpen, targetRef }: any = useClick.auto();
-  const { _id } = useGlobalContext().user.info;
+  const { user, setIsLogin, setIsSignup } = useGlobalContext();
+  const [isLogout, setIsLogout] = useState(false);
+  const navigate = useNavigate();
 
   return (
     <>
@@ -18,27 +23,69 @@ export const Sidebar = ({ pathname }: { pathname: string }) => {
         } fixed left-0 top-0 z-50 flex h-full w-full flex-col border-r border-primary/20 bg-dark/50 px-4 pt-14 backdrop-blur-lg duration-300 sm:hidden`}
       >
         <Icons.close onClick={() => setIsOpen(false)} className="absolute right-4 top-4 w-4 cursor-pointer" />
-        <section className="flex h-11 w-full items-center gap-2.5 rounded-md border border-muted bg-primary/10 px-4 py-2 text-primary backdrop-blur-md">
-          <Icons.search />
-          <input
-            type="text"
-            className="h-full w-full border-l border-primary/20 bg-transparent pl-3 text-lg font-normal tracking-tight focus:outline-none"
-            placeholder="Search..."
-          />
-        </section>
-        {pages(_id).map(({ label, Icon, url }, idx) => (
-          <Link
-            to={url}
-            key={idx}
-            onClick={() => setIsOpen(false)}
-            className={`${idx == 0 ? "mt-10" : idx == 3 ? "mb-10 mt-auto bg-primary/20" : null} ${
-              pathname == url ? "bg-primary/20" : ""
-            } flex items-center gap-3 rounded-[40px] px-5 py-3 text-lg font-semibold text-primary`}
-          >
-            <Icon className="h-7 w-7" />
-            <div className={``}>{label}</div>
-          </Link>
-        ))}
+        <main className="flex h-full flex-col gap-1 pb-10">
+          {tabs(user?.info._id)?.map(({ label, Icon, pages, url }, id) => (
+            <section key={id} className="group">
+              <div
+                onClick={() => {
+                  navigate(url);
+                  if (url) {
+                    setIsOpen(false);
+                  }
+                }}
+                className="flex cursor-pointer items-center gap-3 py-3"
+              >
+                <Icon className="w-5" />
+                {label}
+                {pages?.length > 0 && (
+                  <Icons.arrow color="#aeb9e1 " className="ml-auto h-4 rotate-90 duration-500 group-hover:-rotate-90" />
+                )}
+              </div>
+              <article
+                className={`h-0 overflow-y-hidden duration-500 ${id == 1 ? "group-hover:h-56" : id == 2 ? "group-hover:h-52" : null}`}
+              >
+                <div className="mb-2 h-px w-full bg-line" />
+                <section className={`flex flex-col gap-4 ${id == 1 ? "h-52" : id == 2 ? "48" : null}`}>
+                  {pages?.map(({ label, Icon, url }, idx) => (
+                    <Link
+                      to={url}
+                      key={idx}
+                      onClick={() => setIsOpen(false)}
+                      className="flex items-center gap-3 pl-3 font-advance text-sm capitalize tracking-wider"
+                    >
+                      <Icon className="h-5 w-5" /> {label}
+                    </Link>
+                  ))}
+                </section>
+              </article>
+            </section>
+          ))}
+          {user.loggedIn == "true" ? (
+            <Logout mobile isLogout={isLogout} setIsLogout={setIsLogout} />
+          ) : (
+            <section className="mt-auto">
+              {" "}
+              <button
+                onClick={() => {
+                  setIsLogin(true);
+                  setIsOpen(false);
+                }}
+                className="flex h-full w-fit items-center justify-center gap-2 rounded-xl px-4 text-base font-semibold text-primary max-md:h-11 md:text-xl"
+              >
+                Sign in
+              </button>
+              <button
+                onClick={() => {
+                  setIsSignup(true);
+                  setIsOpen(false);
+                }}
+                className="flex h-full w-fit items-center justify-center gap-2 rounded-md bg-white px-4 text-base font-semibold text-background max-md:h-11 md:text-xl"
+              >
+                Create account
+              </button>
+            </section>
+          )}
+        </main>
       </aside>
     </>
   );

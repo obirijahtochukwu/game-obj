@@ -38,12 +38,14 @@ function Page() {
       <section className="mb-10 rounded-3xl bg-muted">
         <div className="flex gap-7 p-4">
           <Settings />
-          <main className="relative flex h-96 w-full flex-col items-center justify-center rounded-3xl bg-dark p-8 sm:h-fit lg:w-[calc(100%-384px)]">
+          <main className="relative flex h-fit w-full flex-col items-center justify-center rounded-3xl bg-dark p-8 lg:w-[calc(100%-384px)]">
             <Icons.setting
               onClick={() => setIsSetting(!isSetting)}
               className="absolute left-4 top-4 z-10 cursor-pointer lg:hidden"
             />
-            <Wheel />
+            <div className="relative max-sm:-left-5 max-sm:scale-75">
+              <Wheel />
+            </div>
             <Walkthrough
               {...props}
               id={2}
@@ -51,7 +53,11 @@ function Page() {
               content="Select the outcome you want to bet on from the available options"
               position="top"
             >
-              <Board />
+              <div className="dark-scrollbar w-full max-sm:overflow-x-auto">
+                <div className="max-sm:w-96">
+                  <Board />
+                </div>
+              </div>
             </Walkthrough>
           </main>
         </div>

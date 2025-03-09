@@ -1,22 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { BrowserRouter, Navigate, Route, Router, RouterProvider, Routes } from "react-router-dom";
 import { router } from "./lib/routes";
-import axios from "axios";
-// import Login from "./components/pages/login/page";
-import Home from "./components/pages/home/page";
 import { useGlobalContext } from "./lib/global-context";
-import Navigation from "./components/layout/navigation";
-import AdminNavigation from "./components/layout/navigation";
 import { admin_router } from "./lib/admin-routes";
 import Login from "./components/admin/auth/login";
 import Signup from "./components/admin/auth/signup";
-import ExampleTable from "./components/pages/dice-roller/test";
-import Documentation from "./components/docs/page";
-// import { Login } from './components/admin/auth/login';
 
 function App() {
   const { user, admin, setIsLogin } = useGlobalContext();
-  console.log(admin.loggedIn);
 
   return (
     <article className="font-primary">

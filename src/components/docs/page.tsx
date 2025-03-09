@@ -5,6 +5,7 @@ import ProjectStructure from "./ui/project-structure";
 import RunningApplication from "./ui/running-application";
 import Deployment from "./ui/deployment";
 import Contact from "./ui/contact";
+import EnvironmentVariables from "./ui/environment-variables";
 
 export default function Documentation() {
   return (
@@ -13,6 +14,7 @@ export default function Documentation() {
         <Header />
         <GettingStarted />
         <ProjectStructure />
+        <EnvironmentVariables />
         <RunningApplication />
         <Deployment />
         <Contact />

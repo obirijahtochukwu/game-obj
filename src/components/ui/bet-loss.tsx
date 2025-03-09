@@ -16,7 +16,7 @@ export default function BetLoss() {
   }, [betResult.loss]);
 
   return (
-    <Modal isOpen={isOpen} setIsOpen={setIsOpen} classname="!p-4 text-primary !bg-image !w-96">
+    <Modal isOpen={isOpen} setIsOpen={setIsOpen} classname="!p-4 text-primary !bg-image !w-5/6 !max-w-96">
       <article className="">
         <div className="mb-2 text-3xl">😢</div>
         <div className="text-xl font-bold uppercase italic">YOU LOST!</div>

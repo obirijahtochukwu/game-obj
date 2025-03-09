@@ -33,9 +33,9 @@ function Page() {
   return (
     <article>
       <section className="mb-10 rounded-3xl bg-muted">
-        <div className="flex gap-7 p-4">
+        <div className="flex gap-7 p-2 md:p-4">
           <Settings />
-          <main className="relative flex h-96 w-full flex-col items-center justify-center rounded-3xl bg-dark p-8 sm:h-fit lg:w-[calc(100%-384px)]">
+          <main className="relative flex h-fit w-full flex-col items-center justify-center rounded-3xl bg-dark p-4 max-md:pt-14 max-sm:h-fit md:h-fit md:p-8 lg:w-[calc(100%-384px)]">
             <Icons.setting
               onClick={() => setIsSetting(!isSetting)}
               className="absolute left-4 top-4 z-10 cursor-pointer lg:hidden"

@@ -55,9 +55,9 @@ export default function TermsOfServices({ isOpen, setIsOpen }: { isOpen: boolean
             autoFocus
             required
             onChange={(e) => setTerms(e.target.value)}
-            className="custom-scrollbar focus:bg-sm mb-5 mt-4 h-64 w-full rounded-md bg-background p-3 py-2 font-advance text-sm leading-6 tracking-wide outline-none duration-300 focus:shadow-lg focus:outline-none focus:ring-0"
+            className="custom-scrollbar mb-5 mt-4 h-64 w-full rounded-md bg-background p-3 py-2 font-advance text-sm leading-6 tracking-wide outline-none duration-300 focus:bg-sm focus:shadow-lg focus:outline-none focus:ring-0"
           ></textarea>
-          <footer className="grid grid-cols-2 gap-3">
+          <footer className="ml-auto grid max-w-60 grid-cols-2 gap-3">
             <Buttons.error type="button" onClick={() => setIsOpen(false)}>
               Cancel
             </Buttons.error>

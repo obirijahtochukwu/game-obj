@@ -85,7 +85,7 @@ export default function EditProfile() {
             <div className="text-center text-3xl">Profile updated successfully</div>
           </article>
         ) : (
-          <form onSubmit={handleSubmit} className="mt-3 grid w-80 grid-cols-1 gap-4">
+          <form onSubmit={handleSubmit} className="mt-3 grid w-full grid-cols-1 gap-4">
             <div className="">
               <div className="relative mx-auto h-fit w-fit">
                 <img src={imageSrc} alt="" className="h-16 w-16 rounded-xl" />

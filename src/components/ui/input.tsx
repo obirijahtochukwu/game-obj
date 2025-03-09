@@ -40,9 +40,9 @@ const formInputClass = `absolute bottom-1.5 left-1 -z-10 px-2 py-0.5 text-grey d
 const formInputStyle = "h-10 w-full bg-transparent px-4 py-2 text-base text-primary focus:outline-none z-10 text-primary";
 
 export const FormInput = {
-  text: (props?: inputEvent) => {
+  text: (props?: inputEvent & { classname?: string }) => {
     return (
-      <div className="relative z-10 h-fit rounded-md bg-dark">
+      <div className={`relative z-10 h-fit rounded-md bg-dark ${props?.classname}`}>
         <input {...props} id="input-anime" type="text" placeholder="" className={formInputStyle} />
         <label htmlFor="input-anime" className={formInputClass}>
           {props?.placeholder}
@@ -112,9 +112,9 @@ export const FormInput = {
       </div>
     );
   },
-  textarea: (props?: TextareaHTMLAttributes<HTMLTextAreaElement>) => {
+  textarea: (props?: TextareaHTMLAttributes<HTMLTextAreaElement> & { classname?: string }) => {
     return (
-      <div className="relative z-10 h-fit rounded-md bg-dark">
+      <div className={`relative z-10 h-fit rounded-md bg-dark ${props?.classname}`}>
         <textarea {...props} id="input-anime" placeholder="" className={formInputStyle + " custom-scrollbar !h-20"} />
         <label htmlFor="input-anime" className={"absolute bottom-14 left-1 -z-10 px-2 py-0.5 text-grey duration-300"}>
           {props?.placeholder}

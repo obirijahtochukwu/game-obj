@@ -4,6 +4,7 @@ import axios from "axios";
 import { backend_api } from "../../../../lib/constants";
 import { Ad } from "../../../../lib/types";
 import { getImagePath } from "./../../../../lib/utils";
+import CarouselLoader from "./carousel-loader";
 
 const Carousel = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -11,15 +12,16 @@ const Carousel = () => {
   const [visibleCards, setVisibleCards] = useState(1);
   const [containerWidth, setContainerWidth] = useState(0);
   const [ads, setAds] = useState<Ad[]>([]);
-
+  const [isLoading, setIsLoading] = useState(true);
   // Fetch ads data
   useEffect(() => {
     axios
       .get(backend_api + "/get-ads")
       .then((res) => {
         setAds(res.data.reverse());
+        setIsLoading(false);
       })
-      .catch((res) => console.log(res));
+      .catch((res) => setIsLoading(false));
   }, []);
 
   // Calculate visible cards based on container width
@@ -28,7 +30,7 @@ const Carousel = () => {
       if (targetRef.current) {
         const width = targetRef.current.offsetWidth;
         setContainerWidth(width);
-        const cardWidth = 400;
+        // const cardWidth = cardWidth;
         const gap = 16;
         const calculatedVisibleCards = Math.floor(width / (cardWidth + gap));
         setVisibleCards(calculatedVisibleCards);
@@ -59,6 +61,16 @@ const Carousel = () => {
     setCurrentIndex(index);
   };
 
+  if (isLoading) {
+    return (
+      <div className="flex w-full overflow-hidden">
+        <CarouselLoader />
+      </div>
+    );
+  }
+
+  const cardWidth = window?.innerWidth > 500 ? 400 : 320;
+
   return (
     <div className="relative w-full overflow-hidden">
       {/* Carousel Container */}
@@ -66,20 +78,22 @@ const Carousel = () => {
         <div
           className="flex transition-transform duration-300"
           style={{
-            transform: `translateX(-${currentIndex * (400 + 16)}px)`, // Use pixel value for translation
+            transform: `translateX(-${currentIndex * (cardWidth + 16)}px)`, // Use pixel value for translation
           }}
         >
           {ads?.map((card) => (
             <div
               key={card._id}
-              style={{ width: 400, marginRight: 16 }} // Fixed width, margin for gap
-              className={`grid h-60 flex-shrink-0 grid-cols-12 gap-3 rounded-lg bg-md p-3 font-advance text-white`}
+              style={{ width: cardWidth, marginRight: 16 }} // Fixed width, margin for gap
+              className={`grid h-52 flex-shrink-0 grid-cols-12 gap-3 rounded-lg bg-md p-3 font-advance text-white md:h-60`}
             >
-              <img src={card.image} className="col-span-7 h-full object-contain" />
-              <div className="col-span-5 flex flex-col">
+              <img src={card.image} className="col-span-5 h-full object-contain sm:col-span-7" />
+              <div className="col-span-7 flex flex-col sm:col-span-5">
                 <div className="mb-2 w-max rounded-sm border border-pink px-2 text-xs italic tracking-wider">Exclusive Deal</div>
-                <div className="font-poppins text-xl font-semibold first-letter:uppercase">{card.title}</div>
-                <div className="text-sm font-medium tracking-wider text-grey first-letter:uppercase">{card.description}</div>
+                <div className="font-poppins text-base first-letter:uppercase sm:text-xl sm:font-semibold">{card.title}</div>
+                <div className="text-sm font-light tracking-wider text-grey first-letter:uppercase sm:font-medium">
+                  {card.description}
+                </div>
                 <Buttons.primary classname="mt-auto">Play Now</Buttons.primary>
               </div>
             </div>

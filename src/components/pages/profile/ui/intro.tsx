@@ -21,7 +21,7 @@ export default function Intro() {
         style={{
           backgroundImage: ` url("./media/profile/welcome.png")`,
         }}
-        className="col-span-4 flex h-80 flex-col rounded-lg bg-cover bg-fixed bg-center bg-no-repeat p-5"
+        className="col-span-12 flex h-80 flex-col rounded-lg bg-cover bg-fixed bg-center bg-no-repeat p-5 sm:col-span-6 lg:col-span-4"
       >
         <div className="text-3xl font-bold">Welcome back</div>
         <div className="font-advance text-base">
@@ -47,7 +47,7 @@ export default function Intro() {
           Claim free tokens/coins <Icons.arrow color="#ffffff" className="h-3" />
         </button>
       </section>
-      <section className="col-span-8 h-full rounded-xl bg-advance p-5">
+      <section className="col-span-12 h-full rounded-xl bg-advance p-3 sm:col-span-6 lg:col-span-8 lg:p-5">
         <div className="font-advance text-xl font-bold">Betting Informations</div>
         <div className="font-advance text-base text-grey">Track your activity and stay on top of things.</div>
 
@@ -62,17 +62,19 @@ export default function Intro() {
             >
               <div>
                 <div className="font-advance text-sm text-grey">{title}</div>
-                <div className="font-secondary text-xl font-bold">{value || 0}</div>
+                <div className="font-secondary text-lg font-bold lg:text-xl">{value || 0}</div>
               </div>
-              {idx == 1 ? (
-                <Icon className="w-14" />
-              ) : idx == 3 ? (
-                <Icon color={"#F07B7B"} className="w-14" />
-              ) : (
-                <div className="flex h-14 w-14 items-center justify-center rounded-md bg-gradient-custom text-primary">
-                  {Icon && <Icon className="w-7" />}
-                </div>
-              )}
+              <aside className="max-lg:hidden">
+                {idx == 1 ? (
+                  <Icon className="w-14" />
+                ) : idx == 3 ? (
+                  <Icon color={"#F07B7B"} className="w-14" />
+                ) : (
+                  <div className="flex h-14 w-14 items-center justify-center rounded-md bg-gradient-custom text-primary">
+                    {Icon && <Icon className="w-7" />}
+                  </div>
+                )}
+              </aside>
             </div>
           ))}
         </section>

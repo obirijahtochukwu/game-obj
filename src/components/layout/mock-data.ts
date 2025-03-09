@@ -34,21 +34,26 @@ export const tabs = (userId?: string) => [
     label: "Sports",
     Icon: Icons.globe,
     pages: [
-      { label: "cricket", Icon: Icons.cricket, url: userExist ? "/cricket" : "#cricket", image: "./media/home/cricket.jpg" },
-      { label: "baseball", Icon: Icons.baseball, url: userExist ? "/baseball" : "#baseball", image: "./media/home/baseball.jpg" },
-      { label: "football", Icon: Icons.football, url: userExist ? "/football" : "#football", image: "./media/home/football.jpg" },
+      { label: "cricket", Icon: Icons.cricket, url: "/#cricket", image: "./media/home/cricket.jpg" },
+      { label: "baseball", Icon: Icons.baseball, url: "/#baseball", image: "./media/home/baseball.jpg" },
+      {
+        label: "football",
+        Icon: Icons.football,
+        url: userExist ? "/football" : "/#football",
+        image: "./media/home/football.jpg",
+      },
       {
         label: "basketball",
         Icon: Icons.basketball,
-        url: userExist ? "/basketball" : "#basketball",
+        url: "/#basketball",
         image: "./media/home/basketball.jpg",
       },
-      { label: "tennis", Icon: Icons.tennis, url: userExist ? "/tennis" : "#tennis", image: "./media/home/tennis.jpg" },
+      { label: "tennis", Icon: Icons.tennis, url: "/#tennis", image: "./media/home/tennis.jpg" },
     ],
   },
   {
     label: "Profile",
     Icon: Icons.profile,
-    url: userExist ? "/profile/" + userId : "#profile",
+    url: userExist ? "/profile/" + userId : "/#profile",
   },
 ];

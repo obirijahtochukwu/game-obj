@@ -171,11 +171,16 @@ export const betting_activity_chart = (totalPlays: number, topGames: topGames[])
   },
 });
 
-export const user_growth_chart = (user_growth: userGrowth[]) => ({
+export const user_growth_chart = (
+  user_growth: {
+    month: string;
+    count: number;
+  }[],
+) => ({
   series: [
     {
       name: "Registered users",
-      data: user_growth?.map(({ userCount }) => userCount),
+      data: user_growth?.map(({ count }) => count),
       color: "#00C2FF",
     },
   ],
@@ -198,7 +203,7 @@ export const user_growth_chart = (user_growth: userGrowth[]) => ({
     colors: ["#575DFF", "#57C3FF"], // Colors for each series
     xaxis: {
       type: "category",
-      categories: ["Jan", "Feb", "Mar", "Apr", "May", "Jun"],
+      categories: user_growth?.map(({ month }) => month),
 
       labels: {
         show: true,
@@ -218,8 +223,8 @@ export const user_growth_chart = (user_growth: userGrowth[]) => ({
         show: false,
       },
       min: 0,
-      max: user_growth.length * 8,
-      tickAmount: 4,
+      max: Math.round(user_growth.reduce((acc, { count }) => acc + count, 0) * 20) / 10,
+      tickAmount: 5,
       labels: {
         show: true,
         style: {

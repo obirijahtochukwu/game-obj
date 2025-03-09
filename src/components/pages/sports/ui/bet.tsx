@@ -7,56 +7,39 @@ import BetAmount from "../../../ui/bet-amount";
 import { Buttons } from "../../../ui/buttons";
 
 // Define the props type for the Bet component
-interface BetProps {
-  bet: {
-    title: string;
-    teams: {
-      home: {
-        name: string;
-        odd: number | undefined;
-      };
-      draw: {
-        name: "draw";
-        odd: number | undefined;
-      };
-      away: {
-        name: string;
-        odd: number | undefined;
-      };
-    };
-  };
-  isBetOpen: boolean;
-  setIsBetOpen: (isOpen: boolean) => void; // Function to close the modal
-}
+// interface BetProps {
+//   bet: {
+//     title: string;
+//     teams: {
+//       home: {
+//         name: string;
+//         odd: number | undefined;
+//       };
+//       draw: {
+//         name: "draw";
+//         odd: number | undefined;
+//       };
+//       away: {
+//         name: string;
+//         odd: number | undefined;
+//       };
+//     };
+//   };
+//   isBetOpen: boolean;
+//   setIsBetOpen: (isOpen: boolean) => void; // Function to close the modal
+// }
 
-const Bet: React.FC<BetProps> = ({ bet, isBetOpen, setIsBetOpen }) => {
+const Bet = ({ bet, isBetOpen, setIsBetOpen, placeBet, isLoading }) => {
   // State for the selected team to bet on (e.g., "Home", "Away", "Draw")
   const [selectedTeam, setSelectedTeam] = useState<{ name?: string; value?: string }>({});
+  console.log(selectedTeam);
 
   // State for the bet amount
   const [betAmount, setBetAmount] = useState<number>(0);
 
-  // Handle bet submission
-  const handleBet = () => {
-    // Validate inputs before proceeding
-    if (!selectedTeam || betAmount <= 0) {
-      alert("Please select a team and enter a valid bet amount.");
-      return;
-    }
-
-    // Placeholder for bet submission logic
-    console.log("Selected Team:", selectedTeam);
-    console.log("Bet Amount:", betAmount);
-
-    // Close the modal after placing the bet
-    setIsBetOpen(false);
-  };
-  console.log(bet);
-  console.log(selectedTeam);
-
   return (
-    <Modal isOpen={isBetOpen} setIsOpen={setIsBetOpen}>
-      <section className="flex w-80 flex-col gap-4">
+    <Modal isOpen={isBetOpen} setIsOpen={setIsBetOpen} classname="!max-w-80">
+      <section className="flex w-full flex-col gap-4">
         {/* Bet title */}
         <div className="text-lg font-semibold text-primary/70">{bet.title}</div>
 
@@ -84,7 +67,9 @@ const Bet: React.FC<BetProps> = ({ bet, isBetOpen, setIsBetOpen }) => {
         {/* Bet button */}
         <footer className="mt-4 grid grid-cols-2 gap-3">
           <Buttons.error onClick={() => setIsBetOpen(false)}>Cancel</Buttons.error>
-          <Buttons.primary submit>Submit</Buttons.primary>
+          <Buttons.primary isLoading={isLoading} onClick={() => placeBet(betAmount, selectedTeam)}>
+            Submit
+          </Buttons.primary>
         </footer>
       </section>
     </Modal>

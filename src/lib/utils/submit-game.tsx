@@ -11,14 +11,11 @@ export const submitGame = async (data: gameHistory, getHistory, refresh?: () => 
 
     if (response.data.betAmount) {
       getHistory(data?.result, amount);
-      console.log({ response, amount });
     }
   } catch (error) {
     console.log(error);
   } finally {
     if (refresh) {
-      console.log("yyy");
-
       refresh();
     }
   }

@@ -34,7 +34,7 @@ export default function Game() {
       <div className="relative h-60 w-60 sm:h-[420px] sm:w-96">
         {diceResult !== null ? renderDiceFace(diceResult) : renderDiceFace(6)}
       </div>
-      <div className="grid w-full grid-cols-1 gap-4 rounded-3xl bg-advance p-8 text-primary sm:grid-cols-2">
+      <div className="grid w-full grid-cols-1 gap-4 rounded-3xl bg-advance p-3 text-primary sm:grid-cols-2 md:p-8">
         <Walkthrough
           introTip={introTip}
           setIntroTip={setIntroTip}

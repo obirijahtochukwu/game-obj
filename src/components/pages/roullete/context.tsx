@@ -39,7 +39,7 @@ const AppContext = createContext<context>({});
 
 const initialSate = {
   outcomes: [],
-  betAmount: null,
+  betAmount: 0,
   payout: null,
   multiplier: null,
 };

@@ -16,7 +16,7 @@ export default function BetSuccess() {
   }, [betResult.won]);
 
   return (
-    <Modal isOpen={isOpen} setIsOpen={setIsOpen} classname="!p-4 !bg-image !w-96 text-primary">
+    <Modal isOpen={isOpen} setIsOpen={setIsOpen} classname="!p-4 !bg-image !w-5/6 !max-w-96 text-primary">
       <article className="">
         <div className="mb-2 text-3xl">🎉</div>
         <div className="text-xl font-bold uppercase italic">It's a win!</div>
