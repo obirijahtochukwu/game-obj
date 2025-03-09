@@ -13,6 +13,9 @@ const Carousel = () => {
   const [containerWidth, setContainerWidth] = useState(0);
   const [ads, setAds] = useState<Ad[]>([]);
   const [isLoading, setIsLoading] = useState(true);
+
+  const cardWidth = window?.innerWidth > 500 ? 400 : 320;
+
   // Fetch ads data
   useEffect(() => {
     axios
@@ -68,8 +71,6 @@ const Carousel = () => {
       </div>
     );
   }
-
-  const cardWidth = window?.innerWidth > 500 ? 400 : 320;
 
   return (
     <div className="relative w-full overflow-hidden">
