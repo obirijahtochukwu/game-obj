@@ -11,6 +11,7 @@ import { backend_api } from "../../../../lib/constants";
 import { profileImage } from "./../../../../auth/signup/mock-data";
 import { getImagePath } from "../../../../lib/utils";
 import { useDiasbleMouse } from "../../../../lib/hooks/useDisableMouse";
+import { toast } from "react-toastify";
 
 const initailState = {
   name: "",
@@ -23,8 +24,7 @@ export default function EditProfile() {
   const { setRefresh, user } = useGlobalContext();
   const { isMouseDisable, disableMouse, enableMouse } = useDiasbleMouse();
   const [isOpen, setIsOpen] = useState(false);
-  const [isUpdated, setIsUpdated] = useState(false);
-  const [form, setForm] = useState<any>(initailState);
+  const [form, setForm] = useState<any>({ ...initailState, name: user.info.name, email: user.info.email });
 
   const handleChange = (e: changeEvent, key: string) => {
     setForm({ ...form, [key]: e.target.value });
@@ -51,22 +51,14 @@ export default function EditProfile() {
       })
       .then(() => {
         setRefresh(true);
-        setIsUpdated(true);
-        setForm(initailState);
+        toast.success("🎉 Profile updated successfully");
+        setIsOpen(false);
         enableMouse();
       })
       .catch((err) => {
-        console.log(err);
-
         enableMouse();
       });
   };
-
-  useEffect(() => {
-    if (!isOpen) {
-      setIsUpdated(false);
-    }
-  }, [isOpen]);
 
   return (
     <>
@@ -77,64 +69,49 @@ export default function EditProfile() {
         <Icons.edit color="white" /> Edit profile
       </button>
       <Modal isOpen={isOpen} setIsOpen={setIsOpen} classname="!p-4" close>
-        {isUpdated ? (
-          <article className="py-5">
-            <div className="mx-auto flex h-24 w-24 items-center justify-center rounded-full bg-dark text-[50px]">
-              <div className="relative -right-1 -top-1">🎉</div>
+        <form onSubmit={handleSubmit} className="mt-3 grid w-full grid-cols-1 gap-4">
+          <div className="">
+            <div className="relative mx-auto h-fit w-fit">
+              <img src={imageSrc} alt="" className="h-16 w-16 rounded-xl" />
+              <input
+                // required
+                type="file"
+                id="profile"
+                className="hidden"
+                accept=".png, .jpeg, .jpg"
+                onChange={(e: any) => setForm({ ...form, profileImage: e.target.files[0] })}
+              />
+              <label
+                htmlFor="profile"
+                className="absolute -right-2 top-16 mt-2 flex h-6 w-6 cursor-pointer items-center justify-center rounded-md bg-gradient-custom"
+              >
+                <Icons.edit className="w-3" />
+              </label>
             </div>
-            <div className="text-center text-3xl">Profile updated successfully</div>
-          </article>
-        ) : (
-          <form onSubmit={handleSubmit} className="mt-3 grid w-full grid-cols-1 gap-4">
-            <div className="">
-              <div className="relative mx-auto h-fit w-fit">
-                <img src={imageSrc} alt="" className="h-16 w-16 rounded-xl" />
-                <input
-                  // required
-                  type="file"
-                  id="profile"
-                  className="hidden"
-                  accept=".png, .jpeg, .jpg"
-                  onChange={(e: any) => setForm({ ...form, profileImage: e.target.files[0] })}
-                />
-                <label
-                  htmlFor="profile"
-                  className="absolute -right-2 top-16 mt-2 flex h-6 w-6 cursor-pointer items-center justify-center rounded-md bg-gradient-custom"
-                >
-                  <Icons.edit className="w-3" />
-                </label>
-              </div>
-              <div className="mt-2 text-center font-advance text-base font-semibold text-grey">Profile photo</div>
-            </div>
-            <FormInput.text
-              required
-              autoFocus
-              value={form.name}
-              onChange={(e) => handleChange(e, "name")}
-              placeholder="Username"
-            />
-            <FormInput.email required value={form.email} onChange={(e) => handleChange(e, "email")} placeholder="Email" />
+            <div className="mt-2 text-center font-advance text-base font-semibold text-grey">Profile photo</div>
+          </div>
+          <FormInput.text required autoFocus value={form.name} onChange={(e) => handleChange(e, "name")} placeholder="Username" />
+          <FormInput.email required value={form.email} onChange={(e) => handleChange(e, "email")} placeholder="Email" />
 
-            <FormInput.date
-              required
-              value={form.date_of_birth}
-              onChange={(e) => handleChange(e, "date_of_birth")}
-              placeholder="Date of Birth"
-            />
-            <button
-              type="submit"
-              className="ml-auto mt-5 flex h-10 w-full items-center justify-center gap-2 rounded-md bg-gradient-custom px-3 font-advance text-base font-semibold"
-            >
-              {isMouseDisable ? (
-                <div className="scale-50">
-                  <div className="custom-loader"></div>
-                </div>
-              ) : (
-                "Edit profile"
-              )}
-            </button>
-          </form>
-        )}
+          <FormInput.date
+            required
+            value={form.date_of_birth}
+            onChange={(e) => handleChange(e, "date_of_birth")}
+            placeholder="Date of Birth"
+          />
+          <button
+            type="submit"
+            className="ml-auto mt-5 flex h-10 w-full items-center justify-center gap-2 rounded-md bg-gradient-custom px-3 font-advance text-base font-semibold"
+          >
+            {isMouseDisable ? (
+              <div className="scale-50">
+                <div className="custom-loader"></div>
+              </div>
+            ) : (
+              "Edit profile"
+            )}
+          </button>
+        </form>
       </Modal>
     </>
   );

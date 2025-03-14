@@ -7,9 +7,11 @@ import axios from "axios";
 import { backend_api } from "../../lib/constants";
 import { toast } from "react-toastify";
 import { getImagePath } from "../../lib/utils";
+import { useGlobalContext } from "../../lib/global-context";
 
 export default function CreateAd({ IsCreateAd, setIsCreateAd }: { IsCreateAd: boolean; setIsCreateAd: React.Dispatch<boolean> }) {
   const { isMouseDisable, disableMouse, enableMouse } = useDiasbleMouse();
+  const { setRefresh } = useGlobalContext();
   const [form, setForm] = useState<{ image?: any; link?: string; title?: string; description?: string }>({});
 
   const handleFileChange = (event: any) => {
@@ -37,10 +39,12 @@ export default function CreateAd({ IsCreateAd, setIsCreateAd }: { IsCreateAd: bo
       .then((res) => {
         enableMouse();
         setIsCreateAd(false);
+        setRefresh(true);
         toast.success("🎉 Ad successfully created!");
         setForm({ image: {}, title: "", description: "" });
       })
       .catch((err) => {
+        console.log(err);
         enableMouse();
         toast.success("❌ Ad creation failed, please try again.");
       });

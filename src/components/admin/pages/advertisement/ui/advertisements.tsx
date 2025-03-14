@@ -7,11 +7,13 @@ import { randomData } from "../../../../../lib/utils";
 import usePagination from "../../../../../lib/hooks/usePagination";
 import Advertisement from "./advertisement";
 import { useDiasbleMouse } from "../../../../../lib/hooks/useDisableMouse";
+import { useGlobalContext } from "../../../../../lib/global-context";
 // import Advertisement from "../page";
 
 export default function Table() {
   const [advertisement, setAdvertisement] = useState([]);
   const { isMouseDisable, disableMouse, enableMouse } = useDiasbleMouse();
+  const { refresh } = useGlobalContext();
 
   const getAd = () => {
     axios
@@ -30,7 +32,7 @@ export default function Table() {
 
   useEffect(() => {
     getAd();
-  }, [isMouseDisable]);
+  }, [isMouseDisable, refresh]);
 
   return (
     <>

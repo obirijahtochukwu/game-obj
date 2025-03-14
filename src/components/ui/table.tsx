@@ -87,7 +87,7 @@ export default function Table({
         <main className="custom-scrollbar mt-9 min-h-fit w-full overflow-x-auto rounded-lg">
           {visisbleData.length > 0 ? (
             <>
-              <div className="bg-Red flex h-14 w-fit min-w-full items-center justify-between gap-14 border-b border-gray pr-7 font-medium text-white">
+              <div className="bg-Red flex h-14 w-fit min-w-full items-center justify-between gap-14 border-y border-gray pr-7 font-medium text-white">
                 <div className="bg-Red sticky left-0 top-0 flex w-fit items-center justify-between gap-14 rounded-lg bg-advance pl-7">
                   <div className="w-20">ID</div>
                   <div className="w-36">User Name</div>
