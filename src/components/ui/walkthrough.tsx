@@ -76,11 +76,15 @@ export default function Walkthrough({
 
   return (
     <>
-      {introTip == id && oldUser != "true" && email && !currentPage.includes("sports") && (
-        <section
-          className={`visible fixed left-0 top-0 z-20 h-screen w-screen bg-dark/50 opacity-100 duration-300 max-lg:hidden`}
-        ></section>
-      )}
+      {introTip == id &&
+        oldUser != "true" &&
+        email &&
+        !currentPage.includes("football") &&
+        !currentPage.includes("basketball") && (
+          <section
+            className={`visible fixed left-0 top-0 z-20 h-screen w-screen bg-dark/50 opacity-100 duration-300 max-lg:hidden`}
+          ></section>
+        )}
 
       <article className={`${containerStyle} relative w-full`}>
         <header className={introTip == id && oldUser != "true" && email ? "relative z-30" : null}>{children}</header>

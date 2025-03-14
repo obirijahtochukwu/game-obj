@@ -68,7 +68,6 @@ const AppProvider = ({ children }) => {
     selectedLeagues?.some(
       (top) => top.name.toLowerCase() === league.toLowerCase() && top.country.toLowerCase() === country.toLowerCase(),
     );
-  console.log(api);
 
   useEffect(() => {
     setIsLoadng(true);

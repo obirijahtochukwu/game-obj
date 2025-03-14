@@ -60,9 +60,6 @@ export default function Fixture({ prop }: { prop: footballMergedData }) {
     }
   };
 
-  console.log(bet);
-  console.log(prop?.fixture.status.short);
-
   useEffect(() => {
     if (bet?.fixtureId && prop?.fixture.status.short == "FT") {
       const handleBetResult = (odd: any) => {
@@ -130,7 +127,6 @@ export default function Fixture({ prop }: { prop: footballMergedData }) {
     isLoading: isMouseDisable,
     disabled: bet?.fixtureId,
   };
-  console.log(bet);
 
   return (
     <>

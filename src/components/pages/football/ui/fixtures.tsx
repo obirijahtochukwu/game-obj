@@ -3,7 +3,7 @@ import { useFootballContext } from "../context";
 import TeamDetails from "../../sports/ui/team-details";
 import { toPercentage } from "../../../../lib/constants";
 import Fixture from "./fixture";
-import FixtureLoader from "./fixture-loader";
+import FixtureLoader from "../../../ui/fixture-loader";
 import NoActivity from "../../../ui/no-activity";
 
 export default function Fixtures() {

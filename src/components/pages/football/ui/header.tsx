@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useFootballContext } from "../context";
-import { debounce } from "@mui/material";
 import { Icons } from "../../../ui/icons";
-import { footballFixture } from "../../../../lib/types";
 import { useClick } from "../../../../lib/hooks/useclick";
 
 export default function Header() {
@@ -56,11 +54,8 @@ export default function Header() {
                   className={`flex cursor-pointer items-center gap-4 py-2 pl-4 font-advance text-base duration-300 hover:bg-background`}
                 >
                   <input type="checkbox" name="" id="" checked={isSelected ? true : false} onChange={(e) => {}} />
-                  <div className="max-w-40 truncate">
-                    {league?.name}
-                    {`${isSelected}`}
-                  </div>{" "}
-                  <div className="h-1 w-1 rounded-full bg-grey" /> <div className="text-xs text-grey">{league.country}</div>
+                  <div className="max-w-40 truncate">{league?.name}</div> <div className="h-1 w-1 rounded-full bg-grey" />{" "}
+                  <div className="text-xs text-grey">{league.country}</div>
                 </div>
               );
             })}

@@ -1,11 +1,12 @@
 import React from "react";
-import { randomData } from "../../../../lib/utils";
+import { randomData } from "../../lib/utils";
+// import { randomData } from "../../../../lib/utils";
 
 export default function FixtureLoader() {
   return (
     <>
-      {randomData(6).map(() => (
-        <div className="flex min-h-64 animate-pulse cursor-pointer flex-col gap-4 rounded-2xl border-2 border-transparent bg-muted p-4">
+      {randomData(6).map((e, i) => (
+        <div key={i} className="flex min-h-64 animate-pulse flex-col gap-4 rounded-2xl border-2 border-transparent bg-muted p-4">
           {/* League Name Skeleton */}
           <div className="h-6 w-32 rounded-lg bg-grey/20"></div>
 

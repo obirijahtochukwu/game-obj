@@ -44,7 +44,7 @@ export default function Settings() {
         </Walkthrough>
         <section>
           <div className="text-base font-medium text-primary/80">Profit on Win</div>
-          <Input.number disabled value={`${betAmount * cashOutAt} SOL`} />
+          <Input.number disabled value={`${betAmount * cashOutAt}`} classname="!bg-muted" />
         </section>
         <Walkthrough
           {...props}

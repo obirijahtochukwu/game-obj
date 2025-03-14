@@ -1,9 +1,6 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { backend_api } from "../../../../../lib/constants";
-import { formattedNumber } from "../../../../../lib/utils/formattedNumber";
-import { useFormattedDate } from "../../../../../lib/hooks/useFormattedDate";
-import CoinApproval from "../../../../ui/coin-approval";
 import Order from "./order";
 import SkeletonLoader from "../../../../ui/skeleton";
 import { randomData } from "../../../../../lib/utils";
@@ -18,6 +15,7 @@ export default function Table() {
       .then((res) => setOrders(res.data))
       .catch((res) => {});
   };
+  // console.log(orders);
 
   const isNoOrder = orders.length < 1;
   const itemsPerPage = 5;
@@ -53,7 +51,10 @@ export default function Table() {
 
         {isNoOrder
           ? randomData(5).map(() => <SkeletonLoader height={"h-11"} />)
-          : visisbleData?.map((props, idx) => <Order {...props} idx={idx} getOrders={getOrders} orders={orders} />)}
+          : visisbleData?.map(
+              (props, idx) =>
+                props.status == "processing" && <Order {...props} idx={idx} getOrders={getOrders} orders={orders} />,
+            )}
       </article>
     </>
   );

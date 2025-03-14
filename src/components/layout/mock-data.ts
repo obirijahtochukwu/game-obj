@@ -40,15 +40,14 @@ export const tabs = (userId?: string) => [
         url: userExist ? "/football" : "/#football",
         image: "./media/home/football.jpg",
       },
-      { label: "cricket", Icon: Icons.cricket, url: "/#cricket", image: "./media/home/cricket.jpg" },
-      { label: "baseball", Icon: Icons.baseball, url: "/#baseball", image: "./media/home/baseball.jpg" },
-
       {
         label: "basketball",
         Icon: Icons.basketball,
-        url: "/#basketball",
+        url: userExist ? "/basketball" : "/#basketball",
         image: "./media/home/basketball.jpg",
       },
+      { label: "cricket", Icon: Icons.cricket, url: "/#cricket", image: "./media/home/cricket.jpg" },
+      { label: "baseball", Icon: Icons.baseball, url: "/#baseball", image: "./media/home/baseball.jpg" },
       { label: "tennis", Icon: Icons.tennis, url: "/#tennis", image: "./media/home/tennis.jpg" },
     ],
   },

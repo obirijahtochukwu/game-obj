@@ -10,7 +10,7 @@ import { getImagePath } from "../../lib/utils";
 
 export default function CreateAd({ IsCreateAd, setIsCreateAd }: { IsCreateAd: boolean; setIsCreateAd: React.Dispatch<boolean> }) {
   const { isMouseDisable, disableMouse, enableMouse } = useDiasbleMouse();
-  const [form, setForm] = useState<{ image?: any; title?: string; description?: string }>({});
+  const [form, setForm] = useState<{ image?: any; link?: string; title?: string; description?: string }>({});
 
   const handleFileChange = (event: any) => {
     const file = event.target.files[0];
@@ -23,6 +23,7 @@ export default function CreateAd({ IsCreateAd, setIsCreateAd }: { IsCreateAd: bo
     disableMouse();
     const formData = new FormData();
     formData.append("image", form.image);
+    formData.append("link", form.link);
     formData.append("title", form.title);
     formData.append("description", form.description);
     console.log(form);
@@ -51,7 +52,7 @@ export default function CreateAd({ IsCreateAd, setIsCreateAd }: { IsCreateAd: bo
         <div className="text-lg font-semibold">Create Ad </div>
         <label htmlFor="image_ad" className="">
           <div
-            className={`bg flex h-11 w-96 items-center gap-3 truncate rounded-sm bg-muted px-3 text-sm ${form.image?.name || "text-grey"} ${form.description && !form.image?.name && "border border-danger"}`}
+            className={`bg rounded-mds flex h-11 w-full items-center gap-3 truncate bg-muted px-3 text-sm ${form.image?.name || "text-grey"} ${form.description && !form.image?.name && "border border-danger"}`}
           >
             <Icons.image_upload className="w-6 text-grey" />
             <div className="h-full border-l border-gray" />
@@ -61,6 +62,13 @@ export default function CreateAd({ IsCreateAd, setIsCreateAd }: { IsCreateAd: bo
         </label>
         <input required type="file" id="image_ad" className="hidden" accept=".png, .jpeg, .jpg" onChange={handleFileChange} />
 
+        <FormInput.text
+          required
+          placeholder="Link"
+          value={form.link}
+          onChange={(e) => setForm({ ...form, link: e.target.value })}
+          classname="bg-muted"
+        />
         <FormInput.text
           required
           placeholder="Title"

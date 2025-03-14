@@ -8,11 +8,13 @@ export const Input = {
     disabled,
     value,
     onChange,
+    classname,
   }: {
     required?: boolean;
     disabled?: boolean;
     value: string | number;
     onChange?: (name: string | number) => void;
+    classname?: string;
   }) => {
     const handleChange = (e) => {
       const inputValue = e.target.value;
@@ -29,7 +31,7 @@ export const Input = {
         disabled={disabled}
         value={value}
         placeholder="0.00"
-        className="mt-2 h-14 w-full rounded-lg border border-gray bg-dark px-3 py-1.5 text-base font-semibold text-primary focus:outline-none"
+        className={`mt-2 h-14 w-full rounded-lg border border-gray bg-dark px-3 py-1.5 text-base font-semibold text-primary focus:outline-none ${classname}`}
       />
     );
   },

@@ -15,6 +15,7 @@ import Profile from "../components/pages/profile/page";
 import Documentation from "../components/docs/page";
 import BackendDocumentation from "../components/docs/backend/page";
 import Football from "../components/pages/football/page";
+import Basketball from "../components/pages/basketball/page";
 
 export const router = createBrowserRouter([
   {
@@ -121,7 +122,6 @@ export const router = createBrowserRouter([
       </>
     ),
   },
-
   {
     path: "/football",
     element: (
@@ -132,7 +132,16 @@ export const router = createBrowserRouter([
       </>
     ),
   },
-
+  {
+    path: "/basketball",
+    element: (
+      <>
+        <Navigation>
+          <Basketball />
+        </Navigation>
+      </>
+    ),
+  },
   {
     path: "/docs/frontend",
     element: <Documentation />,

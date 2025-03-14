@@ -18,7 +18,6 @@ export default function DeleteUser({ _id, isOpen, setIsOpen }: { _id: string; is
   };
 
   const delete_user = (e: FormEvent) => {
-    e.preventDefault();
     disableMouse();
     axios
       .delete(backend_api + "/delete-user/" + _id)

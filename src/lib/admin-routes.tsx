@@ -7,6 +7,7 @@ import Dashboard from "../components/admin/pages/dashboard/page";
 import GamesSports from "../components/admin/pages/games-sports/page";
 import Player from "../components/admin/pages/player/page";
 import Login from "../components/admin/auth/login";
+import Advertisement from "../components/admin/pages/advertisement/page";
 
 export const admin_router = createBrowserRouter([
   {
@@ -54,6 +55,14 @@ export const admin_router = createBrowserRouter([
     element: (
       <AdminNavigation>
         <Player />
+      </AdminNavigation>
+    ),
+  },
+  {
+    path: "/advertisement",
+    element: (
+      <AdminNavigation>
+        <Advertisement />
       </AdminNavigation>
     ),
   },

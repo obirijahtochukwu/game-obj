@@ -7,6 +7,7 @@ import filterTableLabelsByCondition from "../../lib/utils/filter-table-labels-by
 import { formattedNumber } from "../../lib/utils/formattedNumber";
 import usePagination from "../../lib/hooks/usePagination";
 import NoActivity from "./no-activity";
+import { useFormattedDate } from "../../lib/hooks/useFormattedDate";
 
 export default function Table({
   title,
@@ -19,7 +20,7 @@ export default function Table({
   filterLabels: string[];
   setFilterLabels: React.Dispatch<string[]>;
 }) {
-  const [count, setCount] = useState(6);
+  const { formattedDate } = useFormattedDate();
   const { user }: any = useGlobalContext();
   // const [currentPage, setCurrentPage] = useState(1);
 
@@ -29,6 +30,7 @@ export default function Table({
     data,
     itemsPerPage,
   });
+  console.log(visisbleData);
 
   const reversedData = data.reverse();
   // const currentData = reversedData.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage);
@@ -87,33 +89,42 @@ export default function Table({
             <>
               <div className="bg-Red flex h-14 w-fit min-w-full items-center justify-between gap-14 border-b border-gray pr-7 font-medium text-white">
                 <div className="bg-Red sticky left-0 top-0 flex w-fit items-center justify-between gap-14 rounded-lg bg-advance pl-7">
-                  <div className="w-36">Game</div>
+                  <div className="w-20">ID</div>
                   <div className="w-36">User Name</div>
                 </div>
-                <div className="w-20 text-center">Time</div>
-                <div className="w-20 whitespace-nowrap text-center">Bet Amount</div>
+                <div className="w-40 text-center">Date</div>
+                <div className="w-28 whitespace-nowrap text-center">Bet Amount</div>
                 <div className="w-20">Multiplier</div>
+                <div className="w-20 text-center">Result</div>
                 <div className="w-20 text-right">Payout</div>
               </div>
-              {visisbleData?.map(({ betAmount, createdAt, game, multiplier, payout, result, username }, id) => (
-                <div
-                  key={id}
-                  className="flex h-14 w-fit min-w-full items-center justify-between gap-14 pr-7 font-advance text-base font-medium text-primary/80 odd:bg-dark"
-                >
-                  <div
-                    className={`sticky left-0 top-0 flex h-full w-fit items-center justify-between gap-14 bg-advance pl-7 ${
-                      id % 2 != 0 && "bg-dark"
-                    }`}
-                  >
-                    <div className="w-36">{game}</div>
-                    <div className="w-36">{username}</div>
-                  </div>
-                  <div className="w-20 text-center">{formatDateToTime(createdAt)}</div>
-                  <div className="w-20 text-center">${formattedNumber(betAmount)}</div>
-                  <div className="w-20 text-center">{multiplier?.toFixed(1)} x</div>
-                  <div className="w-20 text-right">${formattedNumber(payout)}</div>
-                </div>
-              ))}
+              {visisbleData?.map(
+                ({ betAmount, createdAt, result, multiplier, payout, _id, username }, id) =>
+                  result == "pending" || (
+                    <div
+                      key={id}
+                      className="flex h-14 w-fit min-w-full items-center justify-between gap-14 pr-7 font-advance text-base font-medium text-primary/80 odd:bg-dark"
+                    >
+                      <div
+                        className={`sticky left-0 top-0 flex h-full w-fit items-center justify-between gap-14 bg-advance pl-7 ${
+                          id % 2 != 0 && "bg-dark"
+                        }`}
+                      >
+                        <div className="w-20 truncate">{_id}</div>
+                        <div className="w-36">{username}</div>
+                      </div>
+                      <div className="w-40 text-center">{formattedDate(createdAt)}</div>
+                      <div className="w-28 text-center">${formattedNumber(betAmount)}</div>
+                      <div className="w-20 text-center">{multiplier?.toFixed(1)}x</div>
+                      <div
+                        className={`w-20 rounded-sm py-1 text-center text-sm capitalize ${result == "win" ? "bg-success" : result == "pending" ? "bg-yellow-500/50" : "bg-danger/50"}`}
+                      >
+                        {result}
+                      </div>
+                      <div className="w-20 text-right">{`${result == "pending" ? "-----" : `$${formattedNumber(payout)}`}`}</div>
+                    </div>
+                  ),
+              )}
             </>
           ) : (
             <NoActivity />

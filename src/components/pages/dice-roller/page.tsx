@@ -17,7 +17,7 @@ export default function DiceRoller() {
 }
 
 function Page() {
-  const { user, setIsLogin } = useGlobalContext();
+  const { user } = useGlobalContext();
   const { setSetting } = useDiceRollerContext();
   const [filterLabels, setFilterLabels] = useState(["all bets"]);
 

@@ -44,8 +44,7 @@ export default function Modal({
 
       <main
         ref={targetRef}
-        // style={{ top: `${(window?.innerHeight - targetRef?.current?.clientHeight) / 2}px` }}
-        className={`${isOpen ? "scale-100 opacity-100" : "scale-0 opacity-0"} ${classname} ${
+        className={`${isOpen ? `${side ? "" : "scale-100"} opacity-100` : `${side ? "translate-x-[1000px] opacity-50" : "scale-0 opacity-0"}`} ${classname} ${
           side
             ? "right-0 top-0 h-full w-full max-w-md overflow-y-auto rounded-r-none rounded-br-none"
             : "left-1/2 h-max w-11/12 max-w-md -translate-x-1/2"
