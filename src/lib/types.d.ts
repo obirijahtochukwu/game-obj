@@ -138,6 +138,7 @@ export interface Ad {
   image?: string;
   title?: string;
   description?: string;
+  link?: string;
 }
 
 export interface footballFixture {

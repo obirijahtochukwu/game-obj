@@ -95,7 +95,9 @@ const Carousel = () => {
                 <div className="text-sm font-light tracking-wider text-grey first-letter:uppercase sm:font-medium">
                   {card.description}
                 </div>
-                <Buttons.primary classname="mt-auto">Play Now</Buttons.primary>
+                <Buttons.primary onClick={() => window.open(card?.link, "_blank", "noopener,noreferrer")} classname="mt-auto">
+                  Play Now
+                </Buttons.primary>
               </div>
             </div>
           ))}
