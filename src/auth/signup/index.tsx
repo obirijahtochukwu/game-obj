@@ -11,6 +11,7 @@ import { useGlobalContext } from "../../lib/global-context";
 import { Buttons } from "../../components/ui/buttons";
 import { toast } from "react-toastify";
 import { profileImage } from "./mock-data";
+import { signUpWithGoogle } from "..";
 
 const initialSate = {
   count: 1,
@@ -112,6 +113,14 @@ export default function Signup() {
           ) : (
             <Agreement {...props} />
           )}
+          {/* <div className="pt-1" /> */}
+          <Buttons.google onClick={() => signUpWithGoogle({ setStore, setIsSuccessfull })} style={{ marginTop: "4px" }} />
+          <div className="mt-3 text-sm font-normal">
+            Already have an account?
+            <span onClick={() => setIsSignup(false)} className="cursor-pointer text-purple-500">
+              Sign in
+            </span>
+          </div>
         </article>
       )}
     </>

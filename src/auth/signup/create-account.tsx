@@ -37,22 +37,6 @@ export default function CreateAccount({ steps, setSteps, handleSubmit }) {
         placeholder="Date of Birth"
       />
       <Buttons.primary>Confirm</Buttons.primary>
-      {/* <section className=" flex items-center gap-3 text-lg font-semibold">
-        <div className=" w-full h-px bg-advance" />
-        OR
-        <div className=" w-full h-px bg-advance" />
-      </section> */}
-      <div className="relative -top-3 text-sm font-normal">
-        {/* <section className="mb-4 flex items-center justify-center gap-4">
-          {[<Icons.facebook />, <Icons.google />, <Icons.telegram />].map((Icon, idx) => (
-            <div className="rounded-full bg-muted p-4">{Icon}</div>
-          ))}
-        </section> */}
-        Already have an account?
-        <span onClick={() => setIsSignup(false)} className="cursor-pointer text-purple-500">
-          Sign in
-        </span>
-      </div>
     </form>
   );
 }

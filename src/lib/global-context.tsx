@@ -5,6 +5,7 @@ import { backend_api } from "./constants";
 import { getStore, setStore } from "./utils/store";
 import { useLocation } from "react-router-dom";
 import { toast } from "react-toastify";
+import { getAuth, signOut } from "firebase/auth";
 
 interface betResult {
   loss: boolean;
@@ -51,12 +52,18 @@ const AppProvider = ({ children }: { children: JSX.Element }) => {
   const [isBetLoading, setIsBetLoading] = useState(false);
   const [isBetPlaced, setIsBetPlaced] = useState({ state: false, title: "", data: [] });
   const [betResult, setBetResult] = useState({ loss: false, won: false, amount: 0 });
+  const auth = getAuth();
 
-  const logout = () => {
+  const logout = async () => {
     localStorage.removeItem("token");
-    axios.post(backend_api + "/logout", {}, { withCredentials: true }).then(() => {
-      window.location.href = "/";
-    });
+    try {
+      axios.post(backend_api + "/logout", {}, { withCredentials: true }).then(() => {
+        window.location.href = "/";
+      });
+      await signOut(auth);
+    } catch (error) {
+      console.error("Error signing out:", error);
+    }
   };
 
   // fetch user data

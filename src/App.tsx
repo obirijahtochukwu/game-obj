@@ -5,9 +5,23 @@ import { useGlobalContext } from "./lib/global-context";
 import { admin_router } from "./lib/admin-routes";
 import Login from "./components/admin/auth/login";
 import Signup from "./components/admin/auth/signup";
+import { getAuth, GoogleAuthProvider, signInWithPopup } from "firebase/auth";
+import { initializeApp } from "firebase/app";
 
 function App() {
   const { user, admin, setIsLogin } = useGlobalContext();
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyBNDccSxHoqe3jRxgJ87w5AchaHbsckQNc",
+    authDomain: "webnet-6462a.firebaseapp.com",
+    projectId: "webnet-6462a",
+    storageBucket: "webnet-6462a.firebasestorage.app",
+    messagingSenderId: "365125610541",
+    appId: "1:365125610541:web:8a996ea6f07e51720cdca4",
+    measurementId: "G-DX3S2EWE7E",
+  };
+
+  const app = initializeApp(firebaseConfig);
 
   return (
     <article className="font-primary">

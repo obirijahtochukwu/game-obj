@@ -9,6 +9,7 @@ import { backend_api, disableMouse, enableMouse } from "../../lib/constants";
 import { setStore } from "../../lib/utils/store";
 import { useGlobalContext } from "../../lib/global-context";
 import { toast } from "react-toastify";
+import { loginWithGoogle } from "..";
 
 export default function Login() {
   const [form, setForm] = useState({ email: "", password: "" });
@@ -20,7 +21,6 @@ export default function Login() {
     e.preventDefault();
     setIsLoading(true);
     disableMouse();
-    console.log(backend_api + "/login");
 
     axios
       .post(backend_api + "/login", { ...form }, { withCredentials: true })
@@ -68,19 +68,8 @@ export default function Login() {
           "Sign In"
         )}
       </Buttons.primary>
-      <section className="flex items-center gap-3 text-lg font-semibold">
-        <div className="h-px w-full bg-line" />
-        OR
-        <div className="h-px w-full rotate-180 bg-line" />
-      </section>
-      <div className="text-center text-sm font-normal">
-        <section className="mb-4 flex items-center justify-center gap-4">
-          {[<Icons.facebook />, <Icons.google />, <Icons.telegram />].map((Icon, idx) => (
-            <div key={idx} className="cursor-pointer rounded-full bg-muted p-4">
-              {Icon}
-            </div>
-          ))}
-        </section>
+      <Buttons.google onClick={() => loginWithGoogle({ setStore })} />
+      <div className="text-sm font-normal">
         You have not registered?
         <span onClick={() => setIsSignup(true)} className="ml-1 cursor-pointer text-purple-500">
           Sign up
