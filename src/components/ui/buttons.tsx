@@ -83,6 +83,7 @@ export const Buttons = {
   google: (props: React.ButtonHTMLAttributes<HTMLButtonElement>) => (
     <button
       {...props}
+      type="button"
       className="flex h-10 items-center justify-center gap-3 rounded-md bg-muted/10 px-3 font-advance text-base shadow-md"
     >
       <Icons.google /> Continue with google
